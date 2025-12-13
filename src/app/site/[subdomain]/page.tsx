@@ -22,7 +22,19 @@ async function getSiteData(subdomain: string) {
         crp,
         specialties,
         bio,
-        profile_image_url
+        bio_short,
+        profile_image_url,
+        logo_url,
+        online_service,
+        in_person_service,
+        street,
+        street_number,
+        neighborhood,
+        complement,
+        city,
+        state,
+        zip_code,
+        google_maps_embed
       )
     `
         )
@@ -81,60 +93,138 @@ export default async function SiteHomePage({ params }: SitePageProps) {
 
     return (
         <>
-            {/* Hero Section */}
-            <section
-                className="relative py-24 px-4"
-                style={{
-                    background: `linear-gradient(135deg, ${primaryColor} 0%, ${primaryColor}cc 100%)`,
-                }}
-            >
-                <div className="max-w-4xl mx-auto text-center text-white">
-                    {/* Foto */}
-                    {profile?.profile_image_url && (
-                        <div className="mb-6">
-                            <img
-                                src={profile.profile_image_url}
-                                alt={profile.full_name}
-                                className="w-36 h-36 rounded-full mx-auto object-cover border-4 border-white shadow-2xl"
-                            />
-                        </div>
-                    )}
+            {/* Hero Section - Layout Side by Side */}
+            <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-white">
+                {/* Fundo limpo */}
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-white" />
 
-                    {/* Nome */}
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                        {profile?.full_name}
-                    </h1>
+                {/* Conteúdo */}
+                <div className="relative max-w-7xl mx-auto px-4 py-16 w-full">
+                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-                    {/* CRP */}
-                    {profile?.crp && (
-                        <p className="text-lg opacity-90 mb-4">CRP: {profile.crp}</p>
-                    )}
-
-                    {/* Especialidades */}
-                    {profile?.specialties && profile.specialties.length > 0 && (
-                        <div className="flex flex-wrap justify-center gap-2 mb-8">
-                            {profile.specialties.map((specialty: string, index: number) => (
-                                <span
-                                    key={index}
-                                    className="px-4 py-2 bg-white/20 backdrop-blur rounded-full text-sm font-medium"
+                        {/* Lado Direito - Imagem */}
+                        <div className="order-2 lg:order-2 flex justify-center lg:justify-end">
+                            {profile?.profile_image_url ? (
+                                <div className="relative">
+                                    {/* Sombra decorativa */}
+                                    <div
+                                        className="absolute -inset-4 rounded-3xl opacity-20 blur-2xl"
+                                        style={{ backgroundColor: primaryColor }}
+                                    />
+                                    <img
+                                        src={profile.profile_image_url}
+                                        alt={profile.full_name}
+                                        className="relative w-80 h-80 lg:w-[512px] lg:h-[512px] object-cover rounded-3xl shadow-2xl"
+                                        style={{ imageRendering: 'auto' }}
+                                        loading="eager"
+                                    />
+                                    {/* Detalhe decorativo */}
+                                    <div
+                                        className="absolute -bottom-3 -left-3 w-24 h-24 rounded-2xl -z-10"
+                                        style={{ backgroundColor: primaryColor }}
+                                    />
+                                </div>
+                            ) : (
+                                <div
+                                    className="w-80 h-80 lg:w-[512px] lg:h-[512px] rounded-3xl flex items-center justify-center"
+                                    style={{ backgroundColor: `${primaryColor}15` }}
                                 >
-                                    {specialty}
-                                </span>
-                            ))}
+                                    <svg className="w-24 h-24 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    </svg>
+                                </div>
+                            )}
                         </div>
-                    )}
 
-                    {/* CTA */}
-                    <a
-                        href="#contato"
-                        className="inline-flex items-center gap-2 px-8 py-4 bg-white text-gray-900 font-semibold rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105"
-                    >
-                        Agendar Consulta
-                    </a>
+                        {/* Lado Esquerdo - Informações */}
+                        <div className="order-1 lg:order-1 text-center lg:text-left">
+                            {/* Tag de identificação */}
+                            <div
+                                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-6"
+                                style={{
+                                    backgroundColor: `${primaryColor}15`,
+                                    color: primaryColor
+                                }}
+                            >
+                                <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: primaryColor }} />
+                                Psicólogo(a)
+                            </div>
+
+                            {/* Nome */}
+                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 leading-tight">
+                                {profile?.full_name}
+                            </h1>
+
+                            {/* CRP */}
+                            {profile?.crp && (
+                                <p className="text-lg text-gray-500 mb-6">
+                                    CRP: {profile.crp}
+                                </p>
+                            )}
+
+                            {/* Frase de apresentação */}
+                            {(profile?.bio_short || profile?.bio) && (
+                                <p className="text-gray-600 text-lg leading-relaxed mb-8 max-w-xl">
+                                    {profile.bio_short || profile.bio}
+                                </p>
+                            )}
+
+                            {/* Especialidades */}
+                            {profile?.specialties && profile.specialties.length > 0 && (
+                                <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-10">
+                                    {profile.specialties.slice(0, 4).map((specialty: string, index: number) => (
+                                        <span
+                                            key={index}
+                                            className="px-4 py-2 rounded-full text-sm font-medium border"
+                                            style={{
+                                                borderColor: `${primaryColor}30`,
+                                                color: primaryColor,
+                                                backgroundColor: `${primaryColor}08`
+                                            }}
+                                        >
+                                            {specialty}
+                                        </span>
+                                    ))}
+                                    {profile.specialties.length > 4 && (
+                                        <span className="px-4 py-2 text-sm text-gray-500">
+                                            +{profile.specialties.length - 4} mais
+                                        </span>
+                                    )}
+                                </div>
+                            )}
+
+                            {/* CTAs */}
+                            <div className="flex flex-wrap justify-center lg:justify-start gap-4">
+                                <a
+                                    href="#contato"
+                                    className="inline-flex items-center gap-2 px-8 py-4 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all hover:scale-105"
+                                    style={{ backgroundColor: primaryColor }}
+                                >
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    Agendar Consulta
+                                </a>
+                                <a
+                                    href="#sobre"
+                                    className="inline-flex items-center gap-2 px-8 py-4 text-gray-700 font-semibold rounded-xl border border-gray-200 hover:bg-gray-50 transition-all"
+                                >
+                                    Conhecer mais
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                {/* Decoração */}
-                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent" />
+                {/* Decoração de fundo */}
+                <div
+                    className="absolute top-20 right-0 w-96 h-96 rounded-full blur-3xl opacity-10 pointer-events-none"
+                    style={{ backgroundColor: primaryColor }}
+                />
+                <div
+                    className="absolute bottom-20 left-0 w-72 h-72 rounded-full blur-3xl opacity-10 pointer-events-none"
+                    style={{ backgroundColor: primaryColor }}
+                />
             </section>
 
             {/* Sobre Section */}
@@ -146,10 +236,16 @@ export default async function SiteHomePage({ params }: SitePageProps) {
                     >
                         Sobre mim
                     </h2>
-                    <p className="text-gray-600 text-lg leading-relaxed text-center">
-                        {profile?.bio ||
-                            "Psicólogo(a) comprometido(a) com o bem-estar e a saúde mental dos meus pacientes. Ofereço um espaço seguro e acolhedor para que você possa expressar seus sentimentos e trabalhar em direção a uma vida mais equilibrada e feliz."}
-                    </p>
+                    {profile?.bio ? (
+                        <div
+                            className="prose prose-lg max-w-none text-gray-600 prose-headings:text-gray-800 prose-a:text-indigo-600 prose-blockquote:border-indigo-500 text-center [&_p]:text-center [&_h2]:text-center [&_h3]:text-center"
+                            dangerouslySetInnerHTML={{ __html: profile.bio }}
+                        />
+                    ) : (
+                        <p className="text-gray-600 text-lg leading-relaxed text-center">
+                            Psicólogo(a) comprometido(a) com o bem-estar e a saúde mental dos meus pacientes. Ofereço um espaço seguro e acolhedor para que você possa expressar seus sentimentos e trabalhar em direção a uma vida mais equilibrada e feliz.
+                        </p>
+                    )}
                 </div>
             </section>
 
@@ -196,6 +292,151 @@ export default async function SiteHomePage({ params }: SitePageProps) {
                                     </p>
                                 </div>
                             ))}
+                        </div>
+                    </div>
+                </section>
+            )}
+
+            {/* Modalidades de Atendimento */}
+            {(profile?.online_service || profile?.in_person_service) && (
+                <section className="py-16 px-4 bg-white">
+                    <div className="max-w-4xl mx-auto">
+                        <h2
+                            className="text-3xl font-bold mb-8 text-center"
+                            style={{ color: primaryColor }}
+                        >
+                            Modalidades de Atendimento
+                        </h2>
+                        <div className="grid md:grid-cols-2 gap-6">
+                            {profile.online_service && (
+                                <div className="p-6 rounded-2xl border-2 border-gray-100 hover:border-gray-200 transition-colors">
+                                    <div
+                                        className="w-14 h-14 rounded-2xl flex items-center justify-center mb-4"
+                                        style={{ backgroundColor: primaryColor + "15" }}
+                                    >
+                                        <svg
+                                            className="w-7 h-7"
+                                            style={{ color: primaryColor }}
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                                        Atendimento Online
+                                    </h3>
+                                    <p className="text-gray-500">
+                                        Sessões por videochamada de qualquer lugar do Brasil. Flexibilidade e conforto para você.
+                                    </p>
+                                </div>
+                            )}
+                            {profile.in_person_service && (
+                                <div className="p-6 rounded-2xl border-2 border-gray-100 hover:border-gray-200 transition-colors">
+                                    <div
+                                        className="w-14 h-14 rounded-2xl flex items-center justify-center mb-4"
+                                        style={{ backgroundColor: primaryColor + "15" }}
+                                    >
+                                        <svg
+                                            className="w-7 h-7"
+                                            style={{ color: primaryColor }}
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                        </svg>
+                                    </div>
+                                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                                        Atendimento Presencial
+                                    </h3>
+                                    <p className="text-gray-500">
+                                        Sessões no consultório. Um espaço acolhedor para suas sessões.
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </section>
+            )}
+
+            {/* Mapa do Google Maps - apenas se presencial */}
+            {profile?.in_person_service && profile?.street && (
+                <section className="py-16 px-4 bg-gray-50">
+                    <div className="max-w-4xl mx-auto">
+                        <h2
+                            className="text-3xl font-bold mb-8 text-center"
+                            style={{ color: primaryColor }}
+                        >
+                            Localização
+                        </h2>
+                        <div className="bg-white rounded-2xl overflow-hidden shadow-sm">
+                            {/* Endereço */}
+                            <div className="p-6 border-b border-gray-100">
+                                <div className="flex items-start gap-4">
+                                    <div
+                                        className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                                        style={{ backgroundColor: primaryColor + "15" }}
+                                    >
+                                        <svg
+                                            className="w-6 h-6"
+                                            style={{ color: primaryColor }}
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p className="font-medium text-gray-900">
+                                            {profile.street}{profile.street_number && `, ${profile.street_number}`}
+                                            {profile.complement && ` - ${profile.complement}`}
+                                        </p>
+                                        <p className="text-gray-500">
+                                            {profile.neighborhood && `${profile.neighborhood} - `}
+                                            {profile.city}{profile.state && ` - ${profile.state}`}
+                                            {profile.zip_code && ` - CEP: ${profile.zip_code}`}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* Google Maps Embed - prioriza embed personalizado */}
+                            <div className="aspect-video">
+                                {profile.google_maps_embed ? (
+                                    <div
+                                        className="w-full h-full [&_iframe]:w-full [&_iframe]:h-full [&_iframe]:border-0"
+                                        dangerouslySetInnerHTML={{ __html: profile.google_maps_embed }}
+                                    />
+                                ) : (
+                                    <iframe
+                                        src={`https://www.google.com/maps?q=${encodeURIComponent(`${profile.street}${profile.street_number ? ` ${profile.street_number}` : ""}, ${profile.neighborhood || ""}, ${profile.city}, ${profile.state}`)}&output=embed`}
+                                        width="100%"
+                                        height="100%"
+                                        style={{ border: 0 }}
+                                        allowFullScreen
+                                        loading="lazy"
+                                        referrerPolicy="no-referrer-when-downgrade"
+                                    />
+                                )}
+                            </div>
+                            {/* Link para abrir no Google Maps */}
+                            <div className="p-4 bg-gray-50">
+                                <a
+                                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${profile.street}${profile.street_number ? ` ${profile.street_number}` : ""}, ${profile.neighborhood || ""}, ${profile.city}, ${profile.state}`)}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-center gap-2 text-sm font-medium hover:underline"
+                                    style={{ color: primaryColor }}
+                                >
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                    </svg>
+                                    Abrir no Google Maps
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </section>

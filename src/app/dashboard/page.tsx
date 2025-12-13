@@ -36,8 +36,33 @@ export default async function DashboardPage() {
     ).length;
     const profileProgress = Math.round((filledFields / profileFields.length) * 100);
 
+    // Se não tem site, mostrar CTA para onboarding
+    const showOnboardingCTA = !site;
+
     return (
         <div className="space-y-8">
+            {/* Banner de Onboarding */}
+            {showOnboardingCTA && (
+                <div className="relative overflow-hidden bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 rounded-2xl p-8 text-white">
+                    <div className="relative z-10">
+                        <h2 className="text-2xl font-bold mb-2">
+                            🚀 Crie seu site profissional agora!
+                        </h2>
+                        <p className="text-indigo-100 mb-6 max-w-lg">
+                            Configure tudo em menos de 5 minutos e comece a receber pacientes.
+                        </p>
+                        <Link href="/dashboard/onboarding">
+                            <Button className="bg-white text-indigo-600 hover:bg-indigo-50">
+                                Começar configuração
+                            </Button>
+                        </Link>
+                    </div>
+                    {/* Decoração */}
+                    <div className="absolute -right-10 -top-10 w-40 h-40 bg-white/10 rounded-full" />
+                    <div className="absolute -right-5 -bottom-10 w-32 h-32 bg-white/5 rounded-full" />
+                </div>
+            )}
+
             {/* Saudação */}
             <div>
                 <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">
@@ -47,6 +72,7 @@ export default async function DashboardPage() {
                     Bem-vindo ao seu painel. {!site ? "Vamos criar seu site profissional?" : "Gerencie seu site aqui."}
                 </p>
             </div>
+
 
             {/* Status do site */}
             <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 text-white">
