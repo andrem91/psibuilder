@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { SiteTracker } from "@/components/site/site-tracker";
 
 interface SitePageProps {
     params: Promise<{ subdomain: string }>;
@@ -93,6 +94,9 @@ export default async function SiteHomePage({ params }: SitePageProps) {
 
     return (
         <>
+            {/* Tracking de Estatísticas */}
+            <SiteTracker siteId={site.id} />
+
             {/* Hero Section - Layout Side by Side */}
             <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-white">
                 {/* Fundo limpo */}
