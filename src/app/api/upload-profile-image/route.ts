@@ -15,6 +15,11 @@ const IMAGE_CONFIG = {
         quality: 90,        // Qualidade mais alta para logos
         format: 'png' as const,
     },
+    blog: {
+        maxSize: 1200,      // 1200px max (ideal para Open Graph)
+        quality: 85,        // Boa qualidade
+        format: 'jpeg' as const,
+    },
 };
 
 export async function POST(request: NextRequest) {
@@ -37,9 +42,18 @@ export async function POST(request: NextRequest) {
         const profileId = formData.get("profileId") as string;
         const uploadType = (formData.get("type") as string) || "profile";
 
-        if (!file || !profileId) {
+        // Para uploads de blog, profileId é opcional
+        if (!file) {
             return NextResponse.json(
-                { error: "Arquivo ou profileId ausente" },
+                { error: "Arquivo ausente" },
+                { status: 400 }
+            );
+        }
+
+        // Para profile e logo, profileId é obrigatório
+        if (uploadType !== "blog" && !profileId) {
+            return NextResponse.json(
+                { error: "profileId é obrigatório para este tipo de upload" },
                 { status: 400 }
             );
         }
@@ -64,7 +78,11 @@ export async function POST(request: NextRequest) {
         });
 
         // Obter configuração baseada no tipo de upload
-        const config = uploadType === "logo" ? IMAGE_CONFIG.logo : IMAGE_CONFIG.profile;
+        const config = uploadType === "logo"
+            ? IMAGE_CONFIG.logo
+            : uploadType === "blog"
+                ? IMAGE_CONFIG.blog
+                : IMAGE_CONFIG.profile;
 
         // Converter arquivo para buffer
         const arrayBuffer = await file.arrayBuffer();
@@ -139,6 +157,15 @@ export async function POST(request: NextRequest) {
         const {
             data: { publicUrl },
         } = supabaseAdmin.storage.from("profile-images").getPublicUrl(fileName);
+
+        // Para uploads de blog, apenas retorna a URL (não atualiza profile)
+        if (uploadType === "blog") {
+            return NextResponse.json({
+                url: publicUrl,
+                originalSize: Math.round(inputBuffer.length / 1024),
+                processedSize: Math.round(processedBuffer.length / 1024),
+            });
+        }
 
         // Atualizar perfil com a URL da imagem usando cliente admin
         const updateField = uploadType === "logo" ? "logo_url" : "profile_image_url";

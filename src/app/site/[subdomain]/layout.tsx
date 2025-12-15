@@ -62,8 +62,9 @@ export default async function SiteLayout({ children, params }: SiteLayoutProps) 
                 primaryColor={primaryColor}
                 navItems={[
                     { label: "Início", href: "/" },
-                    { label: "Sobre", href: "#sobre" },
-                    { label: "Contato", href: "#contato" },
+                    { label: "Sobre", href: "/#sobre" },
+                    { label: "Blog", href: "/blog" },
+                    { label: "Contato", href: "/#contato" },
                 ]}
             />
 
