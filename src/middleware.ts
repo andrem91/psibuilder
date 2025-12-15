@@ -85,6 +85,11 @@ export async function middleware(request: NextRequest) {
     const siteIdentifier = subdomain || customDomain;
 
     if (siteIdentifier) {
+        // Permitir rotas de API sem rewrite (tracking, upload, etc)
+        if (pathname.startsWith("/api/")) {
+            return NextResponse.next();
+        }
+
         // Reescrever URL para a rota de sites públicos
         // /site/[subdomain]/... 
         const url = request.nextUrl.clone();
