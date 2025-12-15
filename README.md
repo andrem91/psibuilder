@@ -23,9 +23,9 @@ O PsiBuilder é uma solução "no-code" que permite psicólogos criarem sites pr
 |------------|-----|
 | Next.js 16 | Frontend + App Router |
 | Tailwind CSS 4 | Estilização |
-| Supabase | Auth, Database, Storage |
-| Sanity.io | CMS para Blog |
-| Asaas | Gateway de Pagamentos |
+| Supabase | Auth, Database, Storage, Blog |
+| Sanity.io | CMS avançado *(futuro)* |
+| Asaas | Gateway de Pagamentos *(futuro)* |
 | Vercel | Hospedagem |
 
 ## 🚀 Começando
