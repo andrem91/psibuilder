@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import Link from "next/link";
+import { sanitizeHtml } from "@/lib/sanitize";
 
 interface BlogPostPageProps {
     params: Promise<{ subdomain: string; slug: string }>;
@@ -176,7 +177,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 {/* Conteúdo */}
                 <div
                     className="prose prose-lg max-w-none prose-headings:font-bold prose-a:text-indigo-600 prose-img:rounded-lg"
-                    dangerouslySetInnerHTML={{ __html: post.content || "" }}
+                    dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.content || "") }}
                 />
 
                 {/* CTA */}

@@ -68,10 +68,10 @@ export async function signUp(formData: FormData) {
         return { error: error.message };
     }
 
-    return {
-        success: true,
-        message: "Conta criada! Verifique seu email para confirmar.",
-    };
+    // Redireciona para dashboard
+    // Em dev: email já está confirmado automaticamente
+    // Em prod: middleware redireciona para /confirmar-email se email não confirmado
+    redirect("/dashboard");
 }
 
 export async function signOut() {

@@ -77,12 +77,12 @@ export function SiteFooter({
                             {showLgpd && (
                                 <>
                                     <li>
-                                        <Link href="#" className="hover:text-white transition-colors">
+                                        <Link href="/privacidade" className="hover:text-white transition-colors">
                                             Política de Privacidade
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="#" className="hover:text-white transition-colors">
+                                        <Link href="/cookies" className="hover:text-white transition-colors">
                                             Política de Cookies
                                         </Link>
                                     </li>

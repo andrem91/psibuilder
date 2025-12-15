@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { SiteTracker } from "@/components/site/site-tracker";
 import { ContactForm } from "@/components/site/contact-form";
+import { sanitizeHtml, sanitizeMapEmbed } from "@/lib/sanitize";
 
 interface SitePageProps {
     params: Promise<{ subdomain: string }>;
@@ -48,23 +49,27 @@ async function getSiteData(subdomain: string) {
         return null;
     }
 
-    // Buscar FAQs do site
-    const { data: faqs } = await supabase
-        .from("site_faqs")
-        .select("*")
-        .eq("site_id", site.id)
-        .eq("is_active", true)
-        .order("order_index", { ascending: true });
+    // Buscar FAQs e Testimonials em paralelo (performance)
+    const [faqsResult, testimonialsResult] = await Promise.all([
+        supabase
+            .from("site_faqs")
+            .select("*")
+            .eq("site_id", site.id)
+            .eq("is_active", true)
+            .order("order_index", { ascending: true }),
+        supabase
+            .from("site_testimonials")
+            .select("*")
+            .eq("site_id", site.id)
+            .eq("is_active", true)
+            .order("order_index", { ascending: true }),
+    ]);
 
-    // Buscar depoimentos do site
-    const { data: testimonials } = await supabase
-        .from("site_testimonials")
-        .select("*")
-        .eq("site_id", site.id)
-        .eq("is_active", true)
-        .order("order_index", { ascending: true });
-
-    return { ...site, faqs: faqs || [], testimonials: testimonials || [] };
+    return {
+        ...site,
+        faqs: faqsResult.data || [],
+        testimonials: testimonialsResult.data || []
+    };
 }
 
 // Gerar metadata dinâmica
@@ -260,7 +265,7 @@ export default async function SiteHomePage({ params }: SitePageProps) {
                     {profile?.bio ? (
                         <div
                             className="prose prose-lg max-w-none text-gray-600 prose-headings:text-gray-800 prose-a:text-indigo-600 prose-blockquote:border-indigo-500 text-center [&_p]:text-center [&_h2]:text-center [&_h3]:text-center"
-                            dangerouslySetInnerHTML={{ __html: profile.bio }}
+                            dangerouslySetInnerHTML={{ __html: sanitizeHtml(profile.bio) }}
                         />
                     ) : (
                         <p className="text-gray-600 text-lg leading-relaxed text-center">
@@ -281,38 +286,56 @@ export default async function SiteHomePage({ params }: SitePageProps) {
                             Áreas de Atuação
                         </h2>
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {profile.specialties.map((specialty: string, index: number) => (
-                                <div
-                                    key={index}
-                                    className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
-                                >
+                            {profile.specialties.map((specialty: string, index: number) => {
+                                // Mapeamento de ícones por especialidade
+                                const iconMap: Record<string, string> = {
+                                    "ansiedade": "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z",
+                                    "depressão": "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z",
+                                    "terapia de casal": "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z",
+                                    "tcc": "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z",
+                                    "psicanálise": "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z",
+                                    "infantil": "M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+                                    "luto": "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z",
+                                    "autoestima": "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z",
+                                    "estresse": "M13 10V3L4 14h7v7l9-11h-7z",
+                                    "fobia": "M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z",
+                                };
+
+                                const specialtyLower = specialty.toLowerCase();
+                                const iconPath = Object.entries(iconMap).find(([key]) =>
+                                    specialtyLower.includes(key)
+                                )?.[1] || "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z";
+
+                                return (
                                     <div
-                                        className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                                        style={{ backgroundColor: primaryColor + "15" }}
+                                        key={index}
+                                        className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
                                     >
-                                        <svg
-                                            className="w-6 h-6"
-                                            style={{ color: primaryColor }}
-                                            fill="none"
-                                            stroke="currentColor"
-                                            viewBox="0 0 24 24"
+                                        <div
+                                            className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                                            style={{ backgroundColor: primaryColor + "15" }}
                                         >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth={2}
-                                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                                            />
-                                        </svg>
+                                            <svg
+                                                className="w-6 h-6"
+                                                style={{ color: primaryColor }}
+                                                fill="none"
+                                                stroke="currentColor"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth={2}
+                                                    d={iconPath}
+                                                />
+                                            </svg>
+                                        </div>
+                                        <h3 className="font-semibold text-gray-900">
+                                            {specialty}
+                                        </h3>
                                     </div>
-                                    <h3 className="font-semibold text-gray-900 mb-2">
-                                        {specialty}
-                                    </h3>
-                                    <p className="text-gray-500 text-sm">
-                                        Atendimento especializado e humanizado.
-                                    </p>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     </div>
                 </section>
@@ -429,7 +452,7 @@ export default async function SiteHomePage({ params }: SitePageProps) {
                                 {profile.google_maps_embed ? (
                                     <div
                                         className="w-full h-full [&_iframe]:w-full [&_iframe]:h-full [&_iframe]:border-0"
-                                        dangerouslySetInnerHTML={{ __html: profile.google_maps_embed }}
+                                        dangerouslySetInnerHTML={{ __html: sanitizeMapEmbed(profile.google_maps_embed) }}
                                     />
                                 ) : (
                                     <iframe

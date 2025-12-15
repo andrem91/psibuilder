@@ -37,8 +37,8 @@ export async function updateSession(request: NextRequest) {
         data: { user },
     } = await supabase.auth.getUser();
 
-    // Rotas públicas
-    const publicRoutes = ["/", "/login", "/cadastro", "/termos", "/privacidade"];
+    // Rotas públicas (não requerem autenticação)
+    const publicRoutes = ["/", "/login", "/cadastro", "/termos", "/privacidade", "/cookies", "/confirmar-email"];
     const isPublicRoute = publicRoutes.some(
         (route) => request.nextUrl.pathname === route || request.nextUrl.pathname.startsWith("/site/")
     );
@@ -50,8 +50,22 @@ export async function updateSession(request: NextRequest) {
         return NextResponse.redirect(url);
     }
 
-    // Se está autenticado e tenta acessar login/cadastro
-    if (user && (request.nextUrl.pathname === "/login" || request.nextUrl.pathname === "/cadastro")) {
+    // Se está autenticado mas email NÃO está confirmado
+    if (user && !user.email_confirmed_at && request.nextUrl.pathname.startsWith("/dashboard")) {
+        const url = request.nextUrl.clone();
+        url.pathname = "/confirmar-email";
+        return NextResponse.redirect(url);
+    }
+
+    // Se está autenticado e email confirmado, e tenta acessar login/cadastro
+    if (user && user.email_confirmed_at && (request.nextUrl.pathname === "/login" || request.nextUrl.pathname === "/cadastro")) {
+        const url = request.nextUrl.clone();
+        url.pathname = "/dashboard";
+        return NextResponse.redirect(url);
+    }
+
+    // Se está autenticado, email confirmado, e está na página de confirmar-email
+    if (user && user.email_confirmed_at && request.nextUrl.pathname === "/confirmar-email") {
         const url = request.nextUrl.clone();
         url.pathname = "/dashboard";
         return NextResponse.redirect(url);
@@ -59,3 +73,4 @@ export async function updateSession(request: NextRequest) {
 
     return supabaseResponse;
 }
+

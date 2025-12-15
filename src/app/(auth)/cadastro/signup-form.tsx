@@ -38,12 +38,11 @@ export function SignUpForm() {
 
         const result = await signUp(formData);
 
+        // Se houver erro, o redirect não acontece e recebemos o erro
         if (result && "error" in result && result.error) {
-            setError(result.error);
+            setError(result.error as string);
         }
-        if (result && "success" in result && result.success && "message" in result) {
-            setSuccess(result.message);
-        }
+        // Se houver sucesso, a action faz redirect automaticamente
     }
 
     return (
