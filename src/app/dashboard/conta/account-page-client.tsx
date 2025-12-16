@@ -77,8 +77,8 @@ export function AccountPageClient({ profile, site }: AccountPageClientProps) {
 
                 setSuccess("Perfil atualizado com sucesso!");
                 setTimeout(() => setSuccess(null), 3000);
-            } catch (err) {
-                setError(err instanceof Error ? err.message : "Erro ao salvar");
+            } catch (_err) {
+                setError(_err instanceof Error ? _err.message : "Erro ao salvar");
             }
         });
     };
@@ -119,8 +119,8 @@ export function AccountPageClient({ profile, site }: AccountPageClientProps) {
                     confirm_password: "",
                 });
                 setTimeout(() => setSuccess(null), 3000);
-            } catch (err) {
-                setError(err instanceof Error ? err.message : "Erro ao alterar senha");
+            } catch (_err) {
+                setError(_err instanceof Error ? _err.message : "Erro ao alterar senha");
             }
         });
     };
@@ -142,8 +142,8 @@ export function AccountPageClient({ profile, site }: AccountPageClientProps) {
 
                 setSuccess("Integrações salvas com sucesso!");
                 setTimeout(() => setSuccess(null), 3000);
-            } catch (err) {
-                setError(err instanceof Error ? err.message : "Erro ao salvar");
+            } catch (_err) {
+                setError(_err instanceof Error ? _err.message : "Erro ao salvar");
             }
         });
     };
@@ -179,8 +179,8 @@ export function AccountPageClient({ profile, site }: AccountPageClientProps) {
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
                             className={`flex-1 px-6 py-4 text-sm font-medium transition-colors ${activeTab === tab.id
-                                    ? "bg-indigo-50 text-indigo-700 border-b-2 border-indigo-500"
-                                    : "text-gray-600 hover:bg-gray-50"
+                                ? "bg-indigo-50 text-indigo-700 border-b-2 border-indigo-500"
+                                : "text-gray-600 hover:bg-gray-50"
                                 }`}
                         >
                             <span className="mr-2">{tab.icon}</span>

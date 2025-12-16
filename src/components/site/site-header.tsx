@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { ScrollLink } from "@/components/ui/scroll-link";
 
 interface SiteHeaderProps {
     siteName: string;
@@ -24,6 +25,7 @@ export function SiteHeader({
                 {/* Logo / Nome */}
                 <Link href="/" className="flex items-center gap-3">
                     {logo ? (
+                        // eslint-disable-next-line @next/next/no-img-element
                         <img
                             src={logo}
                             alt={siteName}
@@ -59,13 +61,13 @@ export function SiteHeader({
 
                 {/* CTA Desktop & Hamburger Mobile */}
                 <div className="flex items-center gap-3">
-                    <a
-                        href="#contato"
-                        className="hidden sm:inline-flex px-4 py-2 rounded-full text-sm font-medium text-white transition-all hover:opacity-90"
+                    <ScrollLink
+                        to="contato"
+                        className="hidden sm:inline-flex px-4 py-2 rounded-full text-sm font-medium text-white transition-all hover:opacity-90 cursor-pointer"
                         style={{ backgroundColor: primaryColor }}
                     >
                         Agendar Consulta
-                    </a>
+                    </ScrollLink>
 
                     {/* Hamburger Button */}
                     <button
@@ -101,14 +103,13 @@ export function SiteHeader({
                                 {item.label}
                             </Link>
                         ))}
-                        <a
-                            href="#contato"
-                            onClick={() => setIsMobileMenuOpen(false)}
-                            className="mt-2 py-3 px-4 rounded-xl text-center text-base font-medium text-white transition-all hover:opacity-90"
+                        <ScrollLink
+                            to="contato"
+                            className="mt-2 py-3 px-4 rounded-xl text-center text-base font-medium text-white transition-all hover:opacity-90 cursor-pointer"
                             style={{ backgroundColor: primaryColor }}
                         >
                             Agendar Consulta
-                        </a>
+                        </ScrollLink>
                     </nav>
                 </div>
             )}

@@ -68,10 +68,8 @@ export async function signUp(formData: FormData) {
         return { error: error.message };
     }
 
-    // Redireciona para dashboard
-    // Em dev: email já está confirmado automaticamente
-    // Em prod: middleware redireciona para /confirmar-email se email não confirmado
-    redirect("/dashboard");
+    // Redireciona para página de confirmação de email
+    redirect("/confirmar-email");
 }
 
 export async function signOut() {

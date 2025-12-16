@@ -2,6 +2,38 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
+import { Specialty } from "@/types/specialty";
+
+// Mapeamento de especialidades para ícone e descrição padrão
+const SPECIALTY_DEFAULTS: Record<string, { icon: string; description: string }> = {
+    "Ansiedade": { icon: "brain", description: "Tratamento de transtornos ansiosos e crises de pânico" },
+    "Depressão": { icon: "cloud", description: "Acompanhamento para transtornos depressivos" },
+    "Terapia de Casal": { icon: "users", description: "Fortalecimento de vínculos e resolução de conflitos" },
+    "Terapia Familiar": { icon: "home", description: "Dinâmicas familiares e comunicação" },
+    "Luto": { icon: "feather", description: "Acolhimento no processo de elaboração de perdas" },
+    "Autoestima": { icon: "star", description: "Desenvolvimento da confiança e autovalorização" },
+    "Estresse": { icon: "activity", description: "Gerenciamento de estresse e burnout" },
+    "TDAH": { icon: "zap", description: "Acompanhamento de déficit de atenção e hiperatividade" },
+    "Autismo": { icon: "puzzle", description: "Suporte para pessoas no espectro autista" },
+    "Infantil": { icon: "baby", description: "Psicoterapia para crianças" },
+    "Adolescentes": { icon: "trending-up", description: "Acompanhamento na fase de transição" },
+    "Carreira": { icon: "compass", description: "Orientação vocacional e profissional" },
+    "Transtornos Alimentares": { icon: "heart", description: "Tratamento de anorexia, bulimia e compulsão alimentar" },
+    "Dependência Química": { icon: "shield", description: "Suporte para dependências e vícios" },
+    "Relacionamentos": { icon: "heart", description: "Dificuldades em relacionamentos interpessoais e afetivos" },
+};
+
+// Converte array de nomes para formato Specialty[]
+function convertToSpecialtiesData(specialtyNames: string[]): Specialty[] {
+    return specialtyNames.map(name => {
+        const defaults = SPECIALTY_DEFAULTS[name];
+        return {
+            name,
+            icon: defaults?.icon || "heart",
+            description: defaults?.description || "",
+        };
+    });
+}
 
 interface OnboardingData {
     full_name: string;
@@ -19,6 +51,11 @@ export async function saveOnboardingStep(
 ) {
     const supabase = await createClient();
 
+    // Converter especialidades para formato JSONB com ícones e descrições
+    const specialties_data = data.specialties
+        ? convertToSpecialtiesData(data.specialties)
+        : undefined;
+
     const { error } = await supabase
         .from("profiles")
         .update({
@@ -27,7 +64,8 @@ export async function saveOnboardingStep(
             whatsapp: data.whatsapp,
             bio: data.bio,
             bio_short: data.bio_short,
-            specialties: data.specialties,
+            specialties: data.specialties, // Manter para compatibilidade
+            specialties_data, // Salvar formato rico
             updated_at: new Date().toISOString(),
         })
         .eq("id", profileId);
@@ -71,6 +109,9 @@ const DEFAULT_ETHICS_CONTENT = `Ao iniciar o processo terapêutico, meu compromi
 • Base científica: utilizo métodos validados cientificamente
 • Autonomia do paciente: você participa ativamente das decisões`;
 
+// Especialidades padrão para novos sites (usuário pode editar no Dashboard)
+const DEFAULT_SPECIALTIES = ["Ansiedade", "Depressão", "Autoestima", "Estresse", "Relacionamentos", "Luto"];
+
 // Completar onboarding e criar site
 export async function completeOnboarding(
     profileId: string,
@@ -78,7 +119,10 @@ export async function completeOnboarding(
 ) {
     const supabase = await createClient();
 
-    // 1. Atualizar perfil com todos os dados
+    // 1. Criar especialidades padrão com ícones e descrições
+    const specialties_data = convertToSpecialtiesData(DEFAULT_SPECIALTIES);
+
+    // 2. Atualizar perfil com todos os dados
     const { error: profileError } = await supabase
         .from("profiles")
         .update({
@@ -86,7 +130,9 @@ export async function completeOnboarding(
             crp: data.crp,
             whatsapp: data.whatsapp,
             bio: data.bio,
-            specialties: data.specialties,
+            bio_short: data.bio_short,
+            specialties: DEFAULT_SPECIALTIES, // Especialidades padrão
+            specialties_data, // Formato rico com ícones
             updated_at: new Date().toISOString(),
         })
         .eq("id", profileId);

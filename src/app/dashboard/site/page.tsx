@@ -115,6 +115,7 @@ export default async function SitePage() {
                     bio: profile.bio || "",
                     bio_short: profile.bio_short || "",
                     specialties: profile.specialties || [],
+                    specialties_data: profile.specialties_data || [],
                     profile_image_url: profile.profile_image_url,
                     logo_url: profile.logo_url,
                     online_service: profile.online_service ?? true,

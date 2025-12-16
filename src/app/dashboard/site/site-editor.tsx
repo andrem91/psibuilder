@@ -9,6 +9,8 @@ import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { FAQEditor } from "@/components/site/faq-editor";
 import { EthicsEditor } from "@/components/site/ethics-editor";
 import { TestimonialsEditor } from "@/components/site/testimonials-editor";
+import { SpecialtyEditor } from "@/components/site/specialty-editor";
+import { Specialty } from "@/types/specialty";
 import { updateProfile, updateSiteConfig, togglePublishSite } from "./actions";
 
 // Paleta de cores adequada para psicólogos
@@ -32,6 +34,7 @@ interface SiteEditorProps {
         bio: string;
         bio_short?: string;
         specialties: string[];
+        specialties_data?: Specialty[];
         profile_image_url?: string;
         logo_url?: string;
         online_service?: boolean;
@@ -64,7 +67,7 @@ interface SiteEditorProps {
 
 export function SiteEditor({ profile, site }: SiteEditorProps) {
     const [isPending, startTransition] = useTransition();
-    const [activeTab, setActiveTab] = useState<"profile" | "attendance" | "theme" | "seo" | "ethics" | "faq" | "testimonials">("profile");
+    const [activeTab, setActiveTab] = useState<"profile" | "attendance" | "specialties" | "theme" | "seo" | "ethics" | "faq" | "testimonials">("profile");
     const [success, setSuccess] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
 
@@ -102,6 +105,13 @@ export function SiteEditor({ profile, site }: SiteEditorProps) {
         site_title: site.site_title || "",
         meta_description: site.meta_description || "",
     });
+
+    // State para especialidades (agora com tipo Specialty[])
+    const [specialties, setSpecialties] = useState<Specialty[]>(
+        // Converter formato antigo se necessário
+        (profile.specialties_data as Specialty[]) ||
+        (profile.specialties || []).map((name: string) => ({ name, description: "", icon: "heart" }))
+    );
 
     const [isPublished, setIsPublished] = useState(site.is_published);
 
@@ -244,6 +254,7 @@ export function SiteEditor({ profile, site }: SiteEditorProps) {
                 <div className="flex border-b border-gray-200 overflow-x-auto">
                     {[
                         { id: "profile", label: "Perfil" },
+                        { id: "specialties", label: "Especialidades" },
                         { id: "attendance", label: "Atendimento" },
                         { id: "theme", label: "Tema" },
                         { id: "seo", label: "SEO" },
@@ -367,6 +378,30 @@ export function SiteEditor({ profile, site }: SiteEditorProps) {
                                 </Button>
                             </div>
                         </div>
+                    )}
+
+                    {/* Tab Especialidades */}
+                    {activeTab === "specialties" && (
+                        <SpecialtyEditor
+                            specialties={specialties}
+                            onChange={setSpecialties}
+                            primaryColor={themeData.primaryColor}
+                            isSaving={isPending}
+                            onSave={() => {
+                                startTransition(async () => {
+                                    setError(null);
+                                    const result = await updateProfile(profile.id, {
+                                        specialties_data: specialties
+                                    });
+                                    if (result.error) {
+                                        setError(result.error);
+                                    } else {
+                                        setSuccess("Especialidades salvas com sucesso!");
+                                        setTimeout(() => setSuccess(null), 3000);
+                                    }
+                                });
+                            }}
+                        />
                     )}
 
                     {/* Tab Atendimento */}

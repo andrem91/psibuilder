@@ -1,11 +1,6 @@
 // Tipos base do banco de dados
-export type Json =
-    | string
-    | number
-    | boolean
-    | null
-    | { [key: string]: Json | undefined }
-    | Json[];
+// Importando Json de supabase.ts para evitar duplicação
+export type { Json } from "./supabase";
 
 // Planos disponíveis
 export type PlanType = "free" | "professional" | "authority" | "clinic";

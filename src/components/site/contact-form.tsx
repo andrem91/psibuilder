@@ -45,9 +45,9 @@ export function ContactForm({
 
             setStatus("success");
             setFormData({ name: "", email: "", phone: "", message: "" });
-        } catch (err) {
+        } catch (_err) {
             setStatus("error");
-            setErrorMessage(err instanceof Error ? err.message : "Erro ao enviar mensagem");
+            setErrorMessage(_err instanceof Error ? _err.message : "Erro ao enviar mensagem");
         }
     };
 

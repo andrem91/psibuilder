@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { signUp } from "../actions";
@@ -100,13 +101,13 @@ export function SignUpForm() {
 
             <p className="text-xs text-gray-500 text-center pt-2">
                 Ao criar sua conta, você concorda com nossos{" "}
-                <a href="/termos" className="text-indigo-600 hover:underline">
+                <Link href="/termos" className="text-indigo-600 hover:underline">
                     Termos de Uso
-                </a>{" "}
+                </Link>{" "}
                 e{" "}
-                <a href="/privacidade" className="text-indigo-600 hover:underline">
+                <Link href="/privacidade" className="text-indigo-600 hover:underline">
                     Política de Privacidade
-                </a>
+                </Link>
                 .
             </p>
         </form>

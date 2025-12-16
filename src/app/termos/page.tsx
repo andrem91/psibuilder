@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -95,9 +96,9 @@ export default function TermosPage() {
             </div>
 
             <div className="mt-12 pt-8 border-t border-gray-200">
-                <a href="/" className="text-indigo-600 hover:underline">
+                <Link href="/" className="text-indigo-600 hover:underline">
                     ← Voltar para a página inicial
-                </a>
+                </Link>
             </div>
         </div>
     );

@@ -96,8 +96,6 @@ export async function POST(request: NextRequest) {
             const image = sharp(inputBuffer);
             const metadata = await image.metadata();
 
-            console.log(`Original: ${metadata.width}x${metadata.height}, ${Math.round(inputBuffer.length / 1024)}KB`);
-
             // Corrigir orientação EXIF automaticamente (fotos de celular)
             // e redimensionar se maior que o tamanho máximo
             let pipeline = image.rotate(); // .rotate() sem parâmetros corrige EXIF automaticamente
@@ -124,8 +122,6 @@ export async function POST(request: NextRequest) {
                     .toBuffer();
                 outputFormat = 'png';
             }
-
-            console.log(`Processado: ${Math.round(processedBuffer.length / 1024)}KB`);
 
         } catch (sharpError) {
             console.error("Sharp processing error:", sharpError);

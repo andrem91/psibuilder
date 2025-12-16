@@ -24,14 +24,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // Log the contact submission (for now)
         // TODO: Implement email sending with Resend
-        console.log("📧 Contact Form Submission:", {
-            from: { name, email, phone },
-            to: { psychologistName, psychologistEmail },
-            message,
-            timestamp: new Date().toISOString(),
-        });
 
         // Future implementation with Resend:
         // const resend = new Resend(process.env.RESEND_API_KEY);

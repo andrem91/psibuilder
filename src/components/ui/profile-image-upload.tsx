@@ -63,7 +63,7 @@ export function ProfileImageUpload({
             }
 
             onUpload(data.url);
-        } catch (err) {
+        } catch {
             setError("Erro ao fazer upload. Tente novamente.");
             setPreviewUrl(currentImage || null);
         } finally {
@@ -77,6 +77,7 @@ export function ProfileImageUpload({
             <div className="relative">
                 <div className="w-24 h-24 rounded-full bg-gray-100 overflow-hidden border-4 border-white shadow-lg">
                     {previewUrl ? (
+                        // eslint-disable-next-line @next/next/no-img-element
                         <img
                             src={previewUrl}
                             alt="Foto de perfil"

@@ -51,6 +51,7 @@ export function Header({ user, onMenuClick }: HeaderProps) {
                         {/* Avatar */}
                         <div className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center">
                             {user.avatar ? (
+                                // eslint-disable-next-line @next/next/no-img-element
                                 <img
                                     src={user.avatar}
                                     alt={user.name}

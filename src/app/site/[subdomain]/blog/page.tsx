@@ -88,6 +88,7 @@ export default async function BlogListPage({ params }: BlogPageProps) {
                                 <Link href={`/blog/${post.slug}`} className="flex flex-col md:flex-row">
                                     {/* Imagem */}
                                     {post.featured_image_url ? (
+                                        // eslint-disable-next-line @next/next/no-img-element
                                         <img
                                             src={post.featured_image_url}
                                             alt={post.title}

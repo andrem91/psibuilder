@@ -64,7 +64,7 @@ export function LogoUpload({
             }
 
             onUpload(data.url);
-        } catch (err) {
+        } catch {
             setError("Erro ao fazer upload. Tente novamente.");
             setPreviewUrl(currentLogo || null);
         } finally {
@@ -78,6 +78,7 @@ export function LogoUpload({
             <div className="relative">
                 <div className="w-20 h-20 rounded-xl bg-gray-100 overflow-hidden border-2 border-gray-200 flex items-center justify-center">
                     {previewUrl ? (
+                        // eslint-disable-next-line @next/next/no-img-element
                         <img
                             src={previewUrl}
                             alt="Logo"

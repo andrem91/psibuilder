@@ -2,6 +2,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
+import { Specialty } from "@/types/specialty";
 
 interface ProfileData {
     full_name: string;
@@ -10,6 +11,7 @@ interface ProfileData {
     bio: string;
     bio_short?: string;
     specialties: string[];
+    specialties_data?: Specialty[];
     profile_image_url?: string;
     logo_url?: string;
     online_service?: boolean;

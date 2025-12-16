@@ -143,6 +143,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     {/* Autor */}
                     <div className="flex items-center gap-4">
                         {profile?.profile_image_url ? (
+                            // eslint-disable-next-line @next/next/no-img-element
                             <img
                                 src={profile.profile_image_url}
                                 alt={profile.full_name || ""}
@@ -167,6 +168,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
                 {/* Imagem de capa */}
                 {post.featured_image_url && (
+                    // eslint-disable-next-line @next/next/no-img-element
                     <img
                         src={post.featured_image_url}
                         alt={post.title}
@@ -191,13 +193,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     <p className="text-gray-600 mb-6">
                         Agende uma consulta e comece sua jornada de autoconhecimento.
                     </p>
-                    <a
+                    <Link
                         href="/#contato"
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-opacity hover:opacity-90"
                         style={{ backgroundColor: primaryColor }}
                     >
                         Agendar Consulta
-                    </a>
+                    </Link>
                 </div>
             </div>
         </article>

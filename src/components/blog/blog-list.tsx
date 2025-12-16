@@ -81,6 +81,7 @@ export function BlogList({ posts: initialPosts, subdomain }: BlogListProps) {
                         <div className="flex items-start gap-4">
                             {/* Imagem */}
                             {post.featured_image_url ? (
+                                // eslint-disable-next-line @next/next/no-img-element
                                 <img
                                     src={post.featured_image_url}
                                     alt={post.title}
@@ -101,8 +102,8 @@ export function BlogList({ posts: initialPosts, subdomain }: BlogListProps) {
                                         {post.title}
                                     </h3>
                                     <span className={`px-2 py-0.5 text-xs rounded-full ${post.is_published
-                                            ? "bg-green-100 text-green-700"
-                                            : "bg-yellow-100 text-yellow-700"
+                                        ? "bg-green-100 text-green-700"
+                                        : "bg-yellow-100 text-yellow-700"
                                         }`}>
                                         {post.is_published ? "Publicado" : "Rascunho"}
                                     </span>

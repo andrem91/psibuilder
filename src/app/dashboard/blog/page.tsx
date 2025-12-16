@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { BlogList } from "@/components/blog/blog-list";
+import Link from "next/link";
 
 export default async function BlogPage() {
     const supabase = await createClient();
@@ -48,7 +49,7 @@ export default async function BlogPage() {
                         Crie artigos para atrair mais pacientes
                     </p>
                 </div>
-                <a
+                <Link
                     href="/dashboard/blog/novo"
                     className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
                 >
@@ -56,7 +57,7 @@ export default async function BlogPage() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                     </svg>
                     Novo Artigo
-                </a>
+                </Link>
             </div>
 
             {/* Lista de posts */}
