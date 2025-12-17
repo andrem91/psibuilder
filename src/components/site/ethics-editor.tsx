@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 
 interface EthicsEditorProps {
@@ -52,11 +53,11 @@ export function EthicsEditor({ showEthics, ethicsContent, showLgpd, onSave }: Et
                         <label className="block text-sm font-medium text-gray-700 mb-2">
                             Texto do Compromisso Ético
                         </label>
-                        <textarea
+                        <Textarea
                             value={localContent}
                             onChange={(e) => setLocalContent(e.target.value)}
                             rows={6}
-                            className="w-full p-3 border border-gray-200 rounded-lg text-sm text-gray-900"
+                            className="text-gray-900"
                             placeholder="Descreva seu compromisso ético..."
                         />
                         <p className="text-xs text-gray-400 mt-1">

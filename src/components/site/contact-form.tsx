@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Textarea } from "@/components/ui/textarea";
 
 interface ContactFormProps {
     primaryColor?: string;
@@ -126,13 +127,13 @@ export function ContactForm({
                 <label htmlFor="contact-message" className="block text-sm font-medium text-gray-700 mb-2">
                     Mensagem *
                 </label>
-                <textarea
+                <Textarea
                     id="contact-message"
                     required
                     rows={4}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl text-gray-900 focus:ring-2 focus:border-transparent transition-shadow resize-none"
+                    className="resize-none text-gray-900"
                     placeholder="Como posso ajudá-lo(a)?"
                 />
             </div>

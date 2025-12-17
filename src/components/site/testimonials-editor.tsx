@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { FormInput as Input } from "@/components/ui/form-input";
+import { Textarea } from "@/components/ui/textarea";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -202,11 +203,11 @@ export function TestimonialsEditor({ siteId }: TestimonialsEditorProps) {
                                     onChange={(e) => setEditName(e.target.value)}
                                     placeholder="Nome do paciente (ou iniciais)"
                                 />
-                                <textarea
+                                <Textarea
                                     value={editContent}
                                     onChange={(e) => setEditContent(e.target.value)}
                                     placeholder="Depoimento"
-                                    className="w-full p-3 border border-gray-200 rounded-lg text-sm min-h-[100px] text-gray-900"
+                                    className="min-h-[100px] text-gray-900"
                                 />
                                 <div className="flex items-center gap-2">
                                     <span className="text-sm text-gray-600">Avaliação:</span>
@@ -267,11 +268,11 @@ export function TestimonialsEditor({ siteId }: TestimonialsEditorProps) {
                             onChange={(e) => setNewName(e.target.value)}
                             placeholder="Nome do paciente (ou iniciais, ex: 'Maria S.')"
                         />
-                        <textarea
+                        <Textarea
                             value={newContent}
                             onChange={(e) => setNewContent(e.target.value)}
                             placeholder="Depoimento do paciente..."
-                            className="w-full p-3 border border-gray-200 rounded-lg text-sm min-h-[100px] text-gray-900"
+                            className="min-h-[100px] text-gray-900"
                         />
                         <div className="flex items-center gap-2">
                             <span className="text-sm text-gray-600">Avaliação:</span>

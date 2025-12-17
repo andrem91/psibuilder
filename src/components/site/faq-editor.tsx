@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { FormInput as Input } from "@/components/ui/form-input";
+import { Textarea } from "@/components/ui/textarea";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -228,11 +229,11 @@ export function FAQEditor({ siteId, initialFaqs = [] }: FAQEditorProps) {
                                     onChange={(e) => setEditQuestion(e.target.value)}
                                     placeholder="Pergunta"
                                 />
-                                <textarea
+                                <Textarea
                                     value={editAnswer}
                                     onChange={(e) => setEditAnswer(e.target.value)}
                                     placeholder="Resposta"
-                                    className="w-full p-3 border border-gray-200 rounded-lg text-sm min-h-[100px] text-gray-900"
+                                    className="min-h-[100px] text-gray-900"
                                 />
                                 <div className="flex gap-2">
                                     <Button size="sm" onClick={handleSaveEdit} disabled={loading}>
@@ -281,11 +282,11 @@ export function FAQEditor({ siteId, initialFaqs = [] }: FAQEditorProps) {
                             onChange={(e) => setNewQuestion(e.target.value)}
                             placeholder="Digite a pergunta"
                         />
-                        <textarea
+                        <Textarea
                             value={newAnswer}
                             onChange={(e) => setNewAnswer(e.target.value)}
                             placeholder="Digite a resposta"
-                            className="w-full p-3 border border-gray-200 rounded-lg text-sm min-h-[100px] text-gray-900"
+                            className="min-h-[100px] text-gray-900"
                         />
                         <div className="flex gap-2">
                             <Button onClick={handleAdd} disabled={loading}>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FormInput as Input } from "@/components/ui/form-input";
+import { Textarea } from "@/components/ui/textarea";
 import { IconPicker, DynamicIcon } from "@/components/ui/icon-picker";
 import { Specialty } from "@/types/specialty";
 
@@ -198,8 +199,8 @@ export function SpecialtyEditor({
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
                                     Descrição (opcional)
                                 </label>
-                                <textarea
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm text-gray-900"
+                                <Textarea
+                                    className="text-gray-900"
                                     rows={3}
                                     placeholder="Descreva brevemente esta especialidade..."
                                     value={editForm.description}
