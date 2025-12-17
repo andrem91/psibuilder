@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 
 interface EthicsEditorProps {
     showEthics: boolean;
@@ -40,15 +41,10 @@ export function EthicsEditor({ showEthics, ethicsContent, showLgpd, onSave }: Et
                             Exibir seção sobre seu compromisso ético e valores profissionais
                         </p>
                     </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                        <input
-                            type="checkbox"
-                            checked={localShowEthics}
-                            onChange={(e) => setLocalShowEthics(e.target.checked)}
-                            className="sr-only peer"
-                        />
-                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
-                    </label>
+                    <Switch
+                        checked={localShowEthics}
+                        onCheckedChange={setLocalShowEthics}
+                    />
                 </div>
 
                 {localShowEthics && (
@@ -79,15 +75,10 @@ export function EthicsEditor({ showEthics, ethicsContent, showLgpd, onSave }: Et
                             Exibir links para Política de Privacidade e Cookies (geradas automaticamente)
                         </p>
                     </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                        <input
-                            type="checkbox"
-                            checked={localShowLgpd}
-                            onChange={(e) => setLocalShowLgpd(e.target.checked)}
-                            className="sr-only peer"
-                        />
-                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
-                    </label>
+                    <Switch
+                        checked={localShowLgpd}
+                        onCheckedChange={setLocalShowLgpd}
+                    />
                 </div>
 
                 {localShowLgpd && (
@@ -109,3 +100,4 @@ export function EthicsEditor({ showEthics, ethicsContent, showLgpd, onSave }: Et
         </div>
     );
 }
+

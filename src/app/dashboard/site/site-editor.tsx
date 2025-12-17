@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { FormInput as Input } from "@/components/ui/form-input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { ProfileImageUpload } from "@/components/ui/profile-image-upload";
 import { LogoUpload } from "@/components/ui/logo-upload";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
@@ -419,13 +420,12 @@ export function SiteEditor({ profile, site }: SiteEditorProps) {
                                             backgroundColor: attendanceData.online_service ? "#5B8FB910" : "transparent"
                                         }}
                                     >
-                                        <input
-                                            type="checkbox"
+                                        <Checkbox
+                                            id="online_service"
                                             checked={attendanceData.online_service}
-                                            onChange={(e) =>
-                                                setAttendanceData({ ...attendanceData, online_service: e.target.checked })
+                                            onCheckedChange={(checked) =>
+                                                setAttendanceData({ ...attendanceData, online_service: !!checked })
                                             }
-                                            className="w-5 h-5 rounded"
                                         />
                                         <div>
                                             <span className="font-medium text-gray-900">Online</span>
@@ -439,13 +439,12 @@ export function SiteEditor({ profile, site }: SiteEditorProps) {
                                             backgroundColor: attendanceData.in_person_service ? "#5B8FB910" : "transparent"
                                         }}
                                     >
-                                        <input
-                                            type="checkbox"
+                                        <Checkbox
+                                            id="in_person_service"
                                             checked={attendanceData.in_person_service}
-                                            onChange={(e) =>
-                                                setAttendanceData({ ...attendanceData, in_person_service: e.target.checked })
+                                            onCheckedChange={(checked) =>
+                                                setAttendanceData({ ...attendanceData, in_person_service: !!checked })
                                             }
-                                            className="w-5 h-5 rounded"
                                         />
                                         <div>
                                             <span className="font-medium text-gray-900">Presencial</span>
