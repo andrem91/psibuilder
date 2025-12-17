@@ -2,6 +2,7 @@
 
 import { useState, useTransition, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
@@ -183,12 +184,13 @@ export function BlogEditor({ post }: BlogEditorProps) {
                 <Field>
                     <FieldLabel>Imagem de Capa</FieldLabel>
                     {featuredImageUrl ? (
-                        <div className="relative">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
+                        <div className="relative w-full h-48">
+                            <Image
                                 src={featuredImageUrl}
                                 alt="Capa"
-                                className="w-full h-48 object-cover rounded-lg"
+                                fill
+                                className="object-cover rounded-lg"
+                                sizes="(max-width: 768px) 100vw, 50vw"
                             />
                             <button
                                 type="button"

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
 import {
@@ -18,6 +19,7 @@ import {
     TooltipContent,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Badge } from "@/components/ui/badge";
 
 interface BlogPost {
     id: string;
@@ -101,12 +103,15 @@ export function BlogList({ posts: initialPosts, subdomain }: BlogListProps) {
                         <div className="flex items-start gap-4">
                             {/* Imagem */}
                             {post.featured_image_url ? (
-                                // eslint-disable-next-line @next/next/no-img-element
-                                <img
-                                    src={post.featured_image_url}
-                                    alt={post.title}
-                                    className="w-24 h-16 object-cover rounded-lg flex-shrink-0"
-                                />
+                                <div className="relative w-24 h-16 flex-shrink-0">
+                                    <Image
+                                        src={post.featured_image_url}
+                                        alt={post.title}
+                                        fill
+                                        className="object-cover rounded-lg"
+                                        sizes="96px"
+                                    />
+                                </div>
                             ) : (
                                 <div className="w-24 h-16 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
                                     <svg className="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -121,12 +126,12 @@ export function BlogList({ posts: initialPosts, subdomain }: BlogListProps) {
                                     <h3 className="font-semibold text-gray-900 truncate">
                                         {post.title}
                                     </h3>
-                                    <span className={`px-2 py-0.5 text-xs rounded-full ${post.is_published
-                                        ? "bg-green-100 text-green-700"
-                                        : "bg-yellow-100 text-yellow-700"
-                                        }`}>
+                                    <Badge className={post.is_published
+                                        ? "bg-green-100 text-green-700 border-green-200"
+                                        : "bg-yellow-100 text-yellow-700 border-yellow-200"
+                                    }>
                                         {post.is_published ? "Publicado" : "Rascunho"}
-                                    </span>
+                                    </Badge>
                                 </div>
                                 <p className="text-sm text-gray-500 line-clamp-1 mb-2">
                                     {post.excerpt || "Sem descrição"}
