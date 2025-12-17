@@ -1,103 +1,147 @@
 "use client";
 
 import { useState } from "react";
-import { useFormStatus } from "react-dom";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Field, FieldLabel, FieldError, FieldGroup } from "@/components/ui/field";
+import { signupSchema, type SignupFormData } from "@/lib/schemas/auth";
 import { signUp } from "../actions";
 
-function SubmitButton() {
-    const { pending } = useFormStatus();
-    return (
-        <Button type="submit" className="w-full" isLoading={pending}>
-            Criar conta
-        </Button>
-    );
-}
-
 export function SignUpForm() {
-    const [error, setError] = useState<string | null>(null);
-    const [success, setSuccess] = useState<string | null>(null);
+    const [serverError, setServerError] = useState<string | null>(null);
 
-    async function handleSubmit(formData: FormData) {
-        setError(null);
-        setSuccess(null);
+    const {
+        control,
+        handleSubmit,
+        formState: { isSubmitting },
+    } = useForm<SignupFormData>({
+        resolver: zodResolver(signupSchema),
+        defaultValues: {
+            fullName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+        },
+    });
 
-        const password = formData.get("password") as string;
-        const confirmPassword = formData.get("confirmPassword") as string;
+    async function onSubmit(data: SignupFormData) {
+        setServerError(null);
 
-        if (password !== confirmPassword) {
-            setError("As senhas não coincidem");
-            return;
-        }
-
-        if (password.length < 6) {
-            setError("A senha deve ter pelo menos 6 caracteres");
-            return;
-        }
+        // Convert to FormData for server action compatibility
+        const formData = new FormData();
+        formData.append("fullName", data.fullName);
+        formData.append("email", data.email);
+        formData.append("password", data.password);
 
         const result = await signUp(formData);
 
         // Se houver erro, o redirect não acontece e recebemos o erro
         if (result && "error" in result && result.error) {
-            setError(result.error as string);
+            setServerError(result.error as string);
         }
         // Se houver sucesso, a action faz redirect automaticamente
     }
 
     return (
-        <form action={handleSubmit} className="space-y-4">
-            {error && (
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            {serverError && (
                 <div className="p-3 rounded-lg bg-red-50 border border-red-200 text-red-600 text-sm">
-                    {error}
+                    {serverError}
                 </div>
             )}
 
-            {success && (
-                <div className="p-3 rounded-lg bg-green-50 border border-green-200 text-green-600 text-sm">
-                    {success}
-                </div>
-            )}
+            <FieldGroup>
+                <Controller
+                    name="fullName"
+                    control={control}
+                    render={({ field, fieldState }) => (
+                        <Field data-invalid={fieldState.invalid}>
+                            <FieldLabel htmlFor="fullName">Nome completo</FieldLabel>
+                            <Input
+                                id="fullName"
+                                type="text"
+                                placeholder="Dr(a). Maria Silva"
+                                autoComplete="name"
+                                aria-invalid={fieldState.invalid}
+                                {...field}
+                            />
+                            {fieldState.invalid && (
+                                <FieldError errors={[fieldState.error]} />
+                            )}
+                        </Field>
+                    )}
+                />
 
-            <Input
-                name="fullName"
-                type="text"
-                label="Nome completo"
-                placeholder="Dr(a). Maria Silva"
-                required
-                autoComplete="name"
-            />
+                <Controller
+                    name="email"
+                    control={control}
+                    render={({ field, fieldState }) => (
+                        <Field data-invalid={fieldState.invalid}>
+                            <FieldLabel htmlFor="email">Email</FieldLabel>
+                            <Input
+                                id="email"
+                                type="email"
+                                placeholder="seu@email.com"
+                                autoComplete="email"
+                                aria-invalid={fieldState.invalid}
+                                {...field}
+                            />
+                            {fieldState.invalid && (
+                                <FieldError errors={[fieldState.error]} />
+                            )}
+                        </Field>
+                    )}
+                />
 
-            <Input
-                name="email"
-                type="email"
-                label="Email"
-                placeholder="seu@email.com"
-                required
-                autoComplete="email"
-            />
+                <Controller
+                    name="password"
+                    control={control}
+                    render={({ field, fieldState }) => (
+                        <Field data-invalid={fieldState.invalid}>
+                            <FieldLabel htmlFor="password">Senha</FieldLabel>
+                            <Input
+                                id="password"
+                                type="password"
+                                placeholder="Mínimo 6 caracteres"
+                                autoComplete="new-password"
+                                aria-invalid={fieldState.invalid}
+                                {...field}
+                            />
+                            {fieldState.invalid && (
+                                <FieldError errors={[fieldState.error]} />
+                            )}
+                        </Field>
+                    )}
+                />
 
-            <Input
-                name="password"
-                type="password"
-                label="Senha"
-                placeholder="Mínimo 6 caracteres"
-                required
-                autoComplete="new-password"
-                minLength={6}
-            />
+                <Controller
+                    name="confirmPassword"
+                    control={control}
+                    render={({ field, fieldState }) => (
+                        <Field data-invalid={fieldState.invalid}>
+                            <FieldLabel htmlFor="confirmPassword">Confirmar senha</FieldLabel>
+                            <Input
+                                id="confirmPassword"
+                                type="password"
+                                placeholder="Repita a senha"
+                                autoComplete="new-password"
+                                aria-invalid={fieldState.invalid}
+                                {...field}
+                            />
+                            {fieldState.invalid && (
+                                <FieldError errors={[fieldState.error]} />
+                            )}
+                        </Field>
+                    )}
+                />
+            </FieldGroup>
 
-            <Input
-                name="confirmPassword"
-                type="password"
-                label="Confirmar senha"
-                placeholder="Repita a senha"
-                required
-                autoComplete="new-password"
-            />
-
-            <SubmitButton />
+            <Button type="submit" className="w-full" isLoading={isSubmitting}>
+                Criar conta
+            </Button>
 
             <p className="text-xs text-gray-500 text-center pt-2">
                 Ao criar sua conta, você concorda com nossos{" "}

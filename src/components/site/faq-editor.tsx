@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { FormInput as Input } from "@/components/ui/form-input";
 
 interface FAQ {
     id: string;

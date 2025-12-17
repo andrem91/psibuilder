@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { FormInput as Input } from "@/components/ui/form-input";
 import { IconPicker, DynamicIcon } from "@/components/ui/icon-picker";
 import { Specialty } from "@/types/specialty";
 

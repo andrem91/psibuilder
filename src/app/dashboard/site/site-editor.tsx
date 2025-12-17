@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { FormInput as Input } from "@/components/ui/form-input";
 import { ProfileImageUpload } from "@/components/ui/profile-image-upload";
 import { LogoUpload } from "@/components/ui/logo-upload";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";

@@ -2,14 +2,22 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Field, FieldLabel, FieldError, FieldGroup, FieldDescription } from "@/components/ui/field";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { OnboardingProgress } from "./onboarding-progress";
 import { saveOnboardingStep, completeOnboarding } from "@/app/dashboard/onboarding/actions";
-
-// Especialidades disponíveis - não mais usadas no onboarding
-// Agora são pré-populadas automaticamente e editadas no Dashboard
+import {
+    onboardingStep1Schema,
+    onboardingStep2Schema,
+    onboardingStep3Schema,
+    type OnboardingStep1Data,
+    type OnboardingStep2Data,
+    type OnboardingStep3Data,
+} from "@/lib/schemas/onboarding";
 
 interface OnboardingWizardProps {
     initialData?: {
@@ -27,9 +35,9 @@ export function OnboardingWizard({ initialData, profileId }: OnboardingWizardPro
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
     const [currentStep, setCurrentStep] = useState(1);
-    const [error, setError] = useState<string | null>(null);
+    const [serverError, setServerError] = useState<string | null>(null);
 
-    // Form data
+    // Dados combinados de todos os steps
     const [formData, setFormData] = useState({
         full_name: initialData?.full_name || "",
         crp: initialData?.crp || "",
@@ -47,70 +55,75 @@ export function OnboardingWizard({ initialData, profileId }: OnboardingWizardPro
         { label: "Finalizar", completed: false },
     ];
 
-    // Validação por step
-    const validateStep = (): boolean => {
-        setError(null);
+    // Form para Step 1
+    const step1Form = useForm<OnboardingStep1Data>({
+        resolver: zodResolver(onboardingStep1Schema),
+        defaultValues: {
+            full_name: formData.full_name,
+            whatsapp: formData.whatsapp,
+        },
+    });
 
-        switch (currentStep) {
-            case 1:
-                if (!formData.full_name.trim()) {
-                    setError("Por favor, informe seu nome completo");
-                    return false;
-                }
-                if (!formData.whatsapp.trim()) {
-                    setError("Por favor, informe seu WhatsApp");
-                    return false;
-                }
-                return true;
-            case 2:
-                if (!formData.crp.trim()) {
-                    setError("Por favor, informe seu CRP");
-                    return false;
-                }
-                // Validação básica de formato CRP (XX/XXXXX)
-                if (!/^\d{2}\/\d{4,6}$/.test(formData.crp)) {
-                    setError("Formato do CRP inválido. Use: 06/12345");
-                    return false;
-                }
-                return true;
-            default:
-                return true;
-        }
-    };
+    // Form para Step 2
+    const step2Form = useForm<OnboardingStep2Data>({
+        resolver: zodResolver(onboardingStep2Schema),
+        defaultValues: {
+            crp: formData.crp,
+        },
+    });
 
-    // Próximo passo
-    const handleNext = async () => {
-        if (!validateStep()) return;
+    // Form para Step 3
+    const step3Form = useForm<OnboardingStep3Data>({
+        resolver: zodResolver(onboardingStep3Schema),
+        defaultValues: {
+            bio_short: formData.bio_short,
+            bio: formData.bio,
+        },
+    });
 
-        // Salvar dados do step atual
+    // Handler para Step 1
+    const handleStep1Submit = async (data: OnboardingStep1Data) => {
+        setServerError(null);
+        const newFormData = { ...formData, ...data };
+        setFormData(newFormData);
+
         startTransition(async () => {
-            const result = await saveOnboardingStep(profileId, formData);
+            const result = await saveOnboardingStep(profileId, newFormData);
             if (result.error) {
-                setError(result.error);
+                setServerError(result.error);
                 return;
             }
-
-            if (currentStep < totalSteps) {
-                setCurrentStep(currentStep + 1);
-            }
+            setCurrentStep(2);
         });
     };
 
-    // Finalizar onboarding
-    const handleComplete = async () => {
-        if (!formData.bio.trim()) {
-            setError("Por favor, escreva uma breve descrição sobre você");
-            return;
-        }
+    // Handler para Step 2
+    const handleStep2Submit = async (data: OnboardingStep2Data) => {
+        setServerError(null);
+        const newFormData = { ...formData, ...data };
+        setFormData(newFormData);
 
         startTransition(async () => {
-            const result = await completeOnboarding(profileId, formData);
+            const result = await saveOnboardingStep(profileId, newFormData);
             if (result.error) {
-                setError(result.error);
+                setServerError(result.error);
                 return;
             }
+            setCurrentStep(3);
+        });
+    };
 
-            // Redirecionar para o dashboard com mensagem de sucesso
+    // Handler para Step 3 (finalização)
+    const handleStep3Submit = async (data: OnboardingStep3Data) => {
+        setServerError(null);
+        const finalFormData = { ...formData, ...data };
+
+        startTransition(async () => {
+            const result = await completeOnboarding(profileId, finalFormData);
+            if (result.error) {
+                setServerError(result.error);
+                return;
+            }
             router.push("/dashboard?onboarding=complete");
         });
     };
@@ -123,16 +136,16 @@ export function OnboardingWizard({ initialData, profileId }: OnboardingWizardPro
                 steps={steps}
             />
 
-            {/* Error message */}
-            {error && (
+            {/* Server Error message */}
+            {serverError && (
                 <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
-                    {error}
+                    {serverError}
                 </div>
             )}
 
             {/* Step 1: Dados básicos */}
             {currentStep === 1 && (
-                <div className="space-y-6">
+                <form onSubmit={step1Form.handleSubmit(handleStep1Submit)} className="space-y-6">
                     <div className="text-center mb-8">
                         <h2 className="text-2xl font-bold text-gray-900">
                             Vamos começar! 👋
@@ -142,29 +155,60 @@ export function OnboardingWizard({ initialData, profileId }: OnboardingWizardPro
                         </p>
                     </div>
 
-                    <Input
-                        label="Nome completo"
-                        placeholder="Dr(a). Maria Silva"
-                        value={formData.full_name}
-                        onChange={(e) =>
-                            setFormData({ ...formData, full_name: e.target.value })
-                        }
-                    />
+                    <FieldGroup>
+                        <Controller
+                            name="full_name"
+                            control={step1Form.control}
+                            render={({ field, fieldState }) => (
+                                <Field data-invalid={fieldState.invalid}>
+                                    <FieldLabel htmlFor="full_name">Nome completo</FieldLabel>
+                                    <Input
+                                        id="full_name"
+                                        placeholder="Dr(a). Maria Silva"
+                                        aria-invalid={fieldState.invalid}
+                                        {...field}
+                                    />
+                                    {fieldState.invalid && (
+                                        <FieldError errors={[fieldState.error]} />
+                                    )}
+                                </Field>
+                            )}
+                        />
 
-                    <Input
-                        label="WhatsApp"
-                        placeholder="11999999999"
-                        value={formData.whatsapp}
-                        onChange={(e) =>
-                            setFormData({ ...formData, whatsapp: e.target.value })
-                        }
-                    />
-                </div>
+                        <Controller
+                            name="whatsapp"
+                            control={step1Form.control}
+                            render={({ field, fieldState }) => (
+                                <Field data-invalid={fieldState.invalid}>
+                                    <FieldLabel htmlFor="whatsapp">WhatsApp</FieldLabel>
+                                    <Input
+                                        id="whatsapp"
+                                        placeholder="11999999999"
+                                        aria-invalid={fieldState.invalid}
+                                        {...field}
+                                    />
+                                    <FieldDescription>
+                                        Apenas números (DDD + número)
+                                    </FieldDescription>
+                                    {fieldState.invalid && (
+                                        <FieldError errors={[fieldState.error]} />
+                                    )}
+                                </Field>
+                            )}
+                        />
+                    </FieldGroup>
+
+                    <div className="flex justify-end mt-8">
+                        <Button type="submit" isLoading={isPending}>
+                            Próximo
+                        </Button>
+                    </div>
+                </form>
             )}
 
             {/* Step 2: CRP */}
             {currentStep === 2 && (
-                <div className="space-y-6">
+                <form onSubmit={step2Form.handleSubmit(handleStep2Submit)} className="space-y-6">
                     <div className="text-center mb-8">
                         <h2 className="text-2xl font-bold text-gray-900">
                             Seu registro profissional 📋
@@ -174,24 +218,49 @@ export function OnboardingWizard({ initialData, profileId }: OnboardingWizardPro
                         </p>
                     </div>
 
-                    <Input
-                        label="Número do CRP"
-                        placeholder="06/12345"
-                        value={formData.crp}
-                        onChange={(e) =>
-                            setFormData({ ...formData, crp: e.target.value })
-                        }
-                    />
+                    <FieldGroup>
+                        <Controller
+                            name="crp"
+                            control={step2Form.control}
+                            render={({ field, fieldState }) => (
+                                <Field data-invalid={fieldState.invalid}>
+                                    <FieldLabel htmlFor="crp">Número do CRP</FieldLabel>
+                                    <Input
+                                        id="crp"
+                                        placeholder="06/12345"
+                                        aria-invalid={fieldState.invalid}
+                                        {...field}
+                                    />
+                                    <FieldDescription>
+                                        O CRP será exibido no seu site para transmitir credibilidade.
+                                    </FieldDescription>
+                                    {fieldState.invalid && (
+                                        <FieldError errors={[fieldState.error]} />
+                                    )}
+                                </Field>
+                            )}
+                        />
+                    </FieldGroup>
 
-                    <p className="text-sm text-gray-500">
-                        O CRP será exibido no seu site para transmitir credibilidade aos pacientes.
-                    </p>
-                </div>
+                    <div className="flex justify-between mt-8">
+                        <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => setCurrentStep(1)}
+                            disabled={isPending}
+                        >
+                            Voltar
+                        </Button>
+                        <Button type="submit" isLoading={isPending}>
+                            Próximo
+                        </Button>
+                    </div>
+                </form>
             )}
 
             {/* Step 3: Bio */}
             {currentStep === 3 && (
-                <div className="space-y-6">
+                <form onSubmit={step3Form.handleSubmit(handleStep3Submit)} className="space-y-6">
                     <div className="text-center mb-8">
                         <h2 className="text-2xl font-bold text-gray-900">
                             Quase lá! ✨
@@ -201,78 +270,76 @@ export function OnboardingWizard({ initialData, profileId }: OnboardingWizardPro
                         </p>
                     </div>
 
-                    {/* Frase de apresentação */}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Frase de apresentação (exibida no topo do site)
-                        </label>
-                        <Input
-                            placeholder="Ex: Psicóloga especialista em ansiedade e autoestima"
-                            value={formData.bio_short}
-                            onChange={(e) =>
-                                setFormData({ ...formData, bio_short: e.target.value })
-                            }
+                    <FieldGroup>
+                        <Controller
+                            name="bio_short"
+                            control={step3Form.control}
+                            render={({ field, fieldState }) => (
+                                <Field data-invalid={fieldState.invalid}>
+                                    <FieldLabel htmlFor="bio_short">
+                                        Frase de apresentação (exibida no topo do site)
+                                    </FieldLabel>
+                                    <Input
+                                        id="bio_short"
+                                        placeholder="Ex: Psicóloga especialista em ansiedade e autoestima"
+                                        aria-invalid={fieldState.invalid}
+                                        {...field}
+                                    />
+                                    <FieldDescription>
+                                        Uma frase curta que resume sua atuação (máx. 150 caracteres)
+                                    </FieldDescription>
+                                    {fieldState.invalid && (
+                                        <FieldError errors={[fieldState.error]} />
+                                    )}
+                                </Field>
+                            )}
                         />
-                        <p className="text-sm text-gray-500 mt-1">
-                            Uma frase curta que resume sua atuação (máx. 150 caracteres)
-                        </p>
-                    </div>
 
-                    {/* Sobre mim completo */}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Sobre mim (texto completo com formatação)
-                        </label>
-                        <div className="border border-gray-300 rounded-xl overflow-hidden">
-                            <RichTextEditor
-                                content={formData.bio}
-                                onChange={(html) =>
-                                    setFormData({ ...formData, bio: html })
-                                }
-                                placeholder="Conte um pouco sobre sua formação, experiência e abordagem terapêutica..."
-                            />
-                        </div>
-                        <p className="text-sm text-gray-500 mt-2">
-                            Use os controles acima para formatar o texto com negrito, itálico, listas, etc.
-                        </p>
-                    </div>
-                </div>
-            )}
+                        <Controller
+                            name="bio"
+                            control={step3Form.control}
+                            render={({ field, fieldState }) => (
+                                <Field data-invalid={fieldState.invalid}>
+                                    <FieldLabel>
+                                        Sobre mim (texto completo com formatação)
+                                    </FieldLabel>
+                                    <div className="border border-gray-300 rounded-xl overflow-hidden">
+                                        <RichTextEditor
+                                            content={field.value}
+                                            onChange={field.onChange}
+                                            placeholder="Conte um pouco sobre sua formação, experiência e abordagem terapêutica..."
+                                        />
+                                    </div>
+                                    <FieldDescription>
+                                        Use os controles acima para formatar o texto.
+                                    </FieldDescription>
+                                    {fieldState.invalid && (
+                                        <FieldError errors={[fieldState.error]} />
+                                    )}
+                                </Field>
+                            )}
+                        />
+                    </FieldGroup>
 
-            {/* Navigation buttons */}
-            <div className="flex justify-between mt-8">
-                {currentStep > 1 && (
-                    <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => setCurrentStep(currentStep - 1)}
-                        disabled={isPending}
-                    >
-                        Voltar
-                    </Button>
-                )}
-
-                <div className="ml-auto">
-                    {currentStep < totalSteps ? (
+                    <div className="flex justify-between mt-8">
                         <Button
                             type="button"
-                            onClick={handleNext}
-                            isLoading={isPending}
+                            variant="outline"
+                            onClick={() => setCurrentStep(2)}
+                            disabled={isPending}
                         >
-                            Próximo
+                            Voltar
                         </Button>
-                    ) : (
                         <Button
-                            type="button"
-                            onClick={handleComplete}
+                            type="submit"
                             isLoading={isPending}
                             className="bg-green-600 hover:bg-green-700"
                         >
                             Criar meu site! 🚀
                         </Button>
-                    )}
-                </div>
-            </div>
+                    </div>
+                </form>
+            )}
         </div>
     );
 }
