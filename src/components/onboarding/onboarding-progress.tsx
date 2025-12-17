@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { Progress } from "@/components/ui/progress";
 
 interface OnboardingProgressProps {
     currentStep: number;
@@ -20,12 +20,10 @@ export function OnboardingProgress({
         <div className="mb-8">
             {/* Progress bar */}
             <div className="relative mb-4">
-                <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <div
-                        className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-500"
-                        style={{ width: `${progress}%` }}
-                    />
-                </div>
+                <Progress
+                    value={progress}
+                    className="h-2"
+                />
                 <div className="absolute -top-1 right-0 text-sm font-medium text-gray-500">
                     {progress}%
                 </div>

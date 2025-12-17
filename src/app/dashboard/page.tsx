@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -102,12 +103,10 @@ export default async function DashboardPage() {
                         <span>Progresso do perfil</span>
                         <span>{profileProgress}%</span>
                     </div>
-                    <div className="h-2 bg-white/20 rounded-full overflow-hidden">
-                        <div
-                            className="h-full bg-white rounded-full transition-all duration-500"
-                            style={{ width: `${profileProgress}%` }}
-                        />
-                    </div>
+                    <Progress
+                        value={profileProgress}
+                        className="h-2 bg-white/20"
+                    />
                 </div>
             </div>
 
