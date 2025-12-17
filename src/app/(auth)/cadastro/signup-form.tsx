@@ -4,9 +4,11 @@ import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Field, FieldLabel, FieldError, FieldGroup } from "@/components/ui/field";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { signupSchema, type SignupFormData } from "@/lib/schemas/auth";
 import { signUp } from "../actions";
 
@@ -48,9 +50,10 @@ export function SignUpForm() {
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {serverError && (
-                <div className="p-3 rounded-lg bg-red-50 border border-red-200 text-red-600 text-sm">
-                    {serverError}
-                </div>
+                <Alert variant="destructive">
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription>{serverError}</AlertDescription>
+                </Alert>
             )}
 
             <FieldGroup>

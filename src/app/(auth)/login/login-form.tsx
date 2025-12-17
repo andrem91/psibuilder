@@ -3,9 +3,11 @@
 import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AlertCircle, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Field, FieldLabel, FieldError, FieldGroup } from "@/components/ui/field";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { loginSchema, type LoginFormData } from "@/lib/schemas/auth";
 import { loginWithEmail, loginWithMagicLink } from "../actions";
 
@@ -53,15 +55,17 @@ export function LoginForm() {
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {serverError && (
-                <div className="p-3 rounded-lg bg-red-50 border border-red-200 text-red-600 text-sm">
-                    {serverError}
-                </div>
+                <Alert variant="destructive">
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription>{serverError}</AlertDescription>
+                </Alert>
             )}
 
             {success && (
-                <div className="p-3 rounded-lg bg-green-50 border border-green-200 text-green-600 text-sm">
-                    {success}
-                </div>
+                <Alert className="border-green-200 bg-green-50 text-green-800">
+                    <CheckCircle2 className="h-4 w-4" />
+                    <AlertDescription>{success}</AlertDescription>
+                </Alert>
             )}
 
             <FieldGroup>

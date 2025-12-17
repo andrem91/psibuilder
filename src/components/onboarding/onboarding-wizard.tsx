@@ -4,9 +4,11 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Field, FieldLabel, FieldError, FieldGroup, FieldDescription } from "@/components/ui/field";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { OnboardingProgress } from "./onboarding-progress";
 import { saveOnboardingStep, completeOnboarding } from "@/app/dashboard/onboarding/actions";
@@ -138,9 +140,10 @@ export function OnboardingWizard({ initialData, profileId }: OnboardingWizardPro
 
             {/* Server Error message */}
             {serverError && (
-                <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
-                    {serverError}
-                </div>
+                <Alert variant="destructive" className="mb-6">
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription>{serverError}</AlertDescription>
+                </Alert>
             )}
 
             {/* Step 1: Dados básicos */}
