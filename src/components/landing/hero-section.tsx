@@ -36,7 +36,7 @@ export function HeroSection() {
                     <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
                         Seu site perfeito em qualquer celular ou computador.
                         Pare de perder pacientes por não ter presença online.
-                        Com o PsiBuilder, você cria um site bonito e profissional sem precisar de conhecimento técnico.
+                        Com o PsicoSites, você cria um site bonito e profissional sem precisar de conhecimento técnico.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">

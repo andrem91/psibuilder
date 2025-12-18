@@ -9,8 +9,8 @@ import {
 } from "@/components/ui/accordion";
 
 export const metadata: Metadata = {
-    title: "Suporte | PsiBuilder",
-    description: "Central de ajuda e suporte do PsiBuilder",
+    title: "Suporte | PsicoSites",
+    description: "Central de ajuda e suporte do PsicoSites",
 };
 
 const faqs = [
@@ -32,7 +32,7 @@ const faqs = [
     },
     {
         question: "O site funciona em celulares?",
-        answer: "Sim! Todos os sites criados no PsiBuilder são responsivos e se adaptam automaticamente a qualquer tamanho de tela.",
+        answer: "Sim! Todos os sites criados no PsicoSites são responsivos e se adaptam automaticamente a qualquer tamanho de tela.",
     },
     {
         question: "Como os pacientes entram em contato comigo?",
@@ -70,8 +70,8 @@ export default function SuportePage() {
                             <p className="text-sm text-gray-500 mb-3">
                                 Respondemos em até 24 horas úteis
                             </p>
-                            <a href="mailto:suporte@psibuilder.com.br" className="text-indigo-600 font-medium hover:underline">
-                                suporte@psibuilder.com.br
+                            <a href="mailto:suporte@psicosites.com.br" className="text-indigo-600 font-medium hover:underline">
+                                suporte@psicosites.com.br
                             </a>
                         </div>
                     </div>
@@ -87,7 +87,7 @@ export default function SuportePage() {
                         <div>
                             <h3 className="font-semibold text-gray-900 mb-1">Tutoriais</h3>
                             <p className="text-sm text-gray-500 mb-3">
-                                Guias passo a passo para usar o PsiBuilder
+                                Guias passo a passo para usar o PsicoSites
                             </p>
                             <span className="text-gray-400 text-sm">Em breve!</span>
                         </div>

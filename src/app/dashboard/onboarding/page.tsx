@@ -4,7 +4,7 @@ import { OnboardingWizard } from "@/components/onboarding";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Configurar meu site | PsiBuilder",
+    title: "Configurar meu site | PsicoSites",
     description: "Configure seu site profissional em poucos passos",
 };
 

@@ -112,7 +112,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center">
                             <span className="text-white font-bold text-lg">P</span>
                         </div>
-                        <span className="text-xl font-bold text-gray-900">PsiBuilder</span>
+                        <span className="text-xl font-bold text-gray-900">PsicoSites</span>
                     </div>
 
                     {/* Nav principal */}

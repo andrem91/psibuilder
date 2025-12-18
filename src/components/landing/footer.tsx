@@ -11,7 +11,7 @@ export function LandingFooter() {
                     <div>
                         <div className="flex items-center gap-2 mb-4">
                             <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg" />
-                            <span className="text-xl font-bold text-white">PsiBuilder</span>
+                            <span className="text-xl font-bold text-white">PsicoSites</span>
                         </div>
                         <p className="text-gray-400 text-sm">
                             A plataforma mais fácil para psicólogos criarem sites profissionais.
@@ -55,13 +55,13 @@ export function LandingFooter() {
                     <div>
                         <h4 className="text-white font-semibold mb-4">Contato</h4>
                         <ul className="space-y-2 text-sm">
-                            <li><a href="mailto:contato@psibuilder.com.br" className="text-gray-400 hover:text-white">contato@psibuilder.com.br</a></li>
+                            <li><a href="mailto:contato@psicosites.com.br" className="text-gray-400 hover:text-white">contato@psicosites.com.br</a></li>
                         </ul>
                     </div>
                 </div>
 
                 <div className="border-t border-gray-800 pt-8 text-center text-sm text-gray-400">
-                    <p>© {new Date().getFullYear()} PsiBuilder. Todos os direitos reservados.</p>
+                    <p>© {new Date().getFullYear()} PsicoSites. Todos os direitos reservados.</p>
                 </div>
             </div>
         </footer>

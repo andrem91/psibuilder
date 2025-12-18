@@ -99,9 +99,9 @@ export function SiteFooter({
                         © {currentYear} {siteName}. Todos os direitos reservados.
                     </p>
 
-                    {/* Badge PsiBuilder */}
+                    {/* Badge PsicoSites */}
                     <a
-                        href="https://psibuilder.com.br"
+                        href="https://psicosites.com.br"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 text-gray-500 text-xs hover:text-gray-400 transition-colors"
@@ -111,7 +111,7 @@ export function SiteFooter({
                             className="font-semibold px-2 py-1 rounded"
                             style={{ backgroundColor: primaryColor + "20", color: primaryColor }}
                         >
-                            PsiBuilder
+                            PsicoSites
                         </span>
                     </a>
                 </div>

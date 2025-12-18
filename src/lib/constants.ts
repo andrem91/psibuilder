@@ -1,5 +1,5 @@
 /**
- * Constantes centralizadas do PsiBuilder
+ * Constantes centralizadas do PsicoSites
  * Evita código duplicado e facilita manutenção
  */
 

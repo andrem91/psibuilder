@@ -14,21 +14,21 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PsiBuilder - Crie seu Site Profissional de Psicologia",
+  title: "PsicoSites - Crie seu Site Profissional de Psicologia",
   description: "A plataforma mais fácil para psicólogos criarem sites profissionais. Grátis, rápido e adequado às normas do CRP.",
   keywords: "psicólogo, site, psicologia, criador de site, CRP, site profissional",
-  authors: [{ name: "PsiBuilder" }],
+  authors: [{ name: "PsicoSites" }],
   openGraph: {
-    title: "PsiBuilder - Site para Psicólogos",
+    title: "PsicoSites - Site para Psicólogos",
     description: "Crie seu site profissional de psicologia em 5 minutos. Grátis, rápido e adequado às normas do CRP.",
-    url: "https://psibuilder.com.br",
-    siteName: "PsiBuilder",
+    url: "https://psicosites.com.br",
+    siteName: "PsicoSites",
     locale: "pt_BR",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "PsiBuilder - Site para Psicólogos",
+    title: "PsicoSites - Site para Psicólogos",
     description: "Crie seu site profissional de psicologia em 5 minutos.",
   },
   robots: {

@@ -30,7 +30,7 @@ export function LandingNavbar() {
                     {/* Logo */}
                     <div className="flex items-center gap-2">
                         <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg" />
-                        <span className="text-xl font-bold text-gray-900">PsiBuilder</span>
+                        <span className="text-xl font-bold text-gray-900">PsicoSites</span>
                     </div>
 
                     {/* Desktop Navigation */}
@@ -80,7 +80,7 @@ export function LandingNavbar() {
                                 <SheetHeader>
                                     <SheetTitle className="flex items-center gap-2">
                                         <div className="w-6 h-6 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg" />
-                                        PsiBuilder
+                                        PsicoSites
                                     </SheetTitle>
                                 </SheetHeader>
                                 <div className="flex flex-col gap-4 mt-8">

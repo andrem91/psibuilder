@@ -5,7 +5,7 @@ import { Progress } from "@/components/ui/progress";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-    title: "Dashboard | PsiBuilder",
+    title: "Dashboard | PsicoSites",
     description: "Gerencie seu site profissional",
 };
 
@@ -82,7 +82,7 @@ export default async function DashboardPage() {
                         <h2 className="font-semibold text-lg mb-1">Status do seu site</h2>
                         <p className="text-indigo-100 text-sm">
                             {site?.is_published
-                                ? `Publicado em ${site.subdomain}.psibuilder.com.br`
+                                ? `Publicado em ${site.subdomain}.psicosites.com.br`
                                 : "Complete seu perfil para publicar"}
                         </p>
                     </div>

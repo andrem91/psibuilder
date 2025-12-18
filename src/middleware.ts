@@ -5,9 +5,9 @@ import { updateSession } from "@/lib/supabase/middleware";
 const APP_DOMAINS = [
     "localhost",
     "127.0.0.1",
-    "psibuilder.com.br",
-    "www.psibuilder.com.br",
-    "psibuilder.vercel.app",
+    "psicosites.com.br",
+    "www.psicosites.com.br",
+    "psicosites.vercel.app",
 ];
 
 // Subdomínios reservados (não são sites de clientes)
@@ -41,10 +41,10 @@ function parseHost(host: string): {
         return { isAppDomain: true, subdomain: null, customDomain: null };
     }
 
-    // Verificar se é um subdomínio do PsiBuilder
-    const psibuilderDomains = ["psibuilder.com.br", "psibuilder.vercel.app"];
+    // Verificar se é um subdomínio do PsicoSites
+    const psicositesDomains = ["psicosites.com.br", "psicosites.vercel.app"];
 
-    for (const domain of psibuilderDomains) {
+    for (const domain of psicositesDomains) {
         if (hostname.endsWith(`.${domain}`)) {
             const subdomain = hostname.replace(`.${domain}`, "");
 
@@ -66,7 +66,7 @@ function parseHost(host: string): {
         return { isAppDomain: false, subdomain, customDomain: null };
     }
 
-    // Se não for subdomínio do PsiBuilder, é domínio customizado
+    // Se não for subdomínio do PsicoSites, é domínio customizado
     return { isAppDomain: false, subdomain: null, customDomain: hostname };
 }
 

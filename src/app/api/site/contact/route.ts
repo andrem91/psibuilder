@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
         // Future implementation with Resend:
         // const resend = new Resend(process.env.RESEND_API_KEY);
         // await resend.emails.send({
-        //     from: "PsiBuilder <noreply@psibuilder.com.br>",
+        //     from: "PsicoSites <noreply@psicosites.com.br>",
         //     to: psychologistEmail,
         //     subject: `Novo contato via site - ${name}`,
         //     html: `<p>Nome: ${name}</p><p>Email: ${email}</p><p>Telefone: ${phone || 'Não informado'}</p><p>Mensagem: ${message}</p>`,

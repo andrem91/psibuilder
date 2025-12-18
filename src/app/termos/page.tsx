@@ -2,8 +2,8 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Termos de Uso | PsiBuilder",
-    description: "Termos de Uso da plataforma PsiBuilder",
+    title: "Termos de Uso | PsicoSites",
+    description: "Termos de Uso da plataforma PsicoSites",
 };
 
 export default function TermosPage() {
@@ -19,7 +19,7 @@ export default function TermosPage() {
                 <section className="mb-8">
                     <h2 className="text-xl font-semibold text-gray-900 mb-4">1. Aceitação dos Termos</h2>
                     <p className="text-gray-600 mb-4">
-                        Ao acessar e usar a plataforma PsiBuilder, você concorda com estes Termos de Uso.
+                        Ao acessar e usar a plataforma PsicoSites, você concorda com estes Termos de Uso.
                         Se você não concordar com qualquer parte destes termos, não deverá usar nossos serviços.
                     </p>
                 </section>
@@ -27,7 +27,7 @@ export default function TermosPage() {
                 <section className="mb-8">
                     <h2 className="text-xl font-semibold text-gray-900 mb-4">2. Descrição do Serviço</h2>
                     <p className="text-gray-600 mb-4">
-                        O PsiBuilder é uma plataforma que permite a psicólogos e profissionais de saúde mental
+                        O PsicoSites é uma plataforma que permite a psicólogos e profissionais de saúde mental
                         criar e gerenciar sites profissionais de forma simples e rápida.
                     </p>
                 </section>
@@ -48,7 +48,7 @@ export default function TermosPage() {
                 <section className="mb-8">
                     <h2 className="text-xl font-semibold text-gray-900 mb-4">4. Uso Aceitável</h2>
                     <p className="text-gray-600 mb-4">
-                        Você concorda em usar o PsiBuilder apenas para fins legais e de acordo com as
+                        Você concorda em usar o PsicoSites apenas para fins legais e de acordo com as
                         normas do Conselho Federal de Psicologia (CFP). É proibido:
                     </p>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-2">
@@ -79,7 +79,7 @@ export default function TermosPage() {
                 <section className="mb-8">
                     <h2 className="text-xl font-semibold text-gray-900 mb-4">7. Limitação de Responsabilidade</h2>
                     <p className="text-gray-600 mb-4">
-                        O PsiBuilder não se responsabiliza pelo conteúdo publicado pelos usuários ou
+                        O PsicoSites não se responsabiliza pelo conteúdo publicado pelos usuários ou
                         pela relação entre psicólogos e seus pacientes.
                     </p>
                 </section>
@@ -88,8 +88,8 @@ export default function TermosPage() {
                     <h2 className="text-xl font-semibold text-gray-900 mb-4">8. Contato</h2>
                     <p className="text-gray-600 mb-4">
                         Em caso de dúvidas sobre estes termos, entre em contato através do email:
-                        <a href="mailto:contato@psibuilder.com.br" className="text-indigo-600 hover:underline ml-1">
-                            contato@psibuilder.com.br
+                        <a href="mailto:contato@psicosites.com.br" className="text-indigo-600 hover:underline ml-1">
+                            contato@psicosites.com.br
                         </a>
                     </p>
                 </section>

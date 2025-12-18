@@ -46,7 +46,7 @@ export function ProblemSolutionSection() {
                             <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
                                 <CheckIcon />
                             </div>
-                            <h3 className="text-xl font-bold text-gray-900">Com PsiBuilder</h3>
+                            <h3 className="text-xl font-bold text-gray-900">Com PsicoSites</h3>
                         </div>
                         <ul className="space-y-4">
                             <li className="flex items-start gap-3 text-gray-600">
@@ -79,7 +79,7 @@ export function ForWhoSection() {
             <div className="max-w-7xl mx-auto px-4">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                        O PsiBuilder é para você se...
+                        O PsicoSites é para você se...
                     </h2>
                     <p className="text-xl text-gray-600 max-w-2xl mx-auto">
                         Reconhece alguma dessas situações?
@@ -150,7 +150,7 @@ export function ROISection() {
                             <p className="text-4xl font-bold">R$ 400/mês</p>
                         </div>
                         <div>
-                            <p className="text-green-200 text-sm mb-2">Plano Pro do PsiBuilder</p>
+                            <p className="text-green-200 text-sm mb-2">Plano Pro do PsicoSites</p>
                             <p className="text-4xl font-bold">R$ 49/mês</p>
                         </div>
                     </div>

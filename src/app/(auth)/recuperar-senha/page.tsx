@@ -3,8 +3,8 @@ import Link from "next/link";
 import { PasswordRecoveryForm } from "./password-recovery-form";
 
 export const metadata: Metadata = {
-    title: "Recuperar Senha | PsiBuilder",
-    description: "Recupere sua senha do PsiBuilder",
+    title: "Recuperar Senha | PsicoSites",
+    description: "Recupere sua senha do PsicoSites",
 };
 
 export default function RecuperarSenhaPage() {
@@ -17,7 +17,7 @@ export default function RecuperarSenhaPage() {
                         <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
                             <span className="text-white font-bold text-lg">P</span>
                         </div>
-                        <span className="text-2xl font-bold text-gray-900">PsiBuilder</span>
+                        <span className="text-2xl font-bold text-gray-900">PsicoSites</span>
                     </div>
                     <h1 className="text-xl font-semibold text-gray-900">Recuperar Senha</h1>
                     <p className="text-gray-500 mt-1">

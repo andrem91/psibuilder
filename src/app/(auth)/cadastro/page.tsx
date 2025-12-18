@@ -11,8 +11,8 @@ import {
 import { SignUpForm } from "./signup-form";
 
 export const metadata: Metadata = {
-    title: "Criar Conta | PsiBuilder",
-    description: "Crie sua conta grátis no PsiBuilder e tenha seu site profissional em 5 minutos",
+    title: "Criar Conta | PsicoSites",
+    description: "Crie sua conta grátis no PsicoSites e tenha seu site profissional em 5 minutos",
 };
 
 export default function CadastroPage() {

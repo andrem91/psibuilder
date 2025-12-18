@@ -2,8 +2,8 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Política de Privacidade | PsiBuilder",
-    description: "Política de Privacidade da plataforma PsiBuilder",
+    title: "Política de Privacidade | PsicoSites",
+    description: "Política de Privacidade da plataforma PsicoSites",
 };
 
 export default function PrivacidadePage() {
@@ -19,7 +19,7 @@ export default function PrivacidadePage() {
                 <section className="mb-8">
                     <h2 className="text-xl font-semibold text-gray-900 mb-4">1. Introdução</h2>
                     <p className="text-gray-600 mb-4">
-                        O PsiBuilder está comprometido com a proteção de seus dados pessoais.
+                        O PsicoSites está comprometido com a proteção de seus dados pessoais.
                         Esta política descreve como coletamos, usamos e protegemos suas informações,
                         em conformidade com a Lei Geral de Proteção de Dados (LGPD).
                     </p>
@@ -99,8 +99,8 @@ export default function PrivacidadePage() {
                     <h2 className="text-xl font-semibold text-gray-900 mb-4">8. Contato do DPO</h2>
                     <p className="text-gray-600 mb-4">
                         Para exercer seus direitos ou esclarecer dúvidas sobre privacidade:
-                        <a href="mailto:privacidade@psibuilder.com.br" className="text-indigo-600 hover:underline ml-1">
-                            privacidade@psibuilder.com.br
+                        <a href="mailto:privacidade@psicosites.com.br" className="text-indigo-600 hover:underline ml-1">
+                            privacidade@psicosites.com.br
                         </a>
                     </p>
                 </section>

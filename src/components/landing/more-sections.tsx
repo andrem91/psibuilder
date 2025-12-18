@@ -7,7 +7,7 @@ export function PreviewSection() {
                         Veja como seu site pode ficar
                     </h2>
                     <p className="text-xl text-gray-600">
-                        Exemplo real de site criado com PsiBuilder
+                        Exemplo real de site criado com PsicoSites
                     </p>
                 </div>
 
@@ -22,7 +22,7 @@ export function PreviewSection() {
                             </div>
                             <div className="flex-1 flex justify-center">
                                 <div className="bg-white rounded-lg px-4 py-1 text-sm text-gray-500 border">
-                                    dra-maria-silva.psibuilder.com.br
+                                    dra-maria-silva.psicosites.com.br
                                 </div>
                             </div>
                         </div>
@@ -83,7 +83,7 @@ export function BenefitsSection() {
             <div className="max-w-7xl mx-auto px-4">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                        Por que psicólogos escolhem o PsiBuilder?
+                        Por que psicólogos escolhem o PsicoSites?
                     </h2>
                     <p className="text-xl text-gray-600 max-w-2xl mx-auto">
                         Entendemos as necessidades específicas da sua profissão

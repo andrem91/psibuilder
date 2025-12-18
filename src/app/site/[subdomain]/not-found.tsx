@@ -16,7 +16,7 @@ export default async function SiteNotFound({ params }: SiteNotFoundProps) {
                     Este site ainda não foi publicado ou não existe.
                 </p>
                 <Link
-                    href="https://psibuilder.com.br"
+                    href="https://psicosites.com.br"
                     className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
                 >
                     Criar seu próprio site

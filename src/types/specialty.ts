@@ -1,4 +1,4 @@
-// Tipos compartilhados do PsiBuilder
+// Tipos compartilhados do PsicoSites
 
 /**
  * Especialidade com ícone e descrição

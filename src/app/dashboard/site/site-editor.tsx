@@ -232,7 +232,7 @@ export function SiteEditor({ profile, site }: SiteEditorProps) {
                             rel="noopener noreferrer"
                             className="text-indigo-600 font-medium hover:underline"
                         >
-                            {site.subdomain}.psibuilder.com.br
+                            {site.subdomain}.psicosites.com.br
                         </a>
                     </div>
                     <div className="flex items-center gap-4">
@@ -725,7 +725,7 @@ export function SiteEditor({ profile, site }: SiteEditorProps) {
                                         {seoData.site_title || "Título do seu site"}
                                     </p>
                                     <p className="text-green-700 text-sm">
-                                        {site.subdomain}.psibuilder.com.br
+                                        {site.subdomain}.psicosites.com.br
                                     </p>
                                     <p className="text-gray-600 text-sm mt-1">
                                         {seoData.meta_description || "Descrição do seu site aparecerá aqui..."}

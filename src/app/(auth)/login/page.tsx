@@ -11,8 +11,8 @@ import {
 import { LoginForm } from "./login-form";
 
 export const metadata: Metadata = {
-    title: "Login | PsiBuilder",
-    description: "Acesse sua conta no PsiBuilder",
+    title: "Login | PsicoSites",
+    description: "Acesse sua conta no PsicoSites",
 };
 
 export default function LoginPage() {

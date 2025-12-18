@@ -11,7 +11,7 @@ import {
 import { AtualizarSenhaForm } from "./atualizar-senha-form";
 
 export const metadata: Metadata = {
-    title: "Atualizar Senha | PsiBuilder",
+    title: "Atualizar Senha | PsicoSites",
     description: "Defina sua nova senha",
 };
 

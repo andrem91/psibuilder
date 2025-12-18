@@ -10,7 +10,7 @@ import {
 const faqs = [
     {
         question: "Preciso saber programar?",
-        answer: "Não! O PsiBuilder foi feito para ser fácil. Você só precisa preencher suas informações e escolher as cores. Tudo é visual, como editar um documento do Word."
+        answer: "Não! O PsicoSites foi feito para ser fácil. Você só precisa preencher suas informações e escolher as cores. Tudo é visual, como editar um documento do Word."
     },
     {
         question: "Posso usar meu próprio domínio?",

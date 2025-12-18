@@ -11,7 +11,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
                         <span className="text-white font-bold text-lg">P</span>
                     </div>
                     <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                        PsiBuilder
+                        PsicoSites
                     </span>
                 </Link>
             </header>
@@ -23,7 +23,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
             {/* Footer */}
             <footer className="w-full p-6 text-center text-sm text-gray-500">
-                © {new Date().getFullYear()} PsiBuilder. Todos os direitos reservados.
+                © {new Date().getFullYear()} PsicoSites. Todos os direitos reservados.
             </footer>
         </div>
     );

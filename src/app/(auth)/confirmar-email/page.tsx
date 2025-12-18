@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-    title: "Confirme seu Email | PsiBuilder",
+    title: "Confirme seu Email | PsicoSites",
     description: "Verifique sua caixa de entrada para confirmar seu cadastro",
 };
 

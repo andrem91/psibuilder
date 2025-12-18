@@ -67,7 +67,7 @@ export function TestimonialsSection() {
                             ))}
                         </div>
                         <p className="text-gray-600 mb-6">
-                            &quot;Tentei fazer um site sozinha e desisti. Com o PsiBuilder foi
+                            &quot;Tentei fazer um site sozinha e desisti. Com o PsicoSites foi
                             tão fácil que até minha mãe conseguiria. Recomendo demais!&quot;
                         </p>
                         <div className="flex items-center gap-3">

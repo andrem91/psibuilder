@@ -2,8 +2,8 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Política de Cookies | PsiBuilder",
-    description: "Política de Cookies da plataforma PsiBuilder",
+    title: "Política de Cookies | PsicoSites",
+    description: "Política de Cookies da plataforma PsicoSites",
 };
 
 export default function CookiesPage() {
@@ -28,7 +28,7 @@ export default function CookiesPage() {
                 <section className="mb-8">
                     <h2 className="text-xl font-semibold text-gray-900 mb-4">2. Como Usamos Cookies</h2>
                     <p className="text-gray-600 mb-4">
-                        O PsiBuilder utiliza cookies para:
+                        O PsicoSites utiliza cookies para:
                     </p>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-2">
                         <li><strong>Autenticação:</strong> manter você logado</li>
@@ -104,8 +104,8 @@ export default function CookiesPage() {
                     <h2 className="text-xl font-semibold text-gray-900 mb-4">7. Contato</h2>
                     <p className="text-gray-600 mb-4">
                         Dúvidas sobre cookies? Entre em contato:
-                        <a href="mailto:contato@psibuilder.com.br" className="text-indigo-600 hover:underline ml-1">
-                            contato@psibuilder.com.br
+                        <a href="mailto:contato@psicosites.com.br" className="text-indigo-600 hover:underline ml-1">
+                            contato@psicosites.com.br
                         </a>
                     </p>
                 </section>

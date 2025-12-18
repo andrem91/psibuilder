@@ -77,7 +77,7 @@ export function PricingSection() {
                             </li>
                             <li className="flex items-center gap-3">
                                 <XIcon />
-                                <span className="text-gray-400">Remover marca PsiBuilder</span>
+                                <span className="text-gray-400">Remover marca PsicoSites</span>
                             </li>
                         </ul>
 
@@ -133,7 +133,7 @@ export function PricingSection() {
                             </li>
                             <li className="flex items-center gap-3">
                                 <CheckIcon />
-                                <span>Remover marca PsiBuilder</span>
+                                <span>Remover marca PsicoSites</span>
                             </li>
                             <li className="flex items-center gap-3">
                                 <CheckIcon />
