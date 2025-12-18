@@ -33,7 +33,7 @@ WHERE user_id = 'UUID_DO_USUARIO';
 
 ### Opção 2: Link com Parâmetro
 
-URL: `psicosites.com.br/cadastro?beta=CODIGO2024`
+URL: `psicosites.com.br/cadastro?beta=CODIGO2026`
 
 Código no onboarding:
 ```typescript
@@ -41,7 +41,7 @@ Código no onboarding:
 const searchParams = useSearchParams();
 const betaCode = searchParams.get('beta');
 
-if (betaCode === 'CODIGO2024') {
+if (betaCode === 'CODIGO2026') {
     // Criar subscription com Pro por 3 meses
     await supabase.from('subscriptions').upsert({
         user_id: user.id,

@@ -1,6 +1,6 @@
 # 🛡️ Módulo Admin - Plano de Implementação Técnico
 
-**Última atualização:** 18/12/2024  
+**Última atualização:** Janeiro/2026  
 **Autor:** PsiBuilder Team  
 **Prioridade:** Alta
 

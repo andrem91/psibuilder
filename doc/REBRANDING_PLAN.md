@@ -1,6 +1,6 @@
 # 🔄 Plano de Rebranding: PsiBuilder → PsicoSites
 
-**Data:** 18/12/2024  
+**Data:** Janeiro/2026  
 **Novo domínio:** psicosites.com.br
 
 ---

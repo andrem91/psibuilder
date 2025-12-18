@@ -1,6 +1,6 @@
 # 🗺️ Roadmap - PsicoSites
 
-**Última atualização:** 18/12/2024  
+**Última atualização:** Janeiro/2026  
 **Versão:** 2.6 (Beta Program Added)
 
 ---
