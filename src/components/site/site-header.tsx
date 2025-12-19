@@ -4,11 +4,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { ScrollLink } from "@/components/ui/scroll-link";
+import { FontPreset } from "@/lib/font-presets";
 
 interface SiteHeaderProps {
     siteName: string;
     logo?: string;
     primaryColor?: string;
+    fontPreset?: FontPreset;
     navItems?: { label: string; href: string }[];
 }
 
@@ -16,14 +18,21 @@ export function SiteHeader({
     siteName,
     logo,
     primaryColor = "#6366f1",
+    fontPreset,
     navItems = [],
 }: SiteHeaderProps) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+    // Estilo para nome estilizado (quando não tem logo)
+    const styledNameStyle = fontPreset ? {
+        fontFamily: `"${fontPreset.headingFont}", serif`,
+        fontWeight: fontPreset.headingWeight,
+    } : {};
+
     return (
         <header className="sticky top-0 z-50 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b border-gray-100">
             <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-                {/* Logo / Nome */}
+                {/* Logo / Nome Estilizado */}
                 <Link href="/" className="flex items-center gap-3">
                     {logo ? (
                         <div className="relative w-10 h-10">
@@ -36,14 +45,25 @@ export function SiteHeader({
                             />
                         </div>
                     ) : (
-                        <div
-                            className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold"
-                            style={{ backgroundColor: primaryColor }}
-                        >
-                            {siteName.charAt(0).toUpperCase()}
+                        /* Nome estilizado quando não tem logo */
+                        <div className="flex items-center gap-2">
+                            {/* Inicial decorativa */}
+                            <div
+                                className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-lg"
+                                style={{
+                                    backgroundColor: primaryColor,
+                                    ...styledNameStyle
+                                }}
+                            >
+                                {siteName.charAt(0).toUpperCase()}
+                            </div>
                         </div>
                     )}
-                    <span className="text-lg font-semibold text-gray-900 hidden sm:block">
+                    {/* Nome sempre visível, estilizado com fonte do preset */}
+                    <span
+                        className="text-xl text-gray-900 hidden sm:block"
+                        style={styledNameStyle}
+                    >
                         {siteName}
                     </span>
                 </Link>
@@ -120,3 +140,4 @@ export function SiteHeader({
         </header>
     );
 }
+

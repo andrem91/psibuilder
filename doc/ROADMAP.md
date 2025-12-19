@@ -123,7 +123,7 @@
 | Item | Descrição | Status | Prioridade |
 |------|-----------|--------|------------|
 | Iniciais automáticas | Avatar com iniciais do nome se não tiver logo | ✅ Concluído | MVP |
-| Nome estilizado | Exibir nome com tipografia bonita se não tiver logo | ⏳ Pendente | MVP |
+| Nome estilizado | Exibir nome com tipografia bonita se não tiver logo | ✅ Concluído | MVP |
 | Templates de logo prontos | 5-10 ícones relacionados a psicologia | ⏳ Pendente | v2 |
 | Gerador de logo simples | Escolher ícone + cor + iniciais | ⏳ Pendente | v2 |
 | Geração com IA | Criar logo baseado no nome e especialidade | ⏳ Pendente | Futuro |
@@ -237,9 +237,9 @@
 
 | Item | Descrição | Status |
 |------|-----------|--------|
-| Sistema de fontes hierárquico | Títulos (Playfair/Lora) + Corpo (Inter) | ⏳ Pendente |
-| Seletor de combinações de fonte | Clássico, Moderno, Acolhedor | ⏳ Pendente |
-| Tipografia responsiva | Tamanhos menores no mobile | ⏳ Pendente |
+| Sistema de fontes hierárquico | Títulos (Playfair/Lora) + Corpo (Inter) | ✅ Concluído |
+| Seletor de combinações de fonte | Clássico, Moderno, Acolhedor | ✅ Concluído |
+| Tipografia responsiva | Tamanhos menores no mobile | ✅ Concluído |
 
 ### Rodapé (Footer)
 

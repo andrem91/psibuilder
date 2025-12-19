@@ -76,6 +76,7 @@ export interface SiteTestimonial {
 
 export interface SiteTheme {
     primaryColor: string;
+    fontPreset?: string;
 }
 
 // Props base para todos os componentes de seção

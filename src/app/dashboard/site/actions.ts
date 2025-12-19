@@ -41,6 +41,7 @@ interface SiteTheme {
     primaryColor: string;
     backgroundColor: string;
     fontFamily: string;
+    fontPreset?: string;
 }
 
 interface SiteData {

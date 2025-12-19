@@ -13,6 +13,7 @@ import { TestimonialsEditor } from "@/components/site/testimonials-editor";
 import { SpecialtyEditor } from "@/components/site/specialty-editor";
 import { Specialty } from "@/types/specialty";
 import { updateProfile, updateSiteConfig, togglePublishSite } from "./actions";
+import { FONT_PRESETS, DEFAULT_FONT_PRESET } from "@/lib/font-presets";
 
 // Função para remover tags HTML de uma string
 function stripHtml(html: string): string {
@@ -74,6 +75,7 @@ interface SiteEditorProps {
             primaryColor: string;
             backgroundColor: string;
             fontFamily: string;
+            fontPreset?: string;
         };
         show_ethics_section?: boolean;
         ethics_content?: string;
@@ -115,6 +117,7 @@ export function SiteEditor({ profile, site }: SiteEditorProps) {
 
     const [themeData, setThemeData] = useState({
         primaryColor: site.theme_config?.primaryColor || "#5B8FB9",
+        fontPreset: site.theme_config?.fontPreset || DEFAULT_FONT_PRESET,
     });
 
     const [seoData, setSeoData] = useState({
@@ -190,6 +193,7 @@ export function SiteEditor({ profile, site }: SiteEditorProps) {
                     primaryColor: themeData.primaryColor,
                     backgroundColor: "#ffffff",
                     fontFamily: "Inter",
+                    fontPreset: themeData.fontPreset,
                 },
             });
             if (result.error) {
@@ -697,6 +701,45 @@ export function SiteEditor({ profile, site }: SiteEditorProps) {
                                         }
                                         className="w-32"
                                     />
+                                </div>
+                            </div>
+
+                            {/* Seletor de Tipografia */}
+                            <div className="pt-6 border-t border-gray-200">
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    🎨 Estilo de Tipografia
+                                </label>
+                                <p className="text-sm text-gray-500 mb-4">
+                                    Escolha uma combinação de fontes para títulos e textos
+                                </p>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    {Object.values(FONT_PRESETS).map((preset) => (
+                                        <button
+                                            key={preset.id}
+                                            type="button"
+                                            onClick={() =>
+                                                setThemeData({ ...themeData, fontPreset: preset.id })
+                                            }
+                                            className={`p-4 rounded-xl border-2 text-left transition-all ${themeData.fontPreset === preset.id
+                                                ? "border-indigo-500 bg-indigo-50"
+                                                : "border-gray-200 hover:border-gray-300"
+                                                }`}
+                                        >
+                                            <div className="mb-2">
+                                                <span
+                                                    className="text-2xl text-gray-900"
+                                                    style={{ fontFamily: `"${preset.headingFont}", serif` }}
+                                                >
+                                                    Aa
+                                                </span>
+                                            </div>
+                                            <h4 className="font-semibold text-gray-900">{preset.name}</h4>
+                                            <p className="text-xs text-gray-500">{preset.description}</p>
+                                            <p className="text-xs text-gray-400 mt-1">
+                                                {preset.headingFont} + {preset.bodyFont}
+                                            </p>
+                                        </button>
+                                    ))}
                                 </div>
                             </div>
 

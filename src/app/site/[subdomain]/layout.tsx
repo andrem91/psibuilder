@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import { SiteHeader, SiteFooter, WhatsAppButton } from "@/components/site";
 import { ReactNode } from "react";
+import { getFontPreset, getGoogleFontsUrl, getFontCSSVariables } from "@/lib/font-presets";
 
 interface SiteLayoutProps {
     children: ReactNode;
@@ -53,42 +54,59 @@ export default async function SiteLayout({ children, params }: SiteLayoutProps) 
     const theme = site.theme_config || {};
     const primaryColor = theme.primaryColor || "#6366f1";
 
+    // Obter preset de fonte
+    const fontPreset = getFontPreset(theme.fontPreset);
+    const googleFontsUrl = getGoogleFontsUrl(fontPreset);
+    const fontVariables = getFontCSSVariables(fontPreset);
+
     return (
-        <div className="min-h-screen flex flex-col">
-            {/* Header */}
-            <SiteHeader
-                siteName={profile?.full_name || "Psicólogo"}
-                logo={profile?.logo_url}
-                primaryColor={primaryColor}
-                navItems={[
-                    { label: "Início", href: "/" },
-                    { label: "Sobre", href: "/#sobre" },
-                    { label: "Especialidades", href: "/#especialidades" },
-                    ...(site.show_blog !== false ? [{ label: "Blog", href: "/blog" }] : []),
-                    { label: "Contato", href: "/#contato" },
-                ]}
-            />
+        <>
+            {/* Google Fonts */}
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+            <link href={googleFontsUrl} rel="stylesheet" />
 
-            {/* Conteúdo principal */}
-            <main className="flex-1">{children}</main>
-
-            {/* Footer */}
-            <SiteFooter
-                siteName={profile?.full_name || "Psicólogo"}
-                crp={profile?.crp}
-                email={profile?.email}
-                whatsapp={profile?.whatsapp}
-                primaryColor={primaryColor}
-                showLgpd={site.show_lgpd_section !== false}
-            />
-
-            {/* Botão WhatsApp flutuante */}
-            {profile?.whatsapp && (
-                <WhatsAppButton
-                    whatsapp={profile.whatsapp}
-                    message={`Olá ${profile.full_name?.split(" ")[0]}! Vi seu site e gostaria de agendar uma consulta.`}
+            <div
+                className="min-h-screen flex flex-col"
+                style={fontVariables as React.CSSProperties}
+            >
+                {/* Header */}
+                <SiteHeader
+                    siteName={profile?.full_name || "Psicólogo"}
+                    logo={profile?.logo_url}
+                    primaryColor={primaryColor}
+                    fontPreset={fontPreset}
+                    navItems={[
+                        { label: "Início", href: "/" },
+                        { label: "Sobre", href: "/#sobre" },
+                        { label: "Especialidades", href: "/#especialidades" },
+                        ...(site.show_blog !== false ? [{ label: "Blog", href: "/blog" }] : []),
+                        { label: "Contato", href: "/#contato" },
+                    ]}
                 />
-            )}
-        </div>
+
+                {/* Conteúdo principal */}
+                <main className="flex-1">{children}</main>
+
+                {/* Footer */}
+                <SiteFooter
+                    siteName={profile?.full_name || "Psicólogo"}
+                    crp={profile?.crp}
+                    email={profile?.email}
+                    whatsapp={profile?.whatsapp}
+                    primaryColor={primaryColor}
+                    showLgpd={site.show_lgpd_section !== false}
+                />
+
+                {/* Botão WhatsApp flutuante */}
+                {profile?.whatsapp && (
+                    <WhatsAppButton
+                        whatsapp={profile.whatsapp}
+                        message={`Olá ${profile.full_name?.split(" ")[0]}! Vi seu site e gostaria de agendar uma consulta.`}
+                    />
+                )}
+            </div>
+        </>
     );
 }
+

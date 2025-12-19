@@ -108,8 +108,15 @@ export function SiteHeroSection({ profile, primaryColor }: SiteHeroProps) {
                             )}
                         </div>
 
-                        {/* Nome */}
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 leading-tight">
+                        {/* Nome - Tipografia responsiva com fonte de título */}
+                        <h1
+                            className="text-gray-900 mb-4 leading-tight"
+                            style={{
+                                fontFamily: 'var(--font-heading, inherit)',
+                                fontWeight: 'var(--font-heading-weight, 700)',
+                                fontSize: 'clamp(2.25rem, 5vw, 3.75rem)',
+                            }}
+                        >
                             {profile?.full_name}
                         </h1>
 
