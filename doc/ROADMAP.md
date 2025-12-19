@@ -93,6 +93,16 @@
 | Comparativo de períodos | "Este mês vs mês passado" nas stats | ⏳ Pendente |
 | Reorganizar Ética/LGPD | Mover de /site para /conta, renomear para "Privacidade" | ⏳ Pendente |
 | Remover seção Ética do site público | Deixar apenas na página de Privacidade | ⏳ Pendente |
+| Campo Gênero no onboarding | Obrigatório para personalizar nomenclatura | ⏳ Pendente |
+| Campo Título Profissional | Opcional, ex: "Psicóloga Clínica", "Neuropsicólogo" | ⏳ Pendente |
+
+#### Nomenclatura e Gênero
+| Item | Descrição | Status |
+|------|-----------|--------|
+| Substituir "Psicólogo(a)" | Usar gênero do perfil (Psicólogo/Psicóloga) | ⏳ Pendente |
+| Título baseado em especialidade | Ex: "Especialista em Ansiedade" se não tiver título | ⏳ Pendente |
+| Atualizar landing page | Usar termos inclusivos/neutros onde necessário | ⏳ Pendente |
+| Atualizar textos do dashboard | Personalizar saudações e labels | ⏳ Pendente |
 
 #### Página Pública do Psicólogo
 | Item | Descrição | Status |
@@ -106,6 +116,8 @@
 | Metodologias/Abordagens | TCC, Psicanálise, Gestalt, EMDR, etc | ⏳ Pendente |
 | Público-alvo | Crianças, adultos, casais, idosos, empresas | ⏳ Pendente |
 | Idiomas de atendimento | "Atendo em Inglês, Espanhol" | ⏳ Pendente |
+| Badge Online/Presencial no Hero | Indicar tipo de atendimento no hero | ⏳ Pendente |
+| Remover especialidades do Hero | Mover para seção própria | ⏳ Pendente |
 
 #### Logo para Psicólogos (Sem Logo)
 | Item | Descrição | Status | Prioridade |
