@@ -156,6 +156,12 @@
 | Agendamento de posts | Publicar artigo em data futura | ⏳ Pendente |
 | Limit 3 especialidades Free | Restringir plano gratuito | ⏳ Pendente |
 
+#### Blog
+| Item | Descrição | Status |
+|------|-----------|--------|
+| Migrar para Sanity CMS | Headless CMS para melhor UX de edição | 📋 Backlog |
+| Duplicar artigo | Clonar post existente | 📋 Backlog |
+
 #### Página Pública do Psicólogo
 | Item | Descrição | Status |
 |------|-----------|--------|
