@@ -101,6 +101,15 @@
 | Preços/Valores | Tabela de preços (opcional) | ⏳ Pendente |
 | Botão Instagram flutuante | Além do WhatsApp | ⏳ Pendente |
 
+#### Logo para Psicólogos (Sem Logo)
+| Item | Descrição | Status | Prioridade |
+|------|-----------|--------|------------|
+| Iniciais automáticas | Avatar com iniciais do nome se não tiver logo | ⏳ Pendente | MVP |
+| Nome estilizado | Exibir nome com tipografia bonita se não tiver logo | ⏳ Pendente | MVP |
+| Templates de logo prontos | 5-10 ícones relacionados a psicologia | ⏳ Pendente | v2 |
+| Gerador de logo simples | Escolher ícone + cor + iniciais | ⏳ Pendente | v2 |
+| Geração com IA | Criar logo baseado no nome e especialidade | ⏳ Pendente | Futuro |
+
 #### Analytics
 | Item | Descrição | Status |
 |------|-----------|--------|
@@ -175,7 +184,7 @@
 | Redes sociais no footer | Ícones das redes configuradas | ⏳ Pendente |
 | Endereço do consultório | Exibir se atende presencial | ⏳ Pendente |
 | Mover políticas | Privacidade e Cookies na linha inferior | ⏳ Pendente |
-| Crédito PsiBuilder | "Desenvolvido por PsiBuilder" | ⏳ Pendente |
+| Crédito PsicoSites | "Desenvolvido por PsicoSites" | ⏳ Pendente |
 
 ### Melhorias Visuais
 
@@ -212,7 +221,7 @@
 
 ---
 
-## 🔍 SEO - Landing Page (PsiBuilder)
+## 🔍 SEO - Landing Page (PsicoSites)
 
 > Melhorias de SEO para a plataforma principal
 
@@ -363,7 +372,7 @@
 | Domínio próprio | ❌ | ✅ | ✅ |
 | Blog | ⚠️ 3 posts | ✅ Ilimitado | ✅ Ilimitado |
 | Estatísticas | ❌ | ✅ | ✅ |
-| Remover "by PsiBuilder" | ❌ | ❌ | ✅ |
+| Remover "by PsicoSites" | ❌ | ❌ | ✅ |
 | Fontes premium | ❌ | ✅ | ✅ |
 | Vídeo de apresentação | ❌ | ✅ | ✅ |
 | Google Analytics próprio | ❌ | ✅ | ✅ |
