@@ -100,6 +100,10 @@
 | Certificações/Formações | Seção com cursos e especializações | ⏳ Pendente |
 | Preços/Valores | Tabela de preços (opcional) | ⏳ Pendente |
 | Botão Instagram flutuante | Além do WhatsApp | ⏳ Pendente |
+| Horários de atendimento | "Seg-Sex, 8h-20h" com dias e horários | ⏳ Pendente |
+| Metodologias/Abordagens | TCC, Psicanálise, Gestalt, EMDR, etc | ⏳ Pendente |
+| Público-alvo | Crianças, adultos, casais, idosos, empresas | ⏳ Pendente |
+| Idiomas de atendimento | "Atendo em Inglês, Espanhol" | ⏳ Pendente |
 
 #### Logo para Psicólogos (Sem Logo)
 | Item | Descrição | Status | Prioridade |
@@ -548,6 +552,21 @@
 | Widget de agendamento | Embed do Calendly/Google | 📋 Backlog |
 | Google Meu Negócio | Sincronizar dados | 📋 Backlog |
 | Modo "Em férias" | Aviso temporário no site | 📋 Backlog |
+
+### 🏥 Conteúdo Adicional para Sites
+
+| Item | Descrição | Status |
+|------|-----------|--------|
+| Galeria de fotos | Fotos do consultório | 📋 Backlog |
+| Área de recursos | PDFs, exercícios para download | 📋 Backlog |
+| Convênios aceitos | Lista de planos de saúde | 📋 Backlog |
+| Parceiros | Clínicas, empresas parceiras | 📋 Backlog |
+| Newsletter | Captura de emails dos visitantes | 📋 Backlog |
+| Podcast/Mídia | Participações em podcasts, TV | 📋 Backlog |
+| E-books | Download de materiais gratuitos | 📋 Backlog |
+| Cursos online | Acesso a cursos gravados | 📋 Backlog |
+| Portal do paciente | Área logada para pacientes | 📋 Backlog |
+| Agendamento online nativo | Calendário para marcar sessão | 📋 Backlog |
 
 ---
 
