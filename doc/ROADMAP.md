@@ -256,16 +256,16 @@
 
 | Item | Descrição | Status |
 |------|-----------|--------|
-| Gradientes no Hero | Background com gradiente suave | ⏳ Pendente |
-| Animações sutis | Texto/botões com fade-in | ⏳ Pendente |
+| Gradientes no Hero | Background com gradiente suave | ✅ Concluído |
+| Animações sutis | Texto/botões com fade-in | ✅ Concluído |
 | Layout Sobre | Imagem maior + texto ao lado | ⏳ Pendente |
-| Cards com hover effect | Elevação e transição suave | ⏳ Pendente |
+| Cards com hover effect | Elevação e transição suave | ✅ Concluído |
 | Carousel depoimentos | Transição suave entre slides | ⏳ Pendente |
 | Accordion FAQ | Animação de abertura/fechamento | ⏳ Pendente |
 | Seção CTA destacada | Background diferenciado | ⏳ Pendente |
-| Espaçamento entre seções | Padding maior e consistente | ⏳ Pendente |
-| Bordas arredondadas | rounded-2xl padrão | ⏳ Pendente |
-| Sombras suaves | Elevação sutil em cards | ⏳ Pendente |
+| Espaçamento entre seções | Padding maior e consistente | ✅ Concluído |
+| Bordas arredondadas | rounded-2xl padrão | ✅ Concluído |
+| Sombras suaves | Elevação sutil em cards | ✅ Concluído |
 
 ### Elementos Decorativos
 

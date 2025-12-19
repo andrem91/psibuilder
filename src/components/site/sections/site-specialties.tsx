@@ -23,10 +23,10 @@ export function SiteSpecialtiesSection({
         : (specialties || []).map((name: string) => ({ name, description: "", icon: "heart" }));
 
     return (
-        <section id="especialidades" className="py-20 px-4 bg-gray-50">
+        <section id="especialidades" className="section-spacing px-4 bg-gray-50">
             <div className="max-w-5xl mx-auto">
                 <h2
-                    className="text-3xl font-bold mb-12 text-center"
+                    className="text-3xl font-bold mb-12 text-center animate-fade-in-up"
                     style={{ color: primaryColor }}
                 >
                     Áreas de Atuação
@@ -35,7 +35,7 @@ export function SiteSpecialtiesSection({
                     {items.map((specialty: SiteSpecialty, index: number) => (
                         <div
                             key={index}
-                            className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
+                            className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover-lift"
                         >
                             <div
                                 className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"

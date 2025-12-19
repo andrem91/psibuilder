@@ -35,7 +35,7 @@ export function SiteHeroSection({ profile, primaryColor }: SiteHeroProps) {
                 <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
                     {/* Lado Direito - Imagem */}
-                    <div className="order-2 lg:order-2 flex justify-center lg:justify-end">
+                    <div className="order-2 lg:order-2 flex justify-center lg:justify-end animate-slide-right delay-300">
                         {profile?.profile_image_url ? (
                             <div className="relative">
                                 {/* Sombra decorativa */}
@@ -74,7 +74,7 @@ export function SiteHeroSection({ profile, primaryColor }: SiteHeroProps) {
                     {/* Lado Esquerdo - Informações */}
                     <div className="order-1 lg:order-1 text-center lg:text-left">
                         {/* Tag de identificação + Badges de modalidade */}
-                        <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-6">
+                        <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-6 animate-fade-in-up">
                             <div
                                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium"
                                 style={{
@@ -110,7 +110,7 @@ export function SiteHeroSection({ profile, primaryColor }: SiteHeroProps) {
 
                         {/* Nome - Tipografia responsiva com fonte de título */}
                         <h1
-                            className="text-gray-900 mb-4 leading-tight"
+                            className="text-gray-900 mb-4 leading-tight animate-fade-in-up delay-100"
                             style={{
                                 fontFamily: 'var(--font-heading, inherit)',
                                 fontWeight: 'var(--font-heading-weight, 700)',
@@ -130,13 +130,13 @@ export function SiteHeroSection({ profile, primaryColor }: SiteHeroProps) {
                         {/* Frase de apresentação */}
                         {profile?.bio_short && (
                             <div
-                                className="text-gray-600 text-lg leading-relaxed mb-10 max-w-xl [&_p]:mb-0"
+                                className="text-gray-600 text-lg leading-relaxed mb-10 max-w-xl [&_p]:mb-0 animate-fade-in-up delay-200"
                                 dangerouslySetInnerHTML={{ __html: sanitizeHtml(profile.bio_short) }}
                             />
                         )}
 
                         {/* CTAs */}
-                        <div className="flex flex-wrap justify-center lg:justify-start gap-4">
+                        <div className="flex flex-wrap justify-center lg:justify-start gap-4 animate-fade-in-up delay-300">
                             <ScrollLink
                                 to="contato"
                                 className="inline-flex items-center gap-2 px-8 py-4 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all hover:scale-105 cursor-pointer"
