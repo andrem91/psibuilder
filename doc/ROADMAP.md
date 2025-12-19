@@ -281,9 +281,9 @@
 
 | Item | Descrição | Status |
 |------|-----------|--------|
-| Imagens otimizadas | Aspect ratio correto em todos tamanhos | ⏳ Pendente |
-| Menu mobile | Animação de abertura suave | ⏳ Pendente |
-| Touch targets | Botões min 44px no mobile | ⏳ Pendente |
+| Imagens otimizadas | Aspect ratio correto em todos tamanhos | ✅ Concluído |
+| Menu mobile | Animação de abertura suave | ✅ Concluído |
+| Touch targets | Botões min 44px no mobile | ✅ Concluído |
 
 ---
 
