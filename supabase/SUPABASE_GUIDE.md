@@ -1,6 +1,6 @@
 # Supabase - Guia de Comandos
 
-Este documento contém os comandos essenciais para trabalhar com Supabase no PsiBuilder.
+Este documento contém os comandos essenciais para trabalhar com Supabase no PsicoSites.
 
 ## 🚀 Setup Inicial
 

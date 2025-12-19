@@ -28,7 +28,7 @@
 | Estatísticas | ❌ | ✅ | ✅ |
 | Formulário de contato | ✅ | ✅ | ✅ |
 | FAQ e Depoimentos | ✅ | ✅ | ✅ |
-| Remover "by PsiBuilder" | ❌ | ❌ | ✅ |
+| Remover "by PsicoSites" | ❌ | ❌ | ✅ |
 | Suporte prioritário | ❌ | ❌ | ✅ |
 
 ---
@@ -209,7 +209,7 @@ export async function POST(request: Request) {
     body: {
       items: [{
         id: plan.id,
-        title: `PsiBuilder ${plan.name}`,
+        title: `PsicoSites ${plan.name}`,
         quantity: 1,
         unit_price: plan.price,
         currency_id: 'BRL',

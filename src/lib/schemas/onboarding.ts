@@ -1,8 +1,13 @@
 import * as z from "zod"
 
+// Tipos de gênero
+export const genderValues = ['male', 'female', 'other', 'not_specified'] as const;
+export type GenderType = typeof genderValues[number];
+
 // Step 1: Dados básicos
 export const onboardingStep1Schema = z.object({
     full_name: z.string().min(3, "Nome muito curto"),
+    gender: z.enum(genderValues, { message: "Selecione uma opção" }),
     whatsapp: z.string().regex(/^\d{10,11}$/, "WhatsApp inválido (use só números, DDD + número)"),
 })
 
@@ -26,6 +31,7 @@ export type OnboardingStep3Data = z.infer<typeof onboardingStep3Schema>
 // Schema completo do onboarding (para validação final)
 export const onboardingCompleteSchema = z.object({
     full_name: z.string().min(3, "Nome muito curto"),
+    gender: z.enum(genderValues).optional().default('not_specified'),
     whatsapp: z.string().regex(/^\d{10,11}$/, "WhatsApp inválido"),
     crp: z.string().regex(/^\d{2}\/\d{4,6}$/, "Formato inválido"),
     bio_short: z.string().max(150).optional().or(z.literal("")),

@@ -1,12 +1,12 @@
 # Guia de Configuração de Domínios Personalizados
 
-O sistema **PsiBuilder** já está preparado nativamente para suportar domínios personalizados (ex: `www.psicoana.com.br`) além dos subdomínios padrão (ex: `ana.psibuilder.com.br`).
+O sistema **PsicoSites** já está preparado nativamente para suportar domínios personalizados (ex: `www.psicoana.com.br`) além dos subdomínios padrão (ex: `ana.psicosites.com.br`).
 
 ## Como funciona (Arquitetura)
 
 1.  **Middleware (`src/middleware.ts`)**:
     *   Intercepta todas as requisições.
-    *   Identifica se o acesso é através de um domínio principal (`psibuilder.com.br`), um subdomínio ou um domínio externo.
+    *   Identifica se o acesso é através de um domínio principal (`psicosites.com.br`), um subdomínio ou um domínio externo.
     *   Se for um domínio externo (customizado), ele reescreve a rota internamente para `/site/[dominio-customizado]`.
 
 2.  **Página do Site (`src/app/site/[subdomain]/page.tsx`)**:
@@ -23,7 +23,7 @@ Para ativar um domínio para um psicólogo, você precisa atualizar o registro n
 Para que a Vercel aceite o tráfego desse domínio, você tem duas opções:
 
 #### Opção A: Domínios Wildcard (Recomendado para Escala)
-*   Se você tiver um plano Pro/Enterprise na Vercel, pode configurar um domínio wildcard (`*.psibuilder.com.br`) e utilizar a **Vercel Platforms Starter Kit** approach para custom domains (adicionando domínios via API da Vercel).
+*   Se você tiver um plano Pro/Enterprise na Vercel, pode configurar um domínio wildcard (`*.psicosites.com.br`) e utilizar a **Vercel Platforms Starter Kit** approach para custom domains (adicionando domínios via API da Vercel).
 *   *Nota: Isso geralmente requer configuração de API para adicionar domínios programmaticamente.*
 
 #### Opção B: Adição Manual (Para MVP/Início)

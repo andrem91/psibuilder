@@ -5,6 +5,8 @@ export interface SiteProfile {
     email?: string;
     whatsapp?: string;
     crp?: string;
+    gender?: 'male' | 'female' | 'other' | 'not_specified';
+    professional_title?: string;
     specialties?: string[];
     specialties_data?: SiteSpecialty[];
     bio?: string;
@@ -21,6 +23,12 @@ export interface SiteProfile {
     state?: string;
     zip_code?: string;
     google_maps_embed?: string;
+    social_links?: SocialLink[];
+}
+
+export interface SocialLink {
+    network: 'instagram' | 'linkedin' | 'facebook' | 'tiktok' | 'youtube' | 'twitter';
+    url: string;
 }
 
 export interface SiteSpecialty {

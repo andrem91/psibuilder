@@ -1,10 +1,10 @@
-Com base em todo o planeamento e nos *prompts* de design que definimos, a plataforma **PsiBuilder** terá aproximadamente **23 ecrãs (telas) principais** para desenvolver.
+Com base em todo o planeamento e nos *prompts* de design que definimos, a plataforma **PsicoSites** terá aproximadamente **23 ecrãs (telas) principais** para desenvolver.
 
 Aqui está a lista completa organizada por contexto para facilitar o seu controlo de desenvolvimento:
 
 ### 1. Institucional & Acesso (5 Telas)
 *São as páginas públicas para vender o seu SaaS.*
-1.  **Landing Page:** A página de vendas do PsiBuilder.
+1.  **Landing Page:** A página de vendas do PsicoSites.
 2.  **Página de Preços:** Comparativo de planos (Gratuito vs Pro).
 3.  **Login:** Ecrã de entrada (Supabase Auth).
 4.  **Cadastro:** Ecrã de registo de nova conta.

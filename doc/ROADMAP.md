@@ -99,7 +99,7 @@
 #### Nomenclatura e Gênero
 | Item | Descrição | Status |
 |------|-----------|--------|
-| Substituir "Psicólogo(a)" | Usar gênero do perfil (Psicólogo/Psicóloga) | ⏳ Pendente |
+| Substituir "Psicólogo(a)" | Usar gênero do perfil (Psicólogo/Psicóloga) | ✅ Concluído |
 | Título baseado em especialidade | Ex: "Especialista em Ansiedade" se não tiver título | ⏳ Pendente |
 | Atualizar landing page | Usar termos inclusivos/neutros onde necessário | ⏳ Pendente |
 | Atualizar textos do dashboard | Personalizar saudações e labels | ⏳ Pendente |
@@ -107,7 +107,7 @@
 #### Página Pública do Psicólogo
 | Item | Descrição | Status |
 |------|-----------|--------|
-| Redes sociais dinâmicas | Instagram, LinkedIn, Facebook, TikTok, YouTube | ⏳ Pendente |
+| Redes sociais dinâmicas | Instagram, LinkedIn, Facebook, TikTok, YouTube | ✅ Concluído |
 | Vídeo de apresentação | Embed de YouTube/Vimeo no hero (opcional) | ⏳ Pendente |
 | Certificações/Formações | Seção com cursos e especializações | ⏳ Pendente |
 | Preços/Valores | Tabela de preços (opcional) | ⏳ Pendente |
@@ -116,13 +116,13 @@
 | Metodologias/Abordagens | TCC, Psicanálise, Gestalt, EMDR, etc | ⏳ Pendente |
 | Público-alvo | Crianças, adultos, casais, idosos, empresas | ⏳ Pendente |
 | Idiomas de atendimento | "Atendo em Inglês, Espanhol" | ⏳ Pendente |
-| Badge Online/Presencial no Hero | Indicar tipo de atendimento no hero | ⏳ Pendente |
-| Remover especialidades do Hero | Mover para seção própria | ⏳ Pendente |
+| Badge Online/Presencial no Hero | Indicar tipo de atendimento no hero | ✅ Concluído |
+| Remover especialidades do Hero | Mover para seção própria | ✅ Concluído |
 
 #### Logo para Psicólogos (Sem Logo)
 | Item | Descrição | Status | Prioridade |
 |------|-----------|--------|------------|
-| Iniciais automáticas | Avatar com iniciais do nome se não tiver logo | ⏳ Pendente | MVP |
+| Iniciais automáticas | Avatar com iniciais do nome se não tiver logo | ✅ Concluído | MVP |
 | Nome estilizado | Exibir nome com tipografia bonita se não tiver logo | ⏳ Pendente | MVP |
 | Templates de logo prontos | 5-10 ícones relacionados a psicologia | ⏳ Pendente | v2 |
 | Gerador de logo simples | Escolher ícone + cor + iniciais | ⏳ Pendente | v2 |
@@ -135,6 +135,13 @@
 | Scroll depth tracking | Medir 25%, 50%, 75%, 100% | ⏳ Pendente |
 | Dispositivo analytics | Mobile/Desktop/Tablet | ⏳ Pendente |
 | Horário de pico | Quando mais acessam o site | ⏳ Pendente |
+
+#### Infraestrutura SaaS (Pré-Lançamento)
+| Item | Descrição | Status | Ferramenta |
+|------|-----------|--------|------------|
+| Rate limiting | Proteger APIs de abuso | ⏳ Pendente | Upstash (grátis) |
+| Error tracking | Saber quando algo quebra | ⏳ Pendente | Sentry (grátis) |
+| Uptime monitoring | Saber se o site caiu | ⏳ Pendente | UptimeRobot (grátis) |
 
 ---
 
@@ -541,6 +548,16 @@
 | Backup automático | Salvar versões do conteúdo | 📋 Backlog |
 | Restaurar versão anterior | Voltar a um estado prévio | 📋 Backlog |
 | Duplicar site | Usar como template | 📋 Backlog |
+
+### 🛠️ Infraestrutura Avançada
+
+| Item | Descrição | Status |
+|------|-----------|--------|
+| Logs centralizados | Debugging avançado | 📋 Backlog |
+| APM (Application Performance) | Métricas de performance | 📋 Backlog |
+| Disaster recovery customizado | Backup além do Supabase | 📋 Backlog |
+| Health checks avançados | Endpoints de status | 📋 Backlog |
+| Auto-scaling customizado | Além do Vercel padrão | 📋 Backlog |
 
 ### 📊 Relatórios
 

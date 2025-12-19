@@ -30,11 +30,14 @@ export default async function DashboardPage() {
         .eq("profile_id", profile?.id)
         .single();
 
-    // Calcular progresso do perfil
-    const profileFields = ["full_name", "whatsapp", "crp", "bio"];
-    const filledFields = profileFields.filter(
-        (field) => profile?.[field as keyof typeof profile]
-    ).length;
+    // Calcular progresso do perfil (incluindo novos campos)
+    const profileFields = ["full_name", "whatsapp", "crp", "bio", "profile_image_url", "gender"];
+    const filledFields = profileFields.filter((field) => {
+        const value = profile?.[field as keyof typeof profile];
+        // Para gender, "not_specified" conta como não preenchido
+        if (field === "gender") return value && value !== "not_specified";
+        return !!value;
+    }).length;
     const profileProgress = Math.round((filledFields / profileFields.length) * 100);
 
     // Se não tem site, mostrar CTA para onboarding
@@ -121,8 +124,8 @@ export default async function DashboardPage() {
 
             {/* Cards de ação rápida */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {/* Card: Completar Perfil (aparece primeiro se incompleto) */}
-                {profileProgress < 100 && (
+                {/* Card: Completar Perfil (aparece se perfil incompleto E já tem site) */}
+                {profileProgress < 100 && site && (
                     <div className="bg-white rounded-2xl border border-amber-200 p-6 hover:shadow-lg transition-shadow">
                         <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center mb-4">
                             <svg
@@ -141,9 +144,9 @@ export default async function DashboardPage() {
                         </div>
                         <h3 className="font-semibold text-gray-900 mb-2">Completar Perfil</h3>
                         <p className="text-sm text-gray-500 mb-4">
-                            Adicione suas informações profissionais, CRP e foto.
+                            Adicione foto, gênero e outras informações para melhorar seu site.
                         </p>
-                        <Link href="/dashboard/conta">
+                        <Link href="/dashboard/onboarding">
                             <Button size="sm" className="w-full bg-amber-600 hover:bg-amber-700">
                                 Completar agora
                             </Button>

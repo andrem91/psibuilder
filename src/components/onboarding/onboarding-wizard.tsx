@@ -4,7 +4,7 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertCircle, Camera } from "lucide-react";
+import { AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MaskedInput } from "@/components/ui/masked-input";
@@ -12,6 +12,13 @@ import { Field, FieldLabel, FieldError, FieldGroup, FieldDescription } from "@/c
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { ProfileImageUpload } from "@/components/ui/profile-image-upload";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { OnboardingProgress } from "./onboarding-progress";
 import { saveOnboardingStep, completeOnboarding } from "@/app/dashboard/onboarding/actions";
 import {
@@ -26,6 +33,7 @@ import {
 interface OnboardingWizardProps {
     initialData?: {
         full_name?: string;
+        gender?: 'male' | 'female' | 'other' | 'not_specified';
         crp?: string;
         whatsapp?: string;
         bio?: string;
@@ -44,6 +52,7 @@ export function OnboardingWizard({ initialData, profileId }: OnboardingWizardPro
     // Dados combinados de todos os steps
     const [formData, setFormData] = useState({
         full_name: initialData?.full_name || "",
+        gender: initialData?.gender || "not_specified" as const,
         crp: initialData?.crp || "",
         whatsapp: initialData?.whatsapp || "",
         bio: initialData?.bio || "",
@@ -65,6 +74,7 @@ export function OnboardingWizard({ initialData, profileId }: OnboardingWizardPro
         resolver: zodResolver(onboardingStep1Schema),
         defaultValues: {
             full_name: formData.full_name,
+            gender: formData.gender,
             whatsapp: formData.whatsapp,
         },
     });
@@ -183,6 +193,35 @@ export function OnboardingWizard({ initialData, profileId }: OnboardingWizardPro
                                         aria-invalid={fieldState.invalid}
                                         {...field}
                                     />
+                                    {fieldState.invalid && (
+                                        <FieldError errors={[fieldState.error]} />
+                                    )}
+                                </Field>
+                            )}
+                        />
+
+                        <Controller
+                            name="gender"
+                            control={step1Form.control}
+                            render={({ field, fieldState }) => (
+                                <Field data-invalid={fieldState.invalid}>
+                                    <FieldLabel htmlFor="gender">Como você se identifica?</FieldLabel>
+                                    <Select
+                                        value={field.value}
+                                        onValueChange={field.onChange}
+                                    >
+                                        <SelectTrigger className="w-full">
+                                            <SelectValue placeholder="Selecione uma opção" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="female">Feminino (Psicóloga)</SelectItem>
+                                            <SelectItem value="male">Masculino (Psicólogo)</SelectItem>
+                                            <SelectItem value="other">Outro / Prefiro não informar</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                    <FieldDescription>
+                                        Usado para personalizar a nomenclatura no seu site
+                                    </FieldDescription>
                                     {fieldState.invalid && (
                                         <FieldError errors={[fieldState.error]} />
                                     )}
@@ -315,10 +354,10 @@ export function OnboardingWizard({ initialData, profileId }: OnboardingWizardPro
                                                 Uma frase curta que resume sua atuação
                                             </FieldDescription>
                                             <span className={`text-xs font-medium ${isOverLimit
-                                                    ? 'text-red-500'
-                                                    : isNearLimit
-                                                        ? 'text-amber-500'
-                                                        : 'text-gray-400'
+                                                ? 'text-red-500'
+                                                : isNearLimit
+                                                    ? 'text-amber-500'
+                                                    : 'text-gray-400'
                                                 }`}>
                                                 {charCount}/{maxChars}
                                             </span>

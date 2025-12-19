@@ -39,6 +39,15 @@ export type TherapeuticApproach =
     | "integrativa"
     | "outra";
 
+// Tipos de Gênero
+export type GenderType = 'male' | 'female' | 'other' | 'not_specified';
+
+// Social Link
+export interface SocialLink {
+    network: 'instagram' | 'linkedin' | 'facebook' | 'tiktok' | 'youtube' | 'twitter';
+    url: string;
+}
+
 // Perfil do psicólogo
 export interface Profile {
     id: string;
@@ -50,6 +59,8 @@ export interface Profile {
     bio: string | null;
     whatsapp: string;
     email: string;
+    gender: GenderType;
+    professional_title: string | null;
     specialties: Specialty[];
     approach: TherapeuticApproach;
     approach_description: string | null;
@@ -57,6 +68,7 @@ export interface Profile {
     state: string | null;
     online_service: boolean;
     in_person_service: boolean;
+    social_links: SocialLink[];
     created_at: string;
     updated_at: string;
 }

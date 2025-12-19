@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { updateSession } from "@/lib/supabase/middleware";
+import { updateSession } from "@/lib/supabase/proxy";
 
 // Domínios da aplicação principal (não são sites de clientes)
 const APP_DOMAINS = [
@@ -70,7 +70,7 @@ function parseHost(host: string): {
     return { isAppDomain: false, subdomain: null, customDomain: hostname };
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
     const host = request.headers.get("host") || "localhost";
     const { isAppDomain, subdomain, customDomain } = parseHost(host);
     const { pathname } = request.nextUrl;

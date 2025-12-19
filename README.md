@@ -1,4 +1,4 @@
-# 🧠 PsiBuilder
+# 🧠 PsicoSites
 
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
@@ -9,7 +9,7 @@
 
 ## 🎯 Sobre o Projeto
 
-O PsiBuilder é uma solução "no-code" que permite psicólogos criarem sites profissionais em 5 minutos, com:
+O PsicoSites é uma solução "no-code" que permite psicólogos criarem sites profissionais em 5 minutos, com:
 
 - ✅ **Compliance automático** com normas do CFP
 - 🚀 **SEO técnico** otimizado para captação de pacientes
@@ -24,8 +24,7 @@ O PsiBuilder é uma solução "no-code" que permite psicólogos criarem sites pr
 | Next.js 16 | Frontend + App Router |
 | Tailwind CSS 4 | Estilização |
 | Supabase | Auth, Database, Storage, Blog |
-| Sanity.io | CMS avançado *(futuro)* |
-| Asaas | Gateway de Pagamentos *(futuro)* |
+| Mercado Pago | Gateway de Pagamentos *(futuro)* |
 | Vercel | Hospedagem |
 
 ## 🚀 Começando
@@ -39,8 +38,8 @@ O PsiBuilder é uma solução "no-code" que permite psicólogos criarem sites pr
 
 ```bash
 # Clonar repositório
-git clone https://github.com/seu-usuario/psibuilder.git
-cd psibuilder/app
+git clone https://github.com/seu-usuario/psicosites.git
+cd psicosites/app
 
 # Instalar dependências
 npm install

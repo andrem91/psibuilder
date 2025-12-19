@@ -35,8 +35,18 @@ function convertToSpecialtiesData(specialtyNames: string[]): Specialty[] {
     });
 }
 
+// Helper para obter nomenclatura profissional baseada no gênero
+function getProfessionalLabel(gender?: string): string {
+    switch (gender) {
+        case 'male': return 'Psicólogo';
+        case 'female': return 'Psicóloga';
+        default: return 'Profissional de Psicologia';
+    }
+}
+
 interface OnboardingData {
     full_name: string;
+    gender?: string;
     crp: string;
     whatsapp: string;
     bio: string;
@@ -60,6 +70,7 @@ export async function saveOnboardingStep(
         .from("profiles")
         .update({
             full_name: data.full_name,
+            gender: data.gender,
             crp: data.crp,
             whatsapp: data.whatsapp,
             bio: data.bio,
@@ -122,11 +133,15 @@ export async function completeOnboarding(
     // 1. Criar especialidades padrão com ícones e descrições
     const specialties_data = convertToSpecialtiesData(DEFAULT_SPECIALTIES);
 
-    // 2. Atualizar perfil com todos os dados
+    // 2. Obter nomenclatura profissional baseada no gênero
+    const professionalLabel = getProfessionalLabel(data.gender);
+
+    // 3. Atualizar perfil com todos os dados
     const { error: profileError } = await supabase
         .from("profiles")
         .update({
             full_name: data.full_name,
+            gender: data.gender || 'not_specified',
             crp: data.crp,
             whatsapp: data.whatsapp,
             bio: data.bio,
@@ -172,7 +187,7 @@ export async function completeOnboarding(
             .from("sites")
             .update({
                 is_published: true,
-                site_title: `${data.full_name} - Psicólogo(a)`,
+                site_title: `${data.full_name} - ${professionalLabel}`,
                 meta_description: data.bio.substring(0, 160),
                 show_ethics_section: true,
                 ethics_content: DEFAULT_ETHICS_CONTENT,
@@ -197,7 +212,7 @@ export async function completeOnboarding(
                 profile_id: profileId,
                 subdomain: finalSubdomain,
                 is_published: true,
-                site_title: `${data.full_name} - Psicólogo(a)`,
+                site_title: `${data.full_name} - ${professionalLabel}`,
                 meta_description: data.bio.substring(0, 160),
                 show_ethics_section: true,
                 ethics_content: DEFAULT_ETHICS_CONTENT,

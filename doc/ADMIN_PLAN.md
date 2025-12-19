@@ -1,7 +1,7 @@
 # 🛡️ Módulo Admin - Plano de Implementação Técnico
 
 **Última atualização:** Janeiro/2026  
-**Autor:** PsiBuilder Team  
+**Autor:** PsicoSites Team  
 **Prioridade:** Alta
 
 ---

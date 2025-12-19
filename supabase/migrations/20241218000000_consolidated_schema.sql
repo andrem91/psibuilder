@@ -24,6 +24,8 @@ CREATE TABLE IF NOT EXISTS profiles (
     email TEXT NOT NULL DEFAULT '',
     whatsapp TEXT DEFAULT '',
     crp TEXT DEFAULT '',
+    gender TEXT DEFAULT 'not_specified' CHECK (gender IN ('male', 'female', 'other', 'not_specified')),
+    professional_title TEXT DEFAULT '',
     specialties TEXT[] DEFAULT '{}',
     specialties_data JSONB DEFAULT '[]'::jsonb,
     bio TEXT DEFAULT '',
@@ -40,6 +42,7 @@ CREATE TABLE IF NOT EXISTS profiles (
     state TEXT DEFAULT '',
     zip_code TEXT DEFAULT '',
     google_maps_embed TEXT DEFAULT '',
+    social_links JSONB DEFAULT '[]'::jsonb,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
@@ -47,6 +50,7 @@ CREATE TABLE IF NOT EXISTS profiles (
 CREATE INDEX IF NOT EXISTS idx_profiles_user_id ON profiles(user_id);
 CREATE INDEX IF NOT EXISTS idx_profiles_crp ON profiles(crp);
 CREATE INDEX IF NOT EXISTS idx_profiles_specialties_data ON profiles USING GIN (specialties_data);
+CREATE INDEX IF NOT EXISTS idx_profiles_social_links ON profiles USING GIN (social_links);
 
 -- ======================
 -- TABELA: SITES
