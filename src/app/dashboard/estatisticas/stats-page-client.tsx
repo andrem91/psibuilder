@@ -87,7 +87,7 @@ const CursorIcon = () => (
     </svg>
 );
 
-export function StatsPageClient({ stats, siteName, dateRange }: StatsPageClientProps) {
+export function StatsPageClient({ stats, siteName, dateRange: _dateRange }: StatsPageClientProps) {
     const [selectedPeriod, setSelectedPeriod] = useState("7d");
 
     const periods = [
@@ -116,8 +116,8 @@ export function StatsPageClient({ stats, siteName, dateRange }: StatsPageClientP
                             key={period.id}
                             onClick={() => setSelectedPeriod(period.id)}
                             className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${selectedPeriod === period.id
-                                    ? "bg-white text-gray-900 shadow-sm"
-                                    : "text-gray-600 hover:text-gray-900"
+                                ? "bg-white text-gray-900 shadow-sm"
+                                : "text-gray-600 hover:text-gray-900"
                                 }`}
                         >
                             {period.label}

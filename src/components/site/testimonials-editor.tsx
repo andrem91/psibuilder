@@ -29,7 +29,7 @@ interface TestimonialsEditorProps {
     siteId: string;
 }
 
-export function TestimonialsEditor({ siteId }: TestimonialsEditorProps) {
+export function TestimonialsEditor({ siteId: _siteId }: TestimonialsEditorProps) {
     const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editName, setEditName] = useState("");

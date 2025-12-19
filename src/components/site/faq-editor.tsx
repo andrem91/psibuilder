@@ -53,7 +53,7 @@ interface FAQEditorProps {
     initialFaqs?: FAQ[];
 }
 
-export function FAQEditor({ siteId, initialFaqs = [] }: FAQEditorProps) {
+export function FAQEditor({ siteId: _siteId, initialFaqs = [] }: FAQEditorProps) {
     const [faqs, setFaqs] = useState<FAQ[]>(initialFaqs);
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editQuestion, setEditQuestion] = useState("");

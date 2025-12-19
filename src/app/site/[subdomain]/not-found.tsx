@@ -4,7 +4,7 @@ interface SiteNotFoundProps {
     params: Promise<{ subdomain: string }>;
 }
 
-export default async function SiteNotFound({ params }: SiteNotFoundProps) {
+export default async function SiteNotFound({ params: _params }: SiteNotFoundProps) {
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
             <div className="text-center px-4">

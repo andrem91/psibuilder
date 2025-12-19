@@ -12,7 +12,7 @@ interface FloatingInstagramButtonProps {
  * Similar ao WhatsApp, mas para Instagram
  * Só aparece se instagram_url estiver preenchido
  */
-export function FloatingInstagramButton({ instagramUrl, primaryColor }: FloatingInstagramButtonProps) {
+export function FloatingInstagramButton({ instagramUrl, primaryColor: _primaryColor }: FloatingInstagramButtonProps) {
     if (!instagramUrl) return null;
 
     return (

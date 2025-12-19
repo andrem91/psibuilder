@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
-        const { name, email, phone, message, psychologistName, psychologistEmail } = body;
+        const { name, email, phone: _phone, message, psychologistName: _psychologistName, psychologistEmail: _psychologistEmail } = body;
 
         // Validate required fields
         if (!name || !email || !message) {

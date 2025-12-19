@@ -1,5 +1,4 @@
 import { createClient } from "@/lib/supabase/server";
-import { notFound } from "next/navigation";
 import { SiteHeader, SiteFooter, WhatsAppButton } from "@/components/site";
 import { ReactNode } from "react";
 import { getFontPreset, getGoogleFontsUrl, getFontCSSVariables } from "@/lib/font-presets";

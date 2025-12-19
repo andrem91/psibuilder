@@ -134,7 +134,7 @@ export async function POST(request: NextRequest) {
         const fileName = `${uploadType}-${profileId}-${Date.now()}.${outputFormat}`;
 
         // Upload para Supabase Storage usando cliente admin
-        const { data: uploadData, error: uploadError } = await supabaseAdmin.storage
+        const { data: _uploadData, error: uploadError } = await supabaseAdmin.storage
             .from("profile-images")
             .upload(fileName, processedBuffer, {
                 contentType: `image/${outputFormat}`,
