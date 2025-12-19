@@ -9,7 +9,6 @@ import { ProfileImageUpload } from "@/components/ui/profile-image-upload";
 import { LogoUpload } from "@/components/ui/logo-upload";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { FAQEditor } from "@/components/site/faq-editor";
-import { EthicsEditor } from "@/components/site/ethics-editor";
 import { TestimonialsEditor } from "@/components/site/testimonials-editor";
 import { SpecialtyEditor } from "@/components/site/specialty-editor";
 import { Specialty } from "@/types/specialty";
@@ -84,7 +83,7 @@ interface SiteEditorProps {
 
 export function SiteEditor({ profile, site }: SiteEditorProps) {
     const [isPending, startTransition] = useTransition();
-    const [activeTab, setActiveTab] = useState<"profile" | "attendance" | "specialties" | "theme" | "seo" | "ethics" | "faq" | "testimonials" | "extras">("profile");
+    const [activeTab, setActiveTab] = useState<"profile" | "attendance" | "specialties" | "theme" | "seo" | "faq" | "testimonials" | "extras">("profile");
     const [success, setSuccess] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
 
@@ -317,7 +316,6 @@ export function SiteEditor({ profile, site }: SiteEditorProps) {
                         { id: "attendance", label: "Atendimento" },
                         { id: "theme", label: "Tema" },
                         { id: "seo", label: "SEO" },
-                        { id: "ethics", label: "Ética/LGPD" },
                         { id: "faq", label: "FAQ" },
                         { id: "testimonials", label: "Depoimentos" },
                         { id: "extras", label: "Extras" },
@@ -791,34 +789,6 @@ export function SiteEditor({ profile, site }: SiteEditorProps) {
                                 </Button>
                             </div>
                         </div>
-                    )}
-
-                    {/* Tab Ética/LGPD */}
-                    {activeTab === "ethics" && (
-                        <EthicsEditor
-                            showEthics={site.show_ethics_section ?? true}
-                            ethicsContent={site.ethics_content || ""}
-                            showLgpd={site.show_lgpd_section ?? true}
-                            onSave={async (data) => {
-                                try {
-                                    const res = await fetch("/api/site/ethics", {
-                                        method: "PUT",
-                                        headers: { "Content-Type": "application/json" },
-                                        body: JSON.stringify(data),
-                                    });
-                                    if (res.ok) {
-                                        setSuccess("Configurações salvas com sucesso!");
-                                        setTimeout(() => setSuccess(null), 3000);
-                                    } else {
-                                        setError("Erro ao salvar configurações");
-                                        setTimeout(() => setError(null), 3000);
-                                    }
-                                } catch {
-                                    setError("Erro ao salvar configurações");
-                                    setTimeout(() => setError(null), 3000);
-                                }
-                            }}
-                        />
                     )}
 
                     {/* Tab FAQ */}

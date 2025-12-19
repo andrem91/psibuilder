@@ -15,6 +15,7 @@ import {
     type SecurityFormData,
     type IntegrationsFormData,
 } from "@/lib/schemas/account";
+import { EthicsEditor } from "@/components/site/ethics-editor";
 
 interface AccountPageClientProps {
     profile: {
@@ -31,15 +32,19 @@ interface AccountPageClientProps {
         clarity_id?: string;
         facebook_pixel_id?: string;
         gtm_id?: string;
+        show_ethics_section?: boolean;
+        ethics_content?: string;
+        show_lgpd_section?: boolean;
     } | null;
 }
 
-type TabId = "profile" | "security" | "integrations";
+type TabId = "profile" | "security" | "integrations" | "privacy";
 
 const tabs = [
     { id: "profile" as TabId, label: "Dados Pessoais", icon: "👤" },
     { id: "security" as TabId, label: "Segurança", icon: "🔒" },
     { id: "integrations" as TabId, label: "Integrações", icon: "🔗" },
+    { id: "privacy" as TabId, label: "Privacidade", icon: "🛡️" },
 ];
 
 export function AccountPageClient({ profile, site }: AccountPageClientProps) {
@@ -441,6 +446,50 @@ export function AccountPageClient({ profile, site }: AccountPageClientProps) {
                                 </Button>
                             </div>
                         </form>
+                    )}
+
+                    {/* Tab Privacidade */}
+                    {activeTab === "privacy" && (
+                        <div className="space-y-6">
+                            <div>
+                                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                                    Configurações de Privacidade
+                                </h3>
+                                <p className="text-sm text-gray-500">
+                                    Configure seu compromisso ético e políticas de privacidade do seu site.
+                                </p>
+                            </div>
+
+                            {site ? (
+                                <EthicsEditor
+                                    showEthics={site.show_ethics_section ?? true}
+                                    ethicsContent={site.ethics_content || ""}
+                                    showLgpd={site.show_lgpd_section ?? true}
+                                    onSave={async (data) => {
+                                        try {
+                                            const res = await fetch("/api/site/ethics", {
+                                                method: "PUT",
+                                                headers: { "Content-Type": "application/json" },
+                                                body: JSON.stringify(data),
+                                            });
+                                            if (res.ok) {
+                                                toast.success("Configurações de privacidade salvas!");
+                                            } else {
+                                                toast.error("Erro ao salvar configurações");
+                                            }
+                                        } catch {
+                                            toast.error("Erro ao salvar configurações");
+                                        }
+                                    }}
+                                />
+                            ) : (
+                                <div className="p-6 bg-yellow-50 border border-yellow-200 rounded-xl">
+                                    <p className="text-yellow-800">
+                                        ⚠️ Você precisa criar seu site primeiro para configurar as opções de privacidade.
+                                    </p>
+                                </div>
+                            )}
+                        </div>
                     )}
                 </div>
             </div>

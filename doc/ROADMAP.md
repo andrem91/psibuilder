@@ -91,8 +91,8 @@
 | Duplicar artigo do blog | Botão para clonar post existente | ⏳ Pendente |
 | Notificações in-app | Badge no menu quando há novidade | ⏳ Pendente |
 | Comparativo de períodos | "Este mês vs mês passado" nas stats | ⏳ Pendente |
-| Reorganizar Ética/LGPD | Mover de /site para /conta, renomear para "Privacidade" | ⏳ Pendente |
-| Remover seção Ética do site público | Deixar apenas na página de Privacidade | ⏳ Pendente |
+| Reorganizar Ética/LGPD | Mover de /site para /conta, renomear para "Privacidade" | ✅ Concluído |
+| Remover seção Ética do site público | Deixar apenas na página de Privacidade | ✅ Concluído |
 | Campo Gênero no onboarding | Obrigatório para personalizar nomenclatura | ✅ Concluído |
 | Campo Título Profissional | Opcional, ex: "Psicóloga Clínica", "Neuropsicólogo" | ✅ Concluído |
 

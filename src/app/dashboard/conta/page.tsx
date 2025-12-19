@@ -25,10 +25,10 @@ export default async function ContaPage() {
         redirect("/dashboard/onboarding");
     }
 
-    // Buscar dados do site (para integrações)
+    // Buscar dados do site (para integrações e privacidade)
     const { data: site } = await supabase
         .from("sites")
-        .select("id, subdomain, google_analytics_id, clarity_id, facebook_pixel_id, gtm_id")
+        .select("id, subdomain, google_analytics_id, clarity_id, facebook_pixel_id, gtm_id, show_ethics_section, ethics_content, show_lgpd_section")
         .eq("profile_id", profile.id)
         .single();
 

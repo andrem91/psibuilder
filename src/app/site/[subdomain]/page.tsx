@@ -12,7 +12,6 @@ import {
     SiteContactSection,
     SiteTestimonialsSection,
     SiteFAQSection,
-    SiteEthicsSection,
 } from "@/components/site/sections";
 import { SiteVideoSection } from "@/components/site/sections/site-video";
 import { SiteCertificationsSection } from "@/components/site/sections/site-certifications";
@@ -205,13 +204,6 @@ export default async function SiteHomePage({ params }: SitePageProps) {
 
             {/* FAQ */}
             <SiteFAQSection faqs={site.faqs} primaryColor={primaryColor} />
-
-            {/* Compromisso Ético */}
-            <SiteEthicsSection
-                showEthicsSection={site.show_ethics_section}
-                ethicsContent={site.ethics_content}
-                primaryColor={primaryColor}
-            />
 
             {/* Botão flutuante Instagram (opcional) */}
             <FloatingInstagramButton
