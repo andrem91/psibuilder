@@ -1,8 +1,17 @@
 import React from "react";
 import Link from "next/link";
 import { formatPhone } from "@/lib/phone-format";
-import type { SocialLink } from "@/types/site-types";
 import { ProfessionalAreaButton } from "./professional-area-button";
+
+// Tipo do objeto social_links
+interface SocialLinksObject {
+    instagram?: string;
+    linkedin?: string;
+    facebook?: string;
+    youtube?: string;
+    tiktok?: string;
+    twitter?: string;
+}
 
 interface SiteFooterProps {
     siteName: string;
@@ -11,7 +20,7 @@ interface SiteFooterProps {
     whatsapp?: string;
     primaryColor?: string;
     showLgpd?: boolean;
-    socialLinks?: SocialLink[];
+    socialLinks?: SocialLinksObject;
     // Novos campos para endereço
     inPersonService?: boolean;
     street?: string;
@@ -81,7 +90,7 @@ export function SiteFooter({
     whatsapp,
     primaryColor = "#6366f1",
     showLgpd = true,
-    socialLinks = [],
+    socialLinks = {},
     inPersonService = false,
     street,
     streetNumber,
@@ -91,6 +100,9 @@ export function SiteFooter({
     showBlog = true,
 }: SiteFooterProps) {
     const currentYear = new Date().getFullYear();
+
+    // Filtrar redes sociais que têm URL
+    const socialEntries = Object.entries(socialLinks || {}).filter(([, url]) => url) as [string, string][];
 
     // Montar endereço formatado
     const hasAddress = inPersonService && (street || city);
@@ -198,19 +210,19 @@ export function SiteFooter({
                         </div>
                     ) : (
                         /* Se não tem endereço, mostrar redes sociais aqui */
-                        socialLinks.length > 0 && (
+                        socialEntries.length > 0 && (
                             <div>
                                 <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
                                     Redes Sociais
                                 </h3>
                                 <div className="flex flex-wrap gap-3">
-                                    {socialLinks.map((link, index) => {
-                                        const socialData = SOCIAL_ICONS[link.network];
+                                    {socialEntries.map(([network, url]) => {
+                                        const socialData = SOCIAL_ICONS[network];
                                         if (!socialData) return null;
                                         return (
                                             <a
-                                                key={index}
-                                                href={link.url}
+                                                key={network}
+                                                href={url}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
@@ -230,19 +242,19 @@ export function SiteFooter({
                     )}
 
                     {/* Coluna 4: Redes Sociais (se tem endereço) ou vazia */}
-                    {hasAddress && socialLinks.length > 0 && (
+                    {hasAddress && socialEntries.length > 0 && (
                         <div>
                             <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
                                 Redes Sociais
                             </h3>
                             <div className="flex flex-wrap gap-3">
-                                {socialLinks.map((link, index) => {
-                                    const socialData = SOCIAL_ICONS[link.network];
+                                {socialEntries.map(([network, url]) => {
+                                    const socialData = SOCIAL_ICONS[network];
                                     if (!socialData) return null;
                                     return (
                                         <a
-                                            key={index}
-                                            href={link.url}
+                                            key={network}
+                                            href={url}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"

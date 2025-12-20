@@ -2,20 +2,6 @@ import { createClient } from "@/lib/supabase/server";
 import { SiteHeader, SiteFooter, WhatsAppButton } from "@/components/site";
 import { ReactNode } from "react";
 import { getFontPreset, getGoogleFontsUrl, getFontCSSVariables } from "@/lib/font-presets";
-import type { SocialLink } from "@/types/site-types";
-
-// Helper para converter social_links de objeto para array SocialLink[]
-type SocialLinksObject = Record<string, string | undefined>;
-function convertSocialLinks(socialLinks?: SocialLinksObject): SocialLink[] {
-    if (!socialLinks) return [];
-    const networks = ['instagram', 'linkedin', 'facebook', 'youtube', 'tiktok', 'twitter'] as const;
-    return networks
-        .filter(network => socialLinks[network])
-        .map(network => ({
-            network,
-            url: socialLinks[network] as string
-        }));
-}
 
 interface SiteLayoutProps {
     children: ReactNode;
@@ -117,7 +103,7 @@ export default async function SiteLayout({ children, params }: SiteLayoutProps) 
                     primaryColor={primaryColor}
                     showLgpd={site.show_lgpd_section !== false}
                     showBlog={site.show_blog !== false}
-                    socialLinks={convertSocialLinks(profile?.social_links)}
+                    socialLinks={profile?.social_links}
                     inPersonService={profile?.in_person_service}
                     street={profile?.street}
                     streetNumber={profile?.street_number}
