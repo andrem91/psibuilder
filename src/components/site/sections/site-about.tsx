@@ -46,11 +46,11 @@ export function SiteAboutSection({ bio, primaryColor, socialLinks }: SiteAboutPr
                 </h2>
                 {bio ? (
                     <div
-                        className="prose prose-lg max-w-none text-gray-600 prose-headings:text-gray-800 prose-a:text-indigo-600 prose-blockquote:border-indigo-500 text-center [&_p]:text-center [&_h2]:text-center [&_h3]:text-center"
+                        className="prose prose-lg max-w-none text-gray-600 prose-headings:text-gray-800 prose-a:text-indigo-600 prose-blockquote:border-indigo-500"
                         dangerouslySetInnerHTML={{ __html: sanitizeHtml(bio) }}
                     />
                 ) : (
-                    <p className="text-gray-600 text-lg leading-relaxed text-center">
+                    <p className="text-gray-600 text-lg leading-relaxed">
                         Psicólogo(a) comprometido(a) com o bem-estar e a saúde mental dos meus pacientes. Ofereço um espaço seguro e acolhedor para que você possa expressar seus sentimentos e trabalhar em direção a uma vida mais equilibrada e feliz.
                     </p>
                 )}
