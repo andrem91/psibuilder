@@ -23,7 +23,14 @@ export interface SiteProfile {
     state?: string;
     zip_code?: string;
     google_maps_embed?: string;
-    social_links?: SocialLink[];
+    social_links?: {
+        instagram?: string;
+        linkedin?: string;
+        facebook?: string;
+        youtube?: string;
+        tiktok?: string;
+        twitter?: string;
+    };
     // Novos campos opcionais
     video_url?: string;
     working_hours?: string;
@@ -32,7 +39,6 @@ export interface SiteProfile {
     methodologies?: string[];
     certifications?: SiteCertification[];
     pricing?: SitePricingItem[];
-    instagram_url?: string;
 }
 
 // Certificação/Formação
