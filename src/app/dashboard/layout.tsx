@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { DashboardShell } from "@/components/dashboard";
+import { DashboardThemeProvider, DashboardTheme } from "@/contexts/dashboard-theme-provider";
 
 export default async function DashboardLayout({
     children,
@@ -17,10 +18,17 @@ export default async function DashboardLayout({
         redirect("/login");
     }
 
-    // Buscar perfil do usuário
+    // Buscar perfil do usuário com dados de tema
     const { data: profile } = await supabase
         .from("profiles")
-        .select("full_name, email, profile_image_url")
+        .select("full_name, email, profile_image_url, logo_url, gender")
+        .eq("user_id", user.id)
+        .single();
+
+    // Buscar configuração do site (cores, subdomain)
+    const { data: site } = await supabase
+        .from("sites")
+        .select("subdomain, theme_config")
         .eq("user_id", user.id)
         .single();
 
@@ -30,5 +38,20 @@ export default async function DashboardLayout({
         avatar: profile?.profile_image_url || undefined,
     };
 
-    return <DashboardShell user={userData}>{children}</DashboardShell>;
+    // Montar tema do dashboard
+    const dashboardTheme: DashboardTheme = {
+        primaryColor: site?.theme_config?.primaryColor || "#6366f1",
+        logoUrl: profile?.logo_url || undefined,
+        siteName: profile?.full_name || "Meu Site",
+        subdomain: site?.subdomain || undefined,
+        gender: profile?.gender || undefined,
+    };
+
+    return (
+        <DashboardThemeProvider theme={dashboardTheme}>
+            <DashboardShell user={userData} theme={dashboardTheme}>
+                {children}
+            </DashboardShell>
+        </DashboardThemeProvider>
+    );
 }

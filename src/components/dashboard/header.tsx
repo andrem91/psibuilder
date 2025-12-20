@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { signOut } from "@/app/(auth)/actions";
+import { DashboardTheme } from "@/contexts/dashboard-theme-provider";
 
 interface HeaderProps {
     user: {
@@ -11,9 +12,13 @@ interface HeaderProps {
         avatar?: string;
     };
     onMenuClick: () => void;
+    greeting?: string;
+    theme?: DashboardTheme;
 }
 
-export function Header({ user, onMenuClick }: HeaderProps) {
+export function Header({ user, onMenuClick, greeting, theme }: HeaderProps) {
+    const primaryColor = theme?.primaryColor || "#6366f1";
+
     return (
         <header className="sticky top-0 z-30 bg-white border-b border-gray-200">
             <div className="flex items-center justify-between px-4 py-3 lg:px-6">
@@ -28,9 +33,11 @@ export function Header({ user, onMenuClick }: HeaderProps) {
                     </svg>
                 </button>
 
-                {/* Título da página (opcional - pode ser dinâmico) */}
+                {/* Saudação personalizada */}
                 <div className="hidden lg:block">
-                    <h1 className="text-lg font-semibold text-gray-900">Painel</h1>
+                    <h1 className="text-lg font-semibold text-gray-900">
+                        {greeting || "Painel"}
+                    </h1>
                 </div>
 
                 {/* Área direita */}
@@ -41,7 +48,10 @@ export function Header({ user, onMenuClick }: HeaderProps) {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                         </svg>
                         {/* Badge de notificação */}
-                        <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
+                        <span
+                            className="absolute top-1 right-1 w-2 h-2 rounded-full"
+                            style={{ backgroundColor: primaryColor }}
+                        />
                     </button>
 
                     {/* Divisor */}
@@ -49,8 +59,15 @@ export function Header({ user, onMenuClick }: HeaderProps) {
 
                     {/* Perfil */}
                     <div className="flex items-center gap-3">
-                        {/* Avatar */}
-                        <div className="relative w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center overflow-hidden">
+                        {/* Avatar com cor primária de fallback */}
+                        <div
+                            className="relative w-9 h-9 rounded-full flex items-center justify-center overflow-hidden"
+                            style={{
+                                background: user.avatar
+                                    ? undefined
+                                    : `linear-gradient(135deg, ${primaryColor}, ${primaryColor}dd)`,
+                            }}
+                        >
                             {user.avatar ? (
                                 <Image
                                     src={user.avatar}

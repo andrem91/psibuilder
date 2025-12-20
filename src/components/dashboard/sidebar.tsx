@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { DashboardTheme } from "@/contexts/dashboard-theme-provider";
 
 interface NavItem {
     label: string;
@@ -83,10 +85,23 @@ const bottomNavItems: NavItem[] = [
 interface SidebarProps {
     isOpen: boolean;
     onClose: () => void;
+    theme?: DashboardTheme;
 }
 
-export function Sidebar({ isOpen, onClose }: SidebarProps) {
+export function Sidebar({ isOpen, onClose, theme }: SidebarProps) {
     const pathname = usePathname();
+    const primaryColor = theme?.primaryColor || "#6366f1";
+
+    // Estilos para item ativo usando cor primária
+    const getActiveStyles = (isActive: boolean) => {
+        if (isActive) {
+            return {
+                backgroundColor: `${primaryColor}15`,
+                color: primaryColor,
+            };
+        }
+        return {};
+    };
 
     return (
         <>
@@ -106,12 +121,35 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                 )}
             >
                 <div className="flex flex-col h-full">
-                    {/* Logo */}
+                    {/* Logo ou Nome do Psicólogo */}
                     <div className="flex items-center gap-3 p-6 border-b border-gray-100">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center">
-                            <span className="text-white font-bold text-lg">P</span>
-                        </div>
-                        <span className="text-xl font-bold text-gray-900">PsicoSites</span>
+                        {theme?.logoUrl ? (
+                            // Logo do psicólogo
+                            <div className="relative w-10 h-10 rounded-xl overflow-hidden">
+                                <Image
+                                    src={theme.logoUrl}
+                                    alt={theme.siteName || "Logo"}
+                                    fill
+                                    className="object-cover"
+                                    sizes="40px"
+                                />
+                            </div>
+                        ) : (
+                            // Inicial estilizada com cor primária
+                            <div
+                                className="w-10 h-10 rounded-xl flex items-center justify-center"
+                                style={{
+                                    background: `linear-gradient(135deg, ${primaryColor}, ${primaryColor}dd)`,
+                                }}
+                            >
+                                <span className="text-white font-bold text-lg">
+                                    {theme?.siteName?.charAt(0) || "P"}
+                                </span>
+                            </div>
+                        )}
+                        <span className="text-xl font-bold text-gray-900 truncate">
+                            {theme?.siteName || "PsicoSites"}
+                        </span>
                     </div>
 
                     {/* Nav principal */}
@@ -125,10 +163,9 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                                     onClick={onClose}
                                     className={cn(
                                         "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all",
-                                        isActive
-                                            ? "bg-indigo-50 text-indigo-600"
-                                            : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                                        !isActive && "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                                     )}
+                                    style={getActiveStyles(isActive)}
                                 >
                                     {item.icon}
                                     {item.label}
@@ -148,10 +185,9 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                                     onClick={onClose}
                                     className={cn(
                                         "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all",
-                                        isActive
-                                            ? "bg-indigo-50 text-indigo-600"
-                                            : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                                        !isActive && "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                                     )}
+                                    style={getActiveStyles(isActive)}
                                 >
                                     {item.icon}
                                     {item.label}
