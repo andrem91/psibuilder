@@ -63,15 +63,7 @@ async function getSiteData(subdomain: string): Promise<SiteData | null> {
         state,
         zip_code,
         google_maps_embed,
-        social_links,
-        video_url,
-        working_hours,
-        languages,
-        target_audience,
-        methodologies,
-        certifications,
-        pricing,
-        instagram_url
+        social_links
       )
     `
         )
