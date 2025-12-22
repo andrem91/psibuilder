@@ -12,6 +12,7 @@ interface SiteHeaderProps {
     primaryColor?: string;
     fontPreset?: FontPreset;
     navItems?: { label: string; href: string }[];
+    logoHref?: string;
 }
 
 export function SiteHeader({
@@ -20,6 +21,7 @@ export function SiteHeader({
     primaryColor = "#6366f1",
     fontPreset,
     navItems = [],
+    logoHref = "/",
 }: SiteHeaderProps) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
@@ -54,7 +56,7 @@ export function SiteHeader({
         <header className="sticky top-0 z-50 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b border-gray-100 safe-area-top">
             <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
                 {/* Logo / Nome Estilizado */}
-                <Link href="/" className="flex items-center gap-3 touch-link">
+                <Link href={logoHref} className="flex items-center gap-3 touch-link">
                     {logo ? (
                         <div className="relative w-10 h-10 sm:w-12 sm:h-12">
                             <Image

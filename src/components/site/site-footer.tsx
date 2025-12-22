@@ -31,6 +31,8 @@ interface SiteFooterProps {
     showBlog?: boolean;
     // Plano do usuário
     isPro?: boolean;
+    // URL base do site para navegação
+    baseUrl?: string;
 }
 
 // Ícones das redes sociais
@@ -101,6 +103,7 @@ export function SiteFooter({
     state,
     showBlog = true,
     isPro = false,
+    baseUrl = "",
 }: SiteFooterProps) {
     const currentYear = new Date().getFullYear();
 
@@ -128,29 +131,29 @@ export function SiteFooter({
                         </h3>
                         <ul className="space-y-3 text-gray-400 text-sm">
                             <li>
-                                <Link href="#inicio" className="hover:text-white transition-colors">
+                                <Link href={`${baseUrl}#inicio`} className="hover:text-white transition-colors">
                                     Início
                                 </Link>
                             </li>
                             <li>
-                                <Link href="#sobre" className="hover:text-white transition-colors">
+                                <Link href={`${baseUrl}#sobre`} className="hover:text-white transition-colors">
                                     Sobre
                                 </Link>
                             </li>
                             <li>
-                                <Link href="#especialidades" className="hover:text-white transition-colors">
+                                <Link href={`${baseUrl}#especialidades`} className="hover:text-white transition-colors">
                                     Especialidades
                                 </Link>
                             </li>
                             {showBlog && (
                                 <li>
-                                    <Link href="./blog" className="hover:text-white transition-colors">
+                                    <Link href={`${baseUrl}/blog`} className="hover:text-white transition-colors">
                                         Blog
                                     </Link>
                                 </li>
                             )}
                             <li>
-                                <Link href="#contato" className="hover:text-white transition-colors">
+                                <Link href={`${baseUrl}#contato`} className="hover:text-white transition-colors">
                                     Contato
                                 </Link>
                             </li>

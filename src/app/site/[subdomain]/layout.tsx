@@ -83,12 +83,13 @@ export default async function SiteLayout({ children, params }: SiteLayoutProps) 
                     primaryColor={primaryColor}
                     fontPreset={fontPreset}
                     navItems={[
-                        { label: "Início", href: "#inicio" },
-                        { label: "Sobre", href: "#sobre" },
-                        { label: "Especialidades", href: "#especialidades" },
-                        ...(site.show_blog !== false ? [{ label: "Blog", href: "./blog" }] : []),
-                        { label: "Contato", href: "#contato" },
+                        { label: "Início", href: `/site/${subdomain}#inicio` },
+                        { label: "Sobre", href: `/site/${subdomain}#sobre` },
+                        { label: "Especialidades", href: `/site/${subdomain}#especialidades` },
+                        ...(site.show_blog !== false ? [{ label: "Blog", href: `/site/${subdomain}/blog` }] : []),
+                        { label: "Contato", href: `/site/${subdomain}#contato` },
                     ]}
+                    logoHref={`/site/${subdomain}`}
                 />
 
                 {/* Conteúdo principal */}
@@ -110,6 +111,7 @@ export default async function SiteLayout({ children, params }: SiteLayoutProps) 
                     neighborhood={profile?.neighborhood}
                     city={profile?.city}
                     state={profile?.state}
+                    baseUrl={`/site/${subdomain}`}
                 />
 
                 {/* Botão WhatsApp flutuante */}
