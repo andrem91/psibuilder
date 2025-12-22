@@ -66,7 +66,7 @@ export function SignUpForm() {
                             <Input
                                 id="fullName"
                                 type="text"
-                                placeholder="Dr(a). Maria Silva"
+                                placeholder="Maria Silva"
                                 autoComplete="name"
                                 aria-invalid={fieldState.invalid}
                                 {...field}

@@ -189,7 +189,7 @@ export function OnboardingWizard({ initialData, profileId }: OnboardingWizardPro
                                     <FieldLabel htmlFor="full_name">Nome completo</FieldLabel>
                                     <Input
                                         id="full_name"
-                                        placeholder="Dr(a). Maria Silva"
+                                        placeholder="Maria Silva"
                                         aria-invalid={fieldState.invalid}
                                         {...field}
                                     />
