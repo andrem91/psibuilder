@@ -31,7 +31,52 @@ function getSupabaseAdmin(): SupabaseClient {
 
 export async function POST(request: NextRequest) {
     try {
-        const payload: MercadoPagoWebhookPayload = await request.json();
+        // Verificar se é um teste do Mercado Pago (query params em vez de body)
+        const url = new URL(request.url);
+        const topic = url.searchParams.get("topic");
+        const id = url.searchParams.get("id");
+
+        // Se tem query params, é um teste ou notificação IPN antiga
+        if (topic && id) {
+            console.log("Webhook teste/IPN recebido:", { topic, id });
+
+            // Para testes, apenas retornar sucesso
+            if (id === "123456") {
+                return NextResponse.json({
+                    status: "ok",
+                    message: "Webhook teste recebido com sucesso"
+                });
+            }
+
+            // Para notificações IPN reais
+            if (topic === "payment") {
+                await handlePaymentEvent(id);
+            } else if (topic === "preapproval" || topic === "subscription_preapproval") {
+                await handleSubscriptionEvent(id, "updated");
+            }
+
+            return NextResponse.json({ received: true });
+        }
+
+        // Tentar parsear o body JSON
+        let payload: MercadoPagoWebhookPayload;
+        try {
+            const text = await request.text();
+            if (!text || text.trim() === "") {
+                // Body vazio - provavelmente teste
+                return NextResponse.json({
+                    status: "ok",
+                    message: "Webhook endpoint ativo (body vazio)"
+                });
+            }
+            payload = JSON.parse(text);
+        } catch {
+            console.log("Body não é JSON válido, tratando como teste");
+            return NextResponse.json({
+                status: "ok",
+                message: "Webhook endpoint ativo"
+            });
+        }
 
         console.log("Webhook recebido:", JSON.stringify(payload, null, 2));
 
