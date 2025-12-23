@@ -8,6 +8,7 @@ export interface DashboardTheme {
     siteName?: string;
     subdomain?: string;
     gender?: "male" | "female" | "other";
+    plan?: "free" | "pro" | "enterprise";
 }
 
 interface DashboardThemeContextType {

@@ -147,9 +147,27 @@ export function Sidebar({ isOpen, onClose, theme }: SidebarProps) {
                                 </span>
                             </div>
                         )}
-                        <span className="text-xl font-bold text-gray-900 truncate">
-                            {theme?.siteName || "PsicoSites"}
-                        </span>
+                        <div className="flex flex-col min-w-0">
+                            <span className="text-xl font-bold text-gray-900 truncate">
+                                {theme?.siteName || "PsicoSites"}
+                            </span>
+                            {/* Badge de plano */}
+                            {theme?.plan === "pro" ? (
+                                <span
+                                    className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold text-white mt-1 w-fit"
+                                    style={{ backgroundColor: primaryColor }}
+                                >
+                                    ✨ Pro
+                                </span>
+                            ) : (
+                                <Link
+                                    href="/dashboard/planos"
+                                    className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-gray-200 text-gray-600 hover:bg-gray-300 transition-colors mt-1 w-fit"
+                                >
+                                    Free • Fazer upgrade
+                                </Link>
+                            )}
+                        </div>
                     </div>
 
                     {/* Nav principal */}

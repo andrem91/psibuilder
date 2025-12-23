@@ -21,7 +21,7 @@ export default async function DashboardLayout({
     // Buscar perfil do usuário com dados de tema
     const { data: profile } = await supabase
         .from("profiles")
-        .select("full_name, email, profile_image_url, logo_url, gender")
+        .select("id, full_name, email, profile_image_url, logo_url, gender")
         .eq("user_id", user.id)
         .single();
 
@@ -29,6 +29,13 @@ export default async function DashboardLayout({
     const { data: site } = await supabase
         .from("sites")
         .select("subdomain, theme_config")
+        .eq("profile_id", profile?.id)
+        .single();
+
+    // Buscar subscription para mostrar plano
+    const { data: subscription } = await supabase
+        .from("subscriptions")
+        .select("plan, status")
         .eq("user_id", user.id)
         .single();
 
@@ -45,6 +52,7 @@ export default async function DashboardLayout({
         siteName: profile?.full_name || "Meu Site",
         subdomain: site?.subdomain || undefined,
         gender: profile?.gender || undefined,
+        plan: (subscription?.plan as "free" | "pro" | "enterprise") || "free",
     };
 
     return (

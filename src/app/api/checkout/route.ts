@@ -48,18 +48,6 @@ export async function POST() {
             process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
         const urls = getSubscriptionUrls(baseUrl);
 
-        // Log para debug
-        const payerEmail = profile?.email || user.email;
-        const accessTokenPrefix = process.env.MERCADOPAGO_ACCESS_TOKEN?.substring(0, 20);
-
-        console.log("=== CHECKOUT DEBUG ===");
-        console.log("Access Token (primeiros 20 chars):", accessTokenPrefix);
-        console.log("Payer Email:", payerEmail);
-        console.log("User ID:", user.id);
-        console.log("Base URL:", baseUrl);
-        console.log("Back URL:", urls.success);
-        console.log("======================");
-
         // Criar assinatura no Mercado Pago
         const subscriptionResponse = await preApproval.create({
             body: {
@@ -81,7 +69,7 @@ export async function POST() {
                 external_reference: user.id,
 
                 // Dados do pagador
-                payer_email: payerEmail,
+                payer_email: profile?.email || user.email,
             },
         });
 
@@ -89,24 +77,12 @@ export async function POST() {
             throw new Error("Falha ao criar assinatura - init_point não retornado");
         }
 
-        console.log("Assinatura criada com sucesso:", subscriptionResponse.id);
-
         return NextResponse.json({
             init_point: subscriptionResponse.init_point,
             subscription_id: subscriptionResponse.id,
         });
-    } catch (error: unknown) {
-        console.error("=== CHECKOUT ERROR ===");
+    } catch (error) {
         console.error("Erro ao criar assinatura:", error);
-
-        // Capturar detalhes do erro do Mercado Pago
-        if (error && typeof error === 'object' && 'message' in error) {
-            console.error("Mensagem:", (error as { message: string }).message);
-        }
-        if (error && typeof error === 'object' && 'cause' in error) {
-            console.error("Causa:", (error as { cause: unknown }).cause);
-        }
-        console.error("======================");
 
         return NextResponse.json(
             { error: "Erro ao processar assinatura" },
