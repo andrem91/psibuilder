@@ -81,8 +81,8 @@ CREATE TABLE IF NOT EXISTS subscriptions (
     user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL UNIQUE,
     plan TEXT NOT NULL DEFAULT 'free' CHECK (plan IN ('free', 'pro', 'enterprise')),
     status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'inactive', 'pending', 'cancelled')),
-    asaas_customer_id TEXT,
-    asaas_subscription_id TEXT,
+    mercadopago_subscription_id TEXT,
+    mercadopago_payment_id TEXT,
     current_period_start TIMESTAMPTZ,
     current_period_end TIMESTAMPTZ,
     created_at TIMESTAMPTZ DEFAULT NOW(),
@@ -90,6 +90,7 @@ CREATE TABLE IF NOT EXISTS subscriptions (
 );
 
 CREATE INDEX IF NOT EXISTS idx_subscriptions_user_id ON subscriptions(user_id);
+CREATE INDEX IF NOT EXISTS idx_subscriptions_mercadopago_subscription_id ON subscriptions(mercadopago_subscription_id);
 
 -- ======================
 -- TABELA: SITE_ANALYTICS

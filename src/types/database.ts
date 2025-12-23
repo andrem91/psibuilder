@@ -3,10 +3,10 @@
 export type { Json } from "./supabase";
 
 // Planos disponíveis
-export type PlanType = "free" | "professional" | "authority" | "clinic";
+export type PlanType = "free" | "pro" | "enterprise";
 
 // Status de assinatura
-export type SubscriptionStatus = "active" | "canceled" | "past_due" | "trialing";
+export type SubscriptionStatus = "active" | "inactive" | "pending" | "cancelled";
 
 // Especialidades pré-definidas
 export type Specialty =
@@ -122,13 +122,12 @@ export interface SiteConfig {
 export interface Subscription {
     id: string;
     user_id: string;
-    asaas_customer_id: string | null;
-    asaas_subscription_id: string | null;
+    mercadopago_subscription_id: string | null;
+    mercadopago_payment_id: string | null;
     plan: PlanType;
     status: SubscriptionStatus;
     current_period_start: string | null;
     current_period_end: string | null;
-    cancel_at_period_end: boolean;
     created_at: string;
     updated_at: string;
 }
