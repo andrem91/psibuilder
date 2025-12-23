@@ -56,7 +56,7 @@ Posso te mostrar um exemplo de site criado na plataforma?
 [nome], como você demonstrou interesse antes do lançamento, tenho uma oferta especial:
 
 🎁 Programa Beta VIP
-• 3 meses do Plano Pro GRÁTIS (valor: R$237)
+• 3 meses do Plano Pro GRÁTIS (valor: R$141)
 • Acesso antecipado à plataforma
 • Suporte direto comigo por WhatsApp
 • Desconto especial para continuar depois
@@ -237,10 +237,9 @@ As respostas do Google Forms vão automaticamente para uma planilha. Adicione es
 ### "Quanto custa?"
 
 ```
-Teremos 3 planos:
+Teremos 2 planos:
 • Gratuito: site básico com subdomínio
-• Básico (R$49/mês): domínio próprio + blog ilimitado
-• Pro (R$79/mês): tudo + estatísticas + sem marca PsicoSites
+• Pro (R$47/mês): domínio próprio + blog ilimitado + tudo liberado
 
 Mas como você é beta, ganha 3 meses Pro grátis!
 ```
