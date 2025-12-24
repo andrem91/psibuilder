@@ -516,6 +516,20 @@
 | Minimalista | Clean, muito branco |
 | *Marketplace* | Templates por especialidade |
 
+#### 🔗 Subdomínios Nativos (Futuro)
+> **Requer:** Vercel Pro ($20/mês) + Wildcard DNS
+
+| Status Atual | Futuro |
+|--------------|--------|
+| `psicosites.com.br/site/nome` | `nome.psicosites.com.br` |
+
+**Benefício:** URLs mais curtas e profissionais sem precisar de domínio próprio.
+
+**Implementação:**
+1. Upgrade para Vercel Pro
+2. Configurar wildcard `*.psicosites.com.br` no DNS
+3. Middleware já está preparado (`proxy.ts`)
+
 ### Fase 7 - Expansão
 
 #### 📅 Módulo de Agenda
