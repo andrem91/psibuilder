@@ -97,7 +97,7 @@ export default async function DashboardPage() {
                                 rel="noopener noreferrer"
                                 className="font-medium text-blue-600 hover:text-blue-700 underline"
                             >
-                                {site.subdomain}.psicosites.com.br
+                                psicosites.com.br/site/{site.subdomain}
                             </a>
                         </p>
                     </div>
@@ -112,7 +112,7 @@ export default async function DashboardPage() {
                         <h2 className="font-semibold text-lg mb-1">Status do seu site</h2>
                         <p className="text-indigo-100 text-sm">
                             {site?.is_published
-                                ? `Publicado em ${site.subdomain}.psicosites.com.br`
+                                ? `Publicado em psicosites.com.br/site/${site.subdomain}`
                                 : "Complete seu perfil para publicar"}
                         </p>
                     </div>

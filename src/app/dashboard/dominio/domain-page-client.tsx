@@ -130,7 +130,7 @@ export function DomainPageClient({ site, isPro }: DomainPageClientProps) {
                         <div className="bg-white rounded-xl p-4 mb-6 text-left">
                             <p className="text-sm text-gray-500 mb-2">Seu site atual:</p>
                             <p className="font-mono text-indigo-600 font-medium">
-                                {site?.subdomain}.psicosites.com.br
+                                psicosites.com.br/site/{site?.subdomain}
                             </p>
                         </div>
 
@@ -156,12 +156,12 @@ export function DomainPageClient({ site, isPro }: DomainPageClientProps) {
                 <p className="text-sm text-gray-500 mb-1">Seu site atualmente pode ser acessado em:</p>
                 <div className="flex flex-wrap gap-2">
                     <a
-                        href={`https://${site?.subdomain}.psicosites.com.br`}
+                        href={`https://psicosites.com.br/site/${site?.subdomain}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="font-mono text-indigo-600 hover:underline"
                     >
-                        {site?.subdomain}.psicosites.com.br
+                        psicosites.com.br/site/{site?.subdomain}
                     </a>
                     {site?.custom_domain && (
                         <>
@@ -240,8 +240,8 @@ export function DomainPageClient({ site, isPro }: DomainPageClientProps) {
 
                     {verificationStatus !== "idle" && (
                         <div className={`p-4 rounded-xl ${verificationStatus === "success"
-                                ? "bg-green-50 border border-green-200"
-                                : "bg-amber-50 border border-amber-200"
+                            ? "bg-green-50 border border-green-200"
+                            : "bg-amber-50 border border-amber-200"
                             }`}>
                             <p className={verificationStatus === "success" ? "text-green-700" : "text-amber-700"}>
                                 {verificationMessage}

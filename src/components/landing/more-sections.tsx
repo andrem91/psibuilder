@@ -22,7 +22,7 @@ export function PreviewSection() {
                             </div>
                             <div className="flex-1 flex justify-center">
                                 <div className="bg-white rounded-lg px-4 py-1 text-sm text-gray-500 border">
-                                    dra-maria-silva.psicosites.com.br
+                                    psicosites.com.br/site/maria-silva
                                 </div>
                             </div>
                         </div>

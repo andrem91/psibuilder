@@ -22,7 +22,7 @@ const plans = [
             { text: "Até 3 depoimentos", included: true },
             { text: "WhatsApp integrado", included: true },
             { text: "Estatísticas básicas", included: true },
-            { text: "Subdomínio .psicosites.com.br", included: true },
+            { text: "URL psicosites.com.br/site/seunome", included: true },
             { text: "Vídeo no Hero", included: false },
             { text: "Domínio próprio", included: false },
             { text: `${ALL_COLORS.length} opções de cores`, included: false },
@@ -150,8 +150,8 @@ export function PlansPageClient({ currentPlan, subscriptionStatus }: PlansPageCl
             {/* Badge do plano atual */}
             <div className="text-center mb-8">
                 <span className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium ${isPro
-                        ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white"
-                        : "bg-indigo-50 text-indigo-700"
+                    ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white"
+                    : "bg-indigo-50 text-indigo-700"
                     }`}>
                     <span className={`w-2 h-2 rounded-full ${isPro ? "bg-white" : "bg-indigo-500"}`} />
                     Seu plano atual: <strong className="capitalize">{currentPlan}</strong>
@@ -165,8 +165,8 @@ export function PlansPageClient({ currentPlan, subscriptionStatus }: PlansPageCl
                     <div
                         key={plan.id}
                         className={`relative bg-white rounded-2xl border-2 p-8 transition-all ${plan.popular
-                                ? "border-indigo-500 shadow-xl scale-[1.02]"
-                                : "border-gray-200 hover:border-gray-300"
+                            ? "border-indigo-500 shadow-xl scale-[1.02]"
+                            : "border-gray-200 hover:border-gray-300"
                             }`}
                     >
                         {/* Badge Popular */}

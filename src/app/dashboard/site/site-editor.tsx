@@ -116,7 +116,7 @@ export function SiteEditor({ profile, site }: SiteEditorProps) {
                             rel="noopener noreferrer"
                             className="text-indigo-600 font-medium hover:underline"
                         >
-                            {subdomain}.psicosites.com.br
+                            psicosites.com.br/site/{subdomain}
                         </a>
                     </div>
                     <div className="flex items-center gap-4">
