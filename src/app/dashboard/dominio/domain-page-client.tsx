@@ -259,56 +259,68 @@ export function DomainPageClient({ site, isPro }: DomainPageClientProps) {
 
             {/* Tutorial DNS */}
             <div className="bg-blue-50 rounded-2xl border border-blue-100 p-6 mb-6">
-                <h3 className="text-lg font-semibold text-blue-900 mb-4">📋 Como configurar seu DNS</h3>
+                <h3 className="text-lg font-semibold text-blue-900 mb-4">📋 Como conectar seu domínio</h3>
+
+                <p className="text-blue-700 mb-4">
+                    Siga estes 3 passos simples para seu domínio funcionar:
+                </p>
 
                 <div className="space-y-4 text-sm">
+                    {/* Passo 1 */}
                     <div className="bg-white rounded-xl p-4">
-                        <p className="font-medium text-blue-900 mb-2">Passo 1: Acesse seu provedor de domínio</p>
-                        <p className="text-blue-700">
-                            Entre no painel onde você comprou o domínio (Registro.br, Hostinger, GoDaddy, etc.) e procure por &quot;DNS&quot; ou &quot;Zona DNS&quot;.
+                        <div className="flex items-center gap-3 mb-3">
+                            <span className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">1</span>
+                            <p className="font-medium text-blue-900">Acesse o painel do seu domínio</p>
+                        </div>
+                        <p className="text-blue-700 ml-11">
+                            Entre no site onde você comprou o domínio (Registro.br, Hostinger, GoDaddy, etc.) e faça login.
                         </p>
                     </div>
 
+                    {/* Passo 2 */}
                     <div className="bg-white rounded-xl p-4">
-                        <p className="font-medium text-blue-900 mb-3">Passo 2: Configure o registro DNS</p>
-
-                        {/* Apex Domain */}
-                        <div className="mb-4">
-                            <p className="text-blue-800 font-medium mb-2">
-                                Para domínio raiz (ex: seusite.com.br):
-                            </p>
-                            <div className="bg-blue-50 rounded-lg p-3 font-mono text-sm">
-                                <p><span className="text-blue-500">Tipo:</span> A</p>
-                                <p><span className="text-blue-500">Nome:</span> @ (ou deixe vazio)</p>
-                                <p><span className="text-blue-500">Valor:</span> <span className="select-all">76.76.21.21</span></p>
-                            </div>
+                        <div className="flex items-center gap-3 mb-3">
+                            <span className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">2</span>
+                            <p className="font-medium text-blue-900">Altere os servidores de nome (DNS)</p>
                         </div>
-
-                        {/* Subdomain */}
-                        <div>
-                            <p className="text-blue-800 font-medium mb-2">
-                                Para subdomínio (ex: www.seusite.com.br):
+                        <div className="ml-11">
+                            <p className="text-blue-700 mb-3">
+                                Procure por <strong>&quot;DNS&quot;</strong>, <strong>&quot;Servidores de Nome&quot;</strong> ou <strong>&quot;Nameservers&quot;</strong> e substitua pelos nossos:
                             </p>
-                            <div className="bg-blue-50 rounded-lg p-3 font-mono text-sm">
-                                <p><span className="text-blue-500">Tipo:</span> CNAME</p>
-                                <p><span className="text-blue-500">Nome:</span> www</p>
-                                <p><span className="text-blue-500">Valor:</span> <span className="select-all">cname.vercel-dns.com</span></p>
+                            <div className="bg-blue-100 rounded-lg p-4 space-y-2">
+                                <div className="flex items-center gap-2">
+                                    <span className="text-blue-500 font-medium">Servidor 1:</span>
+                                    <code className="bg-white px-3 py-1 rounded font-mono text-blue-800 select-all">ns1.vercel-dns.com</code>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-blue-500 font-medium">Servidor 2:</span>
+                                    <code className="bg-white px-3 py-1 rounded font-mono text-blue-800 select-all">ns2.vercel-dns.com</code>
+                                </div>
                             </div>
+                            <p className="text-blue-600 text-xs mt-2">
+                                💡 Clique nos valores acima para copiar
+                            </p>
                         </div>
                     </div>
 
-                    <div className="bg-amber-50 rounded-xl p-4 border border-amber-200">
-                        <p className="font-medium text-amber-900 mb-2">⚠️ Importante</p>
-                        <ul className="text-amber-800 space-y-1">
-                            <li>• Se seu domínio já foi usado em outro projeto Vercel, você precisa adicionar um registro <strong>TXT</strong> de verificação.</li>
-                            <li>• O valor TXT aparecerá no painel da Vercel após adicionar o domínio.</li>
-                        </ul>
+                    {/* Passo 3 */}
+                    <div className="bg-white rounded-xl p-4">
+                        <div className="flex items-center gap-3 mb-3">
+                            <span className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">3</span>
+                            <p className="font-medium text-blue-900">Aguarde a ativação</p>
+                        </div>
+                        <p className="text-blue-700 ml-11">
+                            Após salvar, aguarde de <strong>15 minutos até 24 horas</strong> para as alterações entrarem em vigor.
+                            Depois, clique em &quot;Verificar DNS&quot; acima para confirmar.
+                        </p>
                     </div>
 
-                    <div className="bg-white rounded-xl p-4">
-                        <p className="font-medium text-blue-900 mb-2">Passo 3: Aguarde a propagação</p>
-                        <p className="text-blue-700">
-                            Pode levar até 48 horas para o DNS propagar (geralmente menos de 1 hora). Depois, clique em &quot;Verificar DNS&quot; acima.
+                    {/* Dica Registro.br */}
+                    <div className="bg-green-50 rounded-xl p-4 border border-green-200">
+                        <p className="font-medium text-green-900 mb-2">🇧🇷 Dica para Registro.br</p>
+                        <p className="text-green-800 text-sm">
+                            No Registro.br, vá em <strong>Domínio → DNS → Alterar servidores DNS</strong>.
+                            Apague os servidores atuais e cole os dois novos acima.
                         </p>
                     </div>
                 </div>
