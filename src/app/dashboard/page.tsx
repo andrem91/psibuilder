@@ -1,7 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -29,6 +28,15 @@ export default async function DashboardPage() {
         .select("*")
         .eq("profile_id", profile?.id)
         .single();
+
+    // Buscar subscription do usuário
+    const { data: subscription } = await supabase
+        .from("subscriptions")
+        .select("plan, status")
+        .eq("user_id", user?.id)
+        .single();
+
+    const isPro = subscription?.plan === "pro" && subscription?.status === "active";
 
     // Calcular progresso do perfil (incluindo novos campos)
     const profileFields = ["full_name", "whatsapp", "crp", "bio", "profile_image_url", "gender"];
@@ -77,77 +85,81 @@ export default async function DashboardPage() {
                 </p>
             </div>
 
-            {/* Card informativo: Acesso pelo próprio site */}
-            {site?.subdomain && (
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                        <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </div>
-                    <div className="flex-1">
-                        <p className="text-sm font-medium text-gray-900">
-                            💡 Sabia que você pode acessar este painel pelo seu próprio site?
-                        </p>
-                        <p className="text-sm text-gray-600 mt-1">
-                            Acesse pelo link &quot;Área do Profissional&quot; no rodapé de{" "}
-                            <a
-                                href={`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/site/${site.subdomain}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="font-medium text-blue-600 hover:text-blue-700 underline"
-                            >
-                                psicosites.com.br/site/{site.subdomain}
-                            </a>
-                        </p>
-                    </div>
+            {/* Status do site compacto */}
+            {site && (
+                <div className="flex items-center gap-3 bg-white rounded-xl border border-gray-200 px-4 py-3">
+                    <div className={`w-2.5 h-2.5 rounded-full ${site.is_published ? "bg-green-500" : "bg-yellow-500 animate-pulse"}`} />
+                    <span className="text-sm font-medium text-gray-700">
+                        {site.is_published ? "Site online" : "Rascunho"}
+                    </span>
+                    <span className="text-gray-300">|</span>
+                    <a
+                        href={`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/site/${site.subdomain}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-indigo-600 hover:text-indigo-700 hover:underline"
+                    >
+                        {site.custom_domain || `psicosites.com.br/site/${site.subdomain}`}
+                    </a>
+                    {profileProgress >= 100 && (
+                        <>
+                            <span className="text-gray-300">|</span>
+                            <span className="text-xs text-green-600 flex items-center gap-1">
+                                <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                </svg>
+                                Perfil completo
+                            </span>
+                        </>
+                    )}
                 </div>
             )}
 
-
-            {/* Status do site */}
-            <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 text-white">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                    <div>
-                        <h2 className="font-semibold text-lg mb-1">Status do seu site</h2>
-                        <p className="text-indigo-100 text-sm">
-                            {site?.is_published
-                                ? `Publicado em psicosites.com.br/site/${site.subdomain}`
-                                : "Complete seu perfil para publicar"}
-                        </p>
-                    </div>
-                    <div className="flex items-center gap-3">
-                        <div
-                            className={`w-3 h-3 rounded-full ${site?.is_published ? "bg-green-400" : "bg-yellow-400 animate-pulse"
-                                }`}
-                        />
-                        <span className="text-sm font-medium">
-                            {site?.is_published ? "Online" : "Rascunho"}
-                        </span>
-                    </div>
-                </div>
-
-                {/* Progress bar */}
-                {profileProgress < 100 ? (
-                    <div className="mt-4">
-                        <div className="flex justify-between text-sm mb-2">
-                            <span>Progresso do perfil</span>
-                            <span>{profileProgress}%</span>
+            {/* Banner Pro - apenas para não assinantes */}
+            {!isPro && site && (
+                <div className="relative overflow-hidden bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 rounded-2xl p-6 text-white">
+                    <div className="relative z-10">
+                        <div className="flex items-center gap-2 mb-2">
+                            <span className="text-2xl">⭐</span>
+                            <h2 className="text-xl font-bold">Desbloqueie o Plano Pro</h2>
                         </div>
-                        <Progress
-                            value={profileProgress}
-                            className="h-2 bg-white/20"
-                        />
+                        <ul className="space-y-2 mb-4 text-amber-100">
+                            <li className="flex items-center gap-2 text-sm">
+                                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                                <strong className="text-white">Domínio próprio</strong> - Use seusite.com.br
+                            </li>
+                            <li className="flex items-center gap-2 text-sm">
+                                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                                <strong className="text-white">Sem marca PsicoSites</strong> - Site 100% seu
+                            </li>
+                            <li className="flex items-center gap-2 text-sm">
+                                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                                <strong className="text-white">Paletas de cores exclusivas</strong> - Mais opções de personalização
+                            </li>
+                            <li className="flex items-center gap-2 text-sm">
+                                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                                <strong className="text-white">Suporte prioritário</strong> - Atendimento mais rápido
+                            </li>
+                        </ul>
+                        <Link href="/dashboard/planos">
+                            <Button className="bg-white text-orange-600 hover:bg-orange-50 font-semibold">
+                                Assinar Pro por R$29/mês
+                            </Button>
+                        </Link>
                     </div>
-                ) : (
-                    <div className="mt-4 flex items-center gap-2 text-sm">
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
-                        <span>Perfil 100% completo!</span>
-                    </div>
-                )}
-            </div>
+                    {/* Decoração */}
+                    <div className="absolute -right-10 -top-10 w-40 h-40 bg-white/10 rounded-full" />
+                    <div className="absolute -right-5 -bottom-10 w-32 h-32 bg-white/5 rounded-full" />
+                </div>
+            )}
 
             {/* Cards de ação rápida */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
