@@ -34,19 +34,12 @@ export async function addDomainToVercel(domain: string): Promise<{
     const projectId = process.env.VERCEL_PROJECT_ID;
     const token = process.env.VERCEL_API_TOKEN;
 
-    console.log("🔍 [Vercel API] Iniciando addDomainToVercel...");
-    console.log("🔍 [Vercel API] Domain:", domain);
-    console.log("🔍 [Vercel API] Project ID configurado:", projectId ? "✅ Sim" : "❌ Não");
-    console.log("🔍 [Vercel API] Token configurado:", token ? "✅ Sim" : "❌ Não");
-
     if (!projectId || !token) {
-        console.warn("⚠️ [Vercel API] Variáveis não configuradas - pulando adição automática");
         return { success: true }; // Fail silently para não bloquear fluxo
     }
 
     try {
         const url = getUrl(`/v10/projects/${projectId}/domains`);
-        console.log("🔍 [Vercel API] URL:", url);
 
         const response = await fetch(url, {
             method: "POST",
@@ -55,39 +48,34 @@ export async function addDomainToVercel(domain: string): Promise<{
         });
 
         const data = await response.json();
-        console.log("🔍 [Vercel API] Response status:", response.status);
-        console.log("🔍 [Vercel API] Response data:", JSON.stringify(data, null, 2));
 
         if (!response.ok) {
             // Domínio já existe no projeto - não é erro
             if (data.error?.code === "domain_already_exists") {
-                console.log("✅ [Vercel API] Domínio já existe no projeto");
                 return { success: true, data };
             }
 
             // Domínio em uso por outro projeto
             if (data.error?.code === "domain_taken") {
-                console.log("❌ [Vercel API] Domínio em uso por outro projeto");
                 return {
                     success: false,
                     error: "Este domínio já está em uso por outro projeto. Se é seu, remova-o primeiro do outro projeto."
                 };
             }
 
-            console.log("❌ [Vercel API] Erro:", data.error?.message);
             return {
                 success: false,
                 error: data.error?.message || "Erro ao adicionar domínio na Vercel"
             };
         }
 
-        console.log("✅ [Vercel API] Domínio adicionado com sucesso!");
         return { success: true, data };
     } catch (error) {
-        console.error("❌ [Vercel API] Exceção:", error);
+        console.error("Erro ao chamar Vercel API:", error);
         return { success: true }; // Fail silently
     }
 }
+
 
 /**
  * Remove um domínio do projeto na Vercel
