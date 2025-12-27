@@ -5,6 +5,9 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { FormInput as Input } from "@/components/ui/form-input";
 import { Textarea } from "@/components/ui/textarea";
+import { UpgradeBanner } from "@/components/ui/upgrade-banner";
+import { useSubscription } from "@/hooks/use-subscription";
+import { PLAN_LIMITS } from "@/lib/constants";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -41,6 +44,13 @@ export function TestimonialsEditor({ siteId: _siteId }: TestimonialsEditorProps)
     const [isAdding, setIsAdding] = useState(false);
     const [loading, setLoading] = useState(false);
     const [deleteId, setDeleteId] = useState<string | null>(null);
+
+    const { isPro, loading: subscriptionLoading } = useSubscription();
+
+    const testimonialCount = testimonials.length;
+    const limit = PLAN_LIMITS.free.testimonials;
+    const isAtLimit = !isPro && testimonialCount >= limit;
+    const isNearLimit = !isPro && testimonialCount === limit - 1;
 
     const loadTestimonials = async () => {
         try {
@@ -174,16 +184,49 @@ export function TestimonialsEditor({ siteId: _siteId }: TestimonialsEditorProps)
                         Adicione depoimentos de pacientes (com consentimento)
                     </p>
                 </div>
-                <Button onClick={() => setIsAdding(true)} disabled={isAdding}>
-                    + Adicionar
-                </Button>
+                {isAtLimit ? (
+                    <Button disabled className="opacity-60 cursor-not-allowed">
+                        + Adicionar 🔒
+                    </Button>
+                ) : (
+                    <Button onClick={() => setIsAdding(true)} disabled={isAdding}>
+                        + Adicionar
+                    </Button>
+                )}
             </div>
+
+            {/* Banner de limite */}
+            {!subscriptionLoading && isAtLimit && (
+                <UpgradeBanner
+                    mode="blocked"
+                    feature="depoimentos"
+                    current={testimonialCount}
+                    limit={limit}
+                />
+            )}
+
+            {!subscriptionLoading && isNearLimit && (
+                <UpgradeBanner
+                    mode="warning"
+                    feature="depoimentos"
+                    current={testimonialCount}
+                    limit={limit}
+                />
+            )}
+
+            {/* Contador */}
+            {!isPro && !subscriptionLoading && (
+                <div className="text-sm text-gray-500">
+                    Você tem <strong>{testimonialCount}/{limit}</strong> depoimentos do plano gratuito
+                </div>
+            )}
 
             {/* Aviso sobre consentimento */}
             <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 text-sm text-amber-800">
                 ⚠️ <strong>Importante:</strong> Certifique-se de ter o consentimento por escrito do paciente antes de publicar qualquer depoimento.
                 Você pode usar iniciais ou pseudônimos para preservar a privacidade.
             </div>
+
 
             {/* Lista de depoimentos */}
             {testimonials.length === 0 && !isAdding && (

@@ -1,10 +1,9 @@
 /**
  * Font Presets para Sites dos Psicólogos
  * 
- * Três combinações de fontes profissionais:
- * - Clássico: Elegante e sofisticado
- * - Moderno: Clean e contemporâneo  
- * - Acolhedor: Amigável e acessível
+ * Combinações de fontes profissionais:
+ * - FREE: Clássico, Moderno
+ * - PRO: Acolhedor, Elegante, Minimalista
  */
 
 export interface FontPreset {
@@ -15,9 +14,11 @@ export interface FontPreset {
     bodyFont: string;
     headingWeight: number;
     bodyWeight: number;
+    isPro: boolean;
 }
 
 export const FONT_PRESETS: Record<string, FontPreset> = {
+    // FREE
     classic: {
         id: "classic",
         name: "Clássico",
@@ -26,6 +27,7 @@ export const FONT_PRESETS: Record<string, FontPreset> = {
         bodyFont: "Inter",
         headingWeight: 700,
         bodyWeight: 400,
+        isPro: false,
     },
     modern: {
         id: "modern",
@@ -35,7 +37,9 @@ export const FONT_PRESETS: Record<string, FontPreset> = {
         bodyFont: "Inter",
         headingWeight: 600,
         bodyWeight: 400,
+        isPro: false,
     },
+    // PRO
     warm: {
         id: "warm",
         name: "Acolhedor",
@@ -44,8 +48,30 @@ export const FONT_PRESETS: Record<string, FontPreset> = {
         bodyFont: "Source Sans 3",
         headingWeight: 600,
         bodyWeight: 400,
+        isPro: true,
+    },
+    elegant: {
+        id: "elegant",
+        name: "Elegante",
+        description: "Refinado e premium",
+        headingFont: "Cormorant Garamond",
+        bodyFont: "Nunito",
+        headingWeight: 600,
+        bodyWeight: 400,
+        isPro: true,
+    },
+    minimal: {
+        id: "minimal",
+        name: "Minimalista",
+        description: "Simples e direto",
+        headingFont: "DM Sans",
+        bodyFont: "Inter",
+        headingWeight: 500,
+        bodyWeight: 400,
+        isPro: true,
     },
 };
+
 
 export const DEFAULT_FONT_PRESET = "modern";
 
