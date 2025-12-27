@@ -265,27 +265,55 @@ export function DomainPageClient({ site, isPro }: DomainPageClientProps) {
                     <div className="bg-white rounded-xl p-4">
                         <p className="font-medium text-blue-900 mb-2">Passo 1: Acesse seu provedor de domínio</p>
                         <p className="text-blue-700">
-                            Entre no painel onde você comprou o domínio e procure por &quot;DNS&quot; ou &quot;Zona DNS&quot;.
+                            Entre no painel onde você comprou o domínio (Registro.br, Hostinger, GoDaddy, etc.) e procure por &quot;DNS&quot; ou &quot;Zona DNS&quot;.
                         </p>
                     </div>
 
                     <div className="bg-white rounded-xl p-4">
-                        <p className="font-medium text-blue-900 mb-2">Passo 2: Crie um registro CNAME</p>
-                        <div className="bg-blue-50 rounded-lg p-3 font-mono text-sm">
-                            <p><span className="text-blue-500">Tipo:</span> CNAME</p>
-                            <p><span className="text-blue-500">Nome:</span> www (ou @)</p>
-                            <p><span className="text-blue-500">Valor:</span> <span className="select-all">cname.vercel-dns.com</span></p>
+                        <p className="font-medium text-blue-900 mb-3">Passo 2: Configure o registro DNS</p>
+
+                        {/* Apex Domain */}
+                        <div className="mb-4">
+                            <p className="text-blue-800 font-medium mb-2">
+                                Para domínio raiz (ex: seusite.com.br):
+                            </p>
+                            <div className="bg-blue-50 rounded-lg p-3 font-mono text-sm">
+                                <p><span className="text-blue-500">Tipo:</span> A</p>
+                                <p><span className="text-blue-500">Nome:</span> @ (ou deixe vazio)</p>
+                                <p><span className="text-blue-500">Valor:</span> <span className="select-all">76.76.21.21</span></p>
+                            </div>
                         </div>
+
+                        {/* Subdomain */}
+                        <div>
+                            <p className="text-blue-800 font-medium mb-2">
+                                Para subdomínio (ex: www.seusite.com.br):
+                            </p>
+                            <div className="bg-blue-50 rounded-lg p-3 font-mono text-sm">
+                                <p><span className="text-blue-500">Tipo:</span> CNAME</p>
+                                <p><span className="text-blue-500">Nome:</span> www</p>
+                                <p><span className="text-blue-500">Valor:</span> <span className="select-all">cname.vercel-dns.com</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="bg-amber-50 rounded-xl p-4 border border-amber-200">
+                        <p className="font-medium text-amber-900 mb-2">⚠️ Importante</p>
+                        <ul className="text-amber-800 space-y-1">
+                            <li>• Se seu domínio já foi usado em outro projeto Vercel, você precisa adicionar um registro <strong>TXT</strong> de verificação.</li>
+                            <li>• O valor TXT aparecerá no painel da Vercel após adicionar o domínio.</li>
+                        </ul>
                     </div>
 
                     <div className="bg-white rounded-xl p-4">
                         <p className="font-medium text-blue-900 mb-2">Passo 3: Aguarde a propagação</p>
                         <p className="text-blue-700">
-                            Pode levar até 48 horas para o DNS propagar. Depois, clique em &quot;Verificar DNS&quot; acima.
+                            Pode levar até 48 horas para o DNS propagar (geralmente menos de 1 hora). Depois, clique em &quot;Verificar DNS&quot; acima.
                         </p>
                     </div>
                 </div>
             </div>
+
 
             {/* Onde comprar domínio */}
             <div className="bg-gray-50 rounded-2xl border border-gray-200 p-6">
