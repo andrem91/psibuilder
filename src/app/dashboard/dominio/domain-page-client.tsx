@@ -118,34 +118,90 @@ export function DomainPageClient({ site, isPro }: DomainPageClientProps) {
     // Se não for Pro, mostrar upgrade
     if (!isPro) {
         return (
-            <div className="max-w-2xl">
+            <div className="max-w-3xl">
                 <h1 className="text-2xl font-bold text-gray-900 mb-6">🌐 Seu Domínio</h1>
 
-                <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-8 border border-indigo-100">
-                    <div className="text-center">
-                        <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <svg className="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                            </svg>
-                        </div>
-                        <h2 className="text-xl font-bold text-gray-900 mb-2">Recurso exclusivo do Plano Pro</h2>
-                        <p className="text-gray-600 mb-6">
-                            Use seu próprio domínio (ex: <strong>seusite.com.br</strong>) em vez do subdomínio padrão.
-                        </p>
+                {/* Banner Persuasivo */}
+                <div className="relative overflow-hidden bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 rounded-2xl p-8 text-white mb-8">
+                    {/* Decoração */}
+                    <div className="absolute -right-8 -top-8 w-40 h-40 bg-white/10 rounded-full" />
+                    <div className="absolute -left-4 -bottom-8 w-32 h-32 bg-white/5 rounded-full" />
 
-                        <div className="bg-white rounded-xl p-4 mb-6 text-left">
-                            <p className="text-sm text-gray-500 mb-2">Seu site atual:</p>
-                            <p className="font-mono text-indigo-600 font-medium">
+                    <div className="relative z-10">
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center">
+                                <span className="text-3xl">🌐</span>
+                            </div>
+                            <div>
+                                <h2 className="text-2xl font-bold">Tenha seu domínio próprio!</h2>
+                                <p className="text-white/80 text-sm">Recurso exclusivo do Plano Pro</p>
+                            </div>
+                        </div>
+
+                        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 mb-6">
+                            <p className="text-sm text-white/70 mb-1">Seu site atual:</p>
+                            <p className="font-mono text-white/90 line-through decoration-2">
                                 psicosites.com.br/site/{site?.subdomain}
+                            </p>
+                            <p className="text-sm text-white/70 mt-3 mb-1">Com o Pro você pode ter:</p>
+                            <p className="font-mono text-xl font-bold text-yellow-300">
+                                www.{site?.subdomain}.com.br ✨
                             </p>
                         </div>
 
-                        <Link
-                            href="/dashboard/planos"
-                            className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-colors"
-                        >
-                            ✨ Fazer upgrade para Pro
-                        </Link>
+                        <ul className="space-y-3 mb-6">
+                            <li className="flex items-center gap-3">
+                                <span className="w-6 h-6 bg-green-400 rounded-full flex items-center justify-center text-white text-sm">✓</span>
+                                <span><strong>Mais profissional</strong> - Pacientes confiam mais em sites com domínio próprio</span>
+                            </li>
+                            <li className="flex items-center gap-3">
+                                <span className="w-6 h-6 bg-green-400 rounded-full flex items-center justify-center text-white text-sm">✓</span>
+                                <span><strong>Melhor para SEO</strong> - Domínio próprio ranqueia melhor no Google</span>
+                            </li>
+                            <li className="flex items-center gap-3">
+                                <span className="w-6 h-6 bg-green-400 rounded-full flex items-center justify-center text-white text-sm">✓</span>
+                                <span><strong>Email profissional</strong> - Possibilita email @seudominio.com.br</span>
+                            </li>
+                        </ul>
+
+                        {/* Prova social */}
+                        <div className="flex items-center gap-2 mb-6 text-white/70 text-sm">
+                            <span className="inline-flex">
+                                {[...Array(5)].map((_, i) => (
+                                    <span key={i} className="text-yellow-300">★</span>
+                                ))}
+                            </span>
+                            <span>+50 psicólogos já usam domínio próprio com o Pro</span>
+                        </div>
+
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                            <Link
+                                href="/dashboard/planos"
+                                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-indigo-600 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all hover:scale-105 shadow-lg"
+                            >
+                                🚀 Assinar Pro por R$47/mês
+                            </Link>
+                            <span className="text-white/60 text-sm">Cancele quando quiser • Sem fidelidade</span>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Onde comprar domínio */}
+                <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                    <h3 className="font-semibold text-gray-900 mb-3">💡 Ainda não tem um domínio?</h3>
+                    <p className="text-sm text-gray-600 mb-4">
+                        Você pode comprar seu domínio .com.br em registradores brasileiros por aproximadamente R$40/ano:
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                        <a href="https://registro.br" target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-white rounded-lg border border-gray-200 text-sm font-medium text-gray-700 hover:border-indigo-300 hover:text-indigo-600 transition-colors">
+                            Registro.br
+                        </a>
+                        <a href="https://www.hostinger.com.br/registro-de-dominio" target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-white rounded-lg border border-gray-200 text-sm font-medium text-gray-700 hover:border-indigo-300 hover:text-indigo-600 transition-colors">
+                            Hostinger
+                        </a>
+                        <a href="https://www.godaddy.com/pt-br" target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-white rounded-lg border border-gray-200 text-sm font-medium text-gray-700 hover:border-indigo-300 hover:text-indigo-600 transition-colors">
+                            GoDaddy
+                        </a>
                     </div>
                 </div>
             </div>
