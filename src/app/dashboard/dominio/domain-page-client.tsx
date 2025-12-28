@@ -139,13 +139,16 @@ export function DomainPageClient({ site, isPro }: DomainPageClientProps) {
                         </div>
 
                         <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 mb-6">
-                            <p className="text-sm text-white/70 mb-1">Seu site atual:</p>
-                            <p className="font-mono text-white/90 line-through decoration-2">
-                                psicosites.com.br/site/{site?.subdomain}
+                            <p className="text-sm text-white/70 mb-2">Em vez de:</p>
+                            <p className="font-mono text-white/80 text-sm line-through decoration-2">
+                                psicosites.com.br/site/seu-nome
                             </p>
-                            <p className="text-sm text-white/70 mt-3 mb-1">Com o Pro você pode ter:</p>
+                            <p className="text-sm text-white/70 mt-4 mb-2">Você pode ter:</p>
                             <p className="font-mono text-xl font-bold text-yellow-300">
-                                www.{site?.subdomain}.com.br ✨
+                                www.seusite.com.br ✨
+                            </p>
+                            <p className="text-xs text-white/60 mt-2">
+                                Exemplos: psicologamaria.com.br, doutorjoao.com.br, consultoriopsi.com.br
                             </p>
                         </div>
 
