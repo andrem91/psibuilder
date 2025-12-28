@@ -1,7 +1,7 @@
 # 🗺️ Roadmap - PsicoSites
 
 **Última atualização:** Dezembro/2024  
-**Versão:** 2.8 (Domínios Customizados + Dashboard Atualizado)
+**Versão:** 2.9 (Limitações de Plano + Banners Upgrade)
 
 ---
 
@@ -17,7 +17,7 @@
 | **Fase 6 - Feedback** | 📋 Planejada | Sistema de feedback e sugestões |
 | **Fase 7 - Monetização** | ✅ Concluída | Mercado Pago, Planos funcionais |
 | **Fase 8 - Beta Program** | 📋 Planejada | Pro grátis para testers |
-| **Fase 9 - Diferenciação** | 📋 Planejada | Templates, Domínio Customizado |
+| **Fase 9 - Diferenciação** | 🔄 Em andamento | Limitações de plano, Domínio Customizado |
 | **Fase 10 - Expansão** | 📋 Planejada | Agenda, Integrações |
 
 ---
@@ -165,6 +165,18 @@
 | Vercel Domains API | Adicionar domínio automaticamente | ✅ Concluído | v2 |
 | Verificação DNS tempo real | Mostrar status do apontamento | ✅ Concluído | v2 |
 | Tutorial visual Registro.br | Passo a passo com screenshot | ✅ Concluído | Extra |
+
+#### 🎯 Limitações de Plano (Monetização)
+| Item | Descrição | Status | Plano Free |
+|------|-----------|--------|------------|
+| Limite de cores | Restringir cores no editor | ✅ Concluído | 3 cores |
+| Limite de fontes | Restringir presets de fonte | ✅ Concluído | 2 presets |
+| Limite de posts | Restringir criação de posts no blog | ✅ Concluído | Máx 3 posts |
+| Limite de depoimentos | Restringir criação de depoimentos | ✅ Concluído | Máx 3 |
+| Banner de upgrade | Componente UpgradeBanner reutilizável | ✅ Concluído | - |
+| Banners persuasivos | Mensagens com benefícios e prova social | ✅ Concluído | - |
+| Banner domínio | Página de domínio com CTA para upgrade | ✅ Concluído | - |
+| Cores/fontes com cadeado | Mostrar itens Pro bloqueados no editor | ✅ Concluído | - |
 
 ---
 
