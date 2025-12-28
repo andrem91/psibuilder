@@ -16,6 +16,22 @@ interface UpgradeBannerProps {
     className?: string;
 }
 
+// Mensagens persuasivas por recurso
+const BENEFIT_MESSAGES: Record<string, { title: string; benefit: string }> = {
+    "posts no blog": {
+        title: "Atraia mais pacientes pelo Google!",
+        benefit: "Psicólogos com blogs ativos recebem 3x mais contatos através de busca orgânica.",
+    },
+    "depoimentos": {
+        title: "Aumente sua credibilidade!",
+        benefit: "Depoimentos aumentam em até 270% a taxa de conversão de visitantes em pacientes.",
+    },
+    "default": {
+        title: "Destaque-se da concorrência!",
+        benefit: "Recursos ilimitados para você conquistar mais pacientes.",
+    },
+};
+
 export function UpgradeBanner({
     mode,
     feature,
@@ -24,44 +40,75 @@ export function UpgradeBanner({
     className = "",
 }: UpgradeBannerProps) {
     const isBlocked = mode === "blocked";
+    const messages = BENEFIT_MESSAGES[feature] || BENEFIT_MESSAGES["default"];
 
     return (
         <div
-            className={`rounded-xl p-4 ${isBlocked
-                    ? "bg-gradient-to-r from-red-50 to-orange-50 border border-red-200"
-                    : "bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200"
+            className={`relative overflow-hidden rounded-2xl p-6 ${isBlocked
+                    ? "bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500"
+                    : "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
                 } ${className}`}
         >
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                <div className="flex items-center gap-3 flex-1">
-                    <span className="text-2xl">
-                        {isBlocked ? "🚫" : "⚠️"}
-                    </span>
-                    <div>
-                        <p className={`font-medium ${isBlocked ? "text-red-800" : "text-amber-800"}`}>
-                            {isBlocked
-                                ? `Limite atingido!`
-                                : `Você está usando ${current}/${limit} ${feature}`}
-                        </p>
-                        <p className={`text-sm ${isBlocked ? "text-red-600" : "text-amber-600"}`}>
-                            {isBlocked
-                                ? `Faça upgrade para o Pro e tenha ${feature} ilimitados.`
-                                : `Faça upgrade para o Pro e tenha ${feature} ilimitados.`}
-                        </p>
+            {/* Decoração */}
+            <div className="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full" />
+            <div className="absolute -right-4 -bottom-8 w-24 h-24 bg-white/5 rounded-full" />
+
+            <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-4">
+                <div className="flex-1">
+                    {/* Contador */}
+                    <div className="flex items-center gap-2 mb-2">
+                        <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${isBlocked
+                                ? "bg-white/20 text-white"
+                                : "bg-white/20 text-white"
+                            }`}>
+                            {isBlocked ? "🚫" : "⚡"} {current}/{limit} {feature}
+                        </span>
                     </div>
-                </div>
-                <Link href="/dashboard/planos">
-                    <Button
-                        size="sm"
-                        className={
-                            isBlocked
-                                ? "bg-red-600 hover:bg-red-700 text-white"
-                                : "bg-amber-600 hover:bg-amber-700 text-white"
+
+                    {/* Título impactante */}
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-1">
+                        {isBlocked ? `Seu potencial está limitado!` : messages.title}
+                    </h3>
+
+                    {/* Benefício */}
+                    <p className="text-white/90 text-sm md:text-base mb-3">
+                        {isBlocked
+                            ? `Você atingiu o limite de ${feature}. ${messages.benefit}`
+                            : messages.benefit
                         }
-                    >
-                        ⭐ Upgrade Pro
-                    </Button>
-                </Link>
+                    </p>
+
+                    {/* Prova social */}
+                    <p className="text-white/70 text-xs flex items-center gap-1.5">
+                        <span className="inline-flex">
+                            {[...Array(5)].map((_, i) => (
+                                <span key={i} className="text-yellow-300 text-sm">★</span>
+                            ))}
+                        </span>
+                        +50 psicólogos já são Pro
+                    </p>
+                </div>
+
+                {/* CTA */}
+                <div className="flex flex-col items-start md:items-end gap-2">
+                    <Link href="/dashboard/planos">
+                        <Button
+                            size="lg"
+                            className={`
+                                font-bold shadow-lg transition-all hover:scale-105
+                                ${isBlocked
+                                    ? "bg-white text-rose-600 hover:bg-gray-100"
+                                    : "bg-white text-indigo-600 hover:bg-gray-100"
+                                }
+                            `}
+                        >
+                            🚀 Liberar {feature} ilimitados
+                        </Button>
+                    </Link>
+                    <span className="text-white/80 text-xs">
+                        Apenas R$47/mês • Cancele quando quiser
+                    </span>
+                </div>
             </div>
         </div>
     );
