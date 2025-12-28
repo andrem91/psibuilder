@@ -31,7 +31,6 @@ export function BlogPageClient({ posts, siteId, subdomain, initialShowBlog }: Bl
     const postCount = posts.length;
     const limit = PLAN_LIMITS.free.blogPosts;
     const isAtLimit = !isPro && postCount >= limit;
-    const isNearLimit = !isPro && postCount === limit - 1; // 2/3
 
     return (
         <div className="max-w-5xl mx-auto">
@@ -67,10 +66,10 @@ export function BlogPageClient({ posts, siteId, subdomain, initialShowBlog }: Bl
                 )}
             </div>
 
-            {/* Banner de limite */}
-            {!loading && isAtLimit && (
+            {/* Banner de upgrade - sempre aparece para usuários Free */}
+            {!loading && !isPro && (
                 <UpgradeBanner
-                    mode="blocked"
+                    mode={isAtLimit ? "blocked" : "warning"}
                     feature="posts no blog"
                     current={postCount}
                     limit={limit}
@@ -78,22 +77,6 @@ export function BlogPageClient({ posts, siteId, subdomain, initialShowBlog }: Bl
                 />
             )}
 
-            {!loading && isNearLimit && (
-                <UpgradeBanner
-                    mode="warning"
-                    feature="posts no blog"
-                    current={postCount}
-                    limit={limit}
-                    className="mb-6"
-                />
-            )}
-
-            {/* Contador de posts */}
-            {!isPro && !loading && (
-                <div className="mb-4 text-sm text-gray-500">
-                    Você tem <strong>{postCount}/{limit}</strong> posts do plano gratuito
-                </div>
-            )}
 
             {/* Toggle de visibilidade do Blog */}
             <div className="mb-6">

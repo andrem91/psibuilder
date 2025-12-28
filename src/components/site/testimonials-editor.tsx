@@ -50,7 +50,6 @@ export function TestimonialsEditor({ siteId: _siteId }: TestimonialsEditorProps)
     const testimonialCount = testimonials.length;
     const limit = PLAN_LIMITS.free.testimonials;
     const isAtLimit = !isPro && testimonialCount >= limit;
-    const isNearLimit = !isPro && testimonialCount === limit - 1;
 
     const loadTestimonials = async () => {
         try {
@@ -195,30 +194,14 @@ export function TestimonialsEditor({ siteId: _siteId }: TestimonialsEditorProps)
                 )}
             </div>
 
-            {/* Banner de limite */}
-            {!subscriptionLoading && isAtLimit && (
+            {/* Banner de upgrade - sempre aparece para usuários Free */}
+            {!subscriptionLoading && !isPro && (
                 <UpgradeBanner
-                    mode="blocked"
+                    mode={isAtLimit ? "blocked" : "warning"}
                     feature="depoimentos"
                     current={testimonialCount}
                     limit={limit}
                 />
-            )}
-
-            {!subscriptionLoading && isNearLimit && (
-                <UpgradeBanner
-                    mode="warning"
-                    feature="depoimentos"
-                    current={testimonialCount}
-                    limit={limit}
-                />
-            )}
-
-            {/* Contador */}
-            {!isPro && !subscriptionLoading && (
-                <div className="text-sm text-gray-500">
-                    Você tem <strong>{testimonialCount}/{limit}</strong> depoimentos do plano gratuito
-                </div>
             )}
 
             {/* Aviso sobre consentimento */}
